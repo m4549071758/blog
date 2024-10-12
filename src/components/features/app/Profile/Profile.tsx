@@ -14,9 +14,11 @@ export const Profile = () => (
     </div>
 
     <p className="text-primary-1">
-      自宅サーバーをいじったりしています。
-      Proxmoxでクラスタ組んだりして遊んでいます。
-      山とか登ったり、自転車乗ったり、スキーしたりします。
+      自宅サーバーにProxmoxを入れて、クラスタ組んで遊んでいます。
+    </p>
+    <br></br>
+    <p className="text-primary-1">
+      山とか登ったり、自転車乗ったり、スキーしたりしてます。
     </p>
 
     <div className="flex gap-4">
