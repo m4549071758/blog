@@ -1,10 +1,10 @@
 ---
 title: 'Nextcloudを構築しました'
 excerpt: '自宅サーバーにNextcloudを構築したときのメモ'
-coverImage: '/assets/blog/0001/nextcloud-wallpaper.jpg'
+coverImage: '/assets/blog/0001/nextcloud-wallpaper.jpeg'
 date: '2024-10-12'
 ogImage:
-  url: '/assets/blog/0001/nextcloud-wallpaper.jpg'
+  url: '/assets/blog/0001/nextcloud-wallpaper.jpeg'
 tags:
   - 'nextcloud'
 ---
