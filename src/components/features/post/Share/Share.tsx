@@ -11,7 +11,7 @@ import {
   TwitterShareButton,
 } from 'react-share';
 import { MdShare } from 'react-icons/md';
-import { ROOT_URL, SITE_NAME } from '@/config/app';
+import { SITE_NAME } from '@/config/app';
 import { PostType } from '@/types/post';
 
 type Props = {
