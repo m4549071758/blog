@@ -153,7 +153,7 @@ server_name と ssl_certificate, ssl_certificate_key は適宜変更してくだ
 
 <details><summary>長いため折りたたみ</summary><div>
 
-```:nextcloud.conf
+```
 upstream php-handler {
    #server 127.0.0.1:9000;
    server unix:/var/run/php-fpm/php-fpm.sock;
@@ -339,7 +339,7 @@ PHP-FPM の設定ファイルを修正します。
 
 <details><summary>長いため折りたたみ</summary><div>
 
-```:www.conf
+```
 ; Start a new pool named 'www'.
 ; the variable $pool can be used in any directive and will be replaced by the
 ; pool name ('www' here)
@@ -797,7 +797,7 @@ PHP の設定ファイルを修正します。
 
 <details><summary>長いので折りたたみ</summary><div>
 
-```:php.ini
+```
 [PHP]
 
 ;;;;;;;;;;;;;;;;;;;
@@ -2650,7 +2650,7 @@ Your web server is not set up correctly to resolve “/.well-known/webfinger”.
 
 の警告は、/etc/nginx/conf.d/nextcloud.conf の server 内に次を追記すると消えます。
 
-```nextcloud.conf
+```
     location ^~ /.well-known {
       return 301 /index.php$uri;
     }
