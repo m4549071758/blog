@@ -16,7 +16,6 @@ export const Profile = () => (
     <p className="text-primary-1">
       自宅サーバーにProxmoxを入れて、クラスタ組んで遊んでいます。
     </p>
-    <br></br>
     <p className="text-primary-1">
       山とか登ったり、自転車乗ったり、スキーしたりしてます。
     </p>
