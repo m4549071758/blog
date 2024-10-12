@@ -7,13 +7,13 @@ import { Footer } from '@/components/features/app/Footer';
 import { Header } from '@/components/features/app/Header';
 import { ContentLayout } from '@/components/features/app/Layout';
 import { Seo } from '@/components/features/app/Seo';
-import { GA_MEASUREMENT_ID, pageview } from 'src/lib/gtag';
+import * as gtag from 'src/lib/gtag';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   useEffect(() => {
     const handleRouterChange = (url: any) => {
-      pageview(url);
+      gtag.pageview(url);
     };
     router.events.on('routeChangeComplete', handleRouterChange);
     return () => {
@@ -24,7 +24,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Script
         strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        src={`https://www.googletagmanager.com/gtag/js?id=G-WQCKJKLMCD`}
       />
       <Script
         id="gtag-init"
@@ -35,7 +35,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
 
-          gtag('config', '${GA_MEASUREMENT_ID}');
+          gtag('config', 'G-WQCKJKLMCD');
           `,
         }}
       />
