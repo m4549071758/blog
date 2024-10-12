@@ -23,7 +23,7 @@ const SIZE = 40;
 export const Share: React.VFC<Props> = ({ post }) => {
   const { title, slug, ogImage } = post;
 
-  const url = `${ROOT_URL}/posts/${slug}`;
+  const url = `https://www.katori.dev/posts/${slug}`;
   const config = { title, url };
 
   const tags = post.tags.map((tag) => tag.split(' ')[0]);
