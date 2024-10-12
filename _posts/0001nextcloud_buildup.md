@@ -133,7 +133,7 @@ SELINUX=disabled
 
 ポートを開放します。ルーターのポートも適宜開放してください。
 
-```:httpとhttps
+```
 # firewall-cmd --add-port=80/tcp --permanent
 # firewall-cmd --add-port=443/tcp --permanent
 # firewall-cmd --reload
