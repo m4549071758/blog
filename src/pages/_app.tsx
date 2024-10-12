@@ -1,13 +1,13 @@
+import { useEffect } from 'react';
 import { AppProps } from 'next/app';
+import { useRouter } from 'next/router';
 import Script from 'next/script';
-import * as gtag from 'src/lib/gtag';
 import '@/styles/index.css';
 import { Footer } from '@/components/features/app/Footer';
 import { Header } from '@/components/features/app/Header';
 import { ContentLayout } from '@/components/features/app/Layout';
 import { Seo } from '@/components/features/app/Seo';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import * as gtag from 'src/lib/gtag';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
