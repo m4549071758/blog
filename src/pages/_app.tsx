@@ -6,7 +6,7 @@ import { Footer } from '@/components/features/app/Footer';
 import { Header } from '@/components/features/app/Header';
 import { ContentLayout } from '@/components/features/app/Layout';
 import { Seo } from '@/components/features/app/Seo';
-import * as gtag from 'src/lib/gtag';
+import * as gtag from '@/lib/gtag';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
