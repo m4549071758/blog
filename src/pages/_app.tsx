@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import Script from 'next/script';
 import '@/styles/index.css';
 import { Footer } from '@/components/features/app/Footer';
 import { Header } from '@/components/features/app/Header';
