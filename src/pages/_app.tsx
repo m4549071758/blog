@@ -20,23 +20,21 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       router.events.off('routeChangeComplete', handleRouterChange);
     };
   }, [router.events]);
+
   return (
     <>
-      <Script
-        strategy="afterInteractive"
+      <script
+        async
         src={`https://www.googletagmanager.com/gtag/js?id=G-WQCKJKLMCD`}
       />
-      <Script
-        id="gtag-init"
-        strategy="afterInteractive"
+      <script
         dangerouslySetInnerHTML={{
           __html: `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'G-WQCKJKLMCD');
-          `,
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-WQCKJKLMCD', { 'send_page_view': true });
+                      `,
         }}
       />
 
