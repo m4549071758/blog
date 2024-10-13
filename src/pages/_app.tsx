@@ -7,6 +7,7 @@ import { Header } from '@/components/features/app/Header';
 import { ContentLayout } from '@/components/features/app/Layout';
 import { Seo } from '@/components/features/app/Seo';
 import * as gtag from '@/lib/gtag';
+import Script from 'next/script';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -22,18 +23,22 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <script
-        async
+      <Script
+        strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=G-WQCKJKLMCD`}
       />
-      <script
+      <Script
+        id="gtag-init"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-WQCKJKLMCD', { 'send_page_view': true });
-                      `,
+            gtag('config', 'G-WQCKJKLMCD', {
+              page_path: window.location.pathname,
+            });
+          `,
         }}
       />
 
