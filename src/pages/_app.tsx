@@ -2,12 +2,12 @@ import { useEffect } from 'react';
 import { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import '@/styles/index.css';
+import Script from 'next/script';
 import { Footer } from '@/components/features/app/Footer';
 import { Header } from '@/components/features/app/Header';
 import { ContentLayout } from '@/components/features/app/Layout';
 import { Seo } from '@/components/features/app/Seo';
 import * as gtag from '@/lib/gtag';
-import Script from 'next/script';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
