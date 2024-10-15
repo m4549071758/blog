@@ -24,7 +24,7 @@
   @apply mb-4 text-lg !important;
 }
 
-.post ul + p {
+.post ul+p {
   @apply mt-5 !important;
 }
 
@@ -39,4 +39,32 @@
 
 .post pre {
   @apply p-4 mb-9 rounded-md !important;
+}
+
+.link-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.link-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.link-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.link-card h3 {
+  margin: 0;
+  font-size: 1.25em;
+}
+
+.link-card p {
+  margin: 0;
+  color: #555;
 }
