@@ -11,6 +11,7 @@ tags:
 ---
 
 # はじめに
+
 https://qiita.com/m4549071758/items/cfaa9743eb417e985240
 
 以前、こんな感じで内向きDNSを作りました。
