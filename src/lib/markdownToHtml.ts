@@ -12,7 +12,7 @@ export default async function markdownToHtml(markdown: string) {
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkRehype)
-    .use(rehypePrism)
+    //.use(rehypePrism)
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings)
     .use(rehypeStringify)
