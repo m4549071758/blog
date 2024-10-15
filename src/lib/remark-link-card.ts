@@ -4,7 +4,7 @@ export default function remarkLinkCard() {
   return (tree: any) => {
     visit(tree, 'link', (node: any) => {
       const url = node.url;
-      const title = node.title || url;
+      const title = node.children[0]?.value || url;
       const cardHtml = `
         <div class="link-card">
           <a href="${url}" target="_blank" rel="noopener noreferrer">
@@ -17,6 +17,7 @@ export default function remarkLinkCard() {
       `;
       node.type = 'html';
       node.value = cardHtml;
+      node.children = [];
     });
   };
 }
