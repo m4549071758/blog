@@ -2,6 +2,7 @@
 title: 自宅の環境
 excerpt: 自宅サーバーの環境紹介
 coverImage: '/assets/blog/0004/cover.png'
+date: '2024-10-15'
 ogImage:
   url: '/assets/blog/0004/cover.png'
 tags:
