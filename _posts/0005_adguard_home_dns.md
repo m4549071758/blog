@@ -27,12 +27,12 @@ https://qiita.com/m4549071758/items/cfaa9743eb417e985240
 
 https://github.com/AdguardTeam/AdGuardHome#automated-install-linux-and-mac
 
-```
+``` text
 # wget --no-verbose -O - https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v
 ```
 
 インストールが完了したら自動でサービス登録されているはずなので起動します。
-```
+``` text
 # systemctl enable --now AdGuardHome.service
 ```
 
@@ -60,10 +60,9 @@ Webインターフェース用のポートが埋まっている場合は好き�
 
 これで初期セットアップは完了です。
 
-:::note info
 ここまで設定が終わったら、2台目も初期セットアップをしてダッシュボードにログインできる状態までセットアップしてください。
 2台目のサーバーは自動で設定が同期されるので、この下のDNS及び広告ブロック設定は必要ありません。
-:::
+
 
 # DNS及び広告ブロック設定
 ## DNS設定
@@ -72,7 +71,7 @@ AdGuard Homeが問い合わせ先として使用するDNSサーバーを設定�
 `設定`->`DNS設定`の`アップストリームDNSサーバー`を追加します。
 今回は`Quad9`・`1.1.1.1`を追加します。
 ついでにおまけで`Google Public DNS`もTCPのみ入れておきます。
-```
+``` text
 1.1.1.1
 1.0.0.1
 2606:4700:4700::1111
@@ -147,7 +146,7 @@ https://github.com/bakito/adguardhome-sync/releases/
 今回はバージョン`adguardhome-sync_0.6.9_linux_amd64.tar.gz`をダウンロードしてきました。
 (2024/04/23)
 
-```
+``` text
 $ mkdir adguardhome-sync && cd adguardhome-sync
 $ wget https://github.com/bakito/adguardhome-sync/releases/download/v0.6.9/adguardhome-sync_0.6.9_linux_amd64.tar.gz
 $ tar zxvf adguardhome-sync_0.6.9_linux_amd64.tar.gz
@@ -156,7 +155,7 @@ $ tar zxvf adguardhome-sync_0.6.9_linux_amd64.tar.gz
 ### 環境変数を設定
 今回は~/.bash_profileに追記します。
 
-```
+``` text
 export LOG_LEVEL=info
 export ORIGIN_URL=http://1台目のアドレス
 export ORIGIN_USERNAME=1台目で設定したユーザー名
@@ -167,13 +166,13 @@ export REPLICA1_PASSWORD=2台目で設定したパスワード
 ```
 追記が終わったら.bash_profileを再度読み込みます。
 
-```
+``` text
 $ source .bash_profile
 ```
 
 ### 初回同期を実行
 
-```
+``` text
 $ ./adguardhome-sync run
 2024-04-23T22:20:30.794+0900    INFO    sync    sync/sync.go:38 AdGuardHome sync        {"version": "0.6.9", "build": "2024-04-08T16:47:42Z", "os": "linux", "arch": "amd64"}
 2024-04-23T22:20:30.795+0900    INFO    sync    sync/http.go:63 Starting API server     {"port": 8080}
@@ -193,7 +192,7 @@ $ ./adguardhome-sync run
 ### 定期同期設定
 cronを使って定期的に同期させます。
 今回は24時間に1回同期させようと思います。
-```
+``` text
 $ crontab -e
 
 LOG_LEVEL=info
