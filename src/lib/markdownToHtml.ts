@@ -6,13 +6,13 @@ import rehypeStringify from 'rehype-stringify';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
-import rlc from 'remark-link-card';
+import remarkLinkCard from './remark-link-card';
 
 export default async function markdownToHtml(markdown: string) {
   const result = await unified()
     .use(remarkParse)
     .use(remarkGfm)
-    .use(rlc)
+    .use(remarkLinkCard)
     .use(remarkRehype)
     .use(rehypePrism)
     .use(rehypeSlug)
