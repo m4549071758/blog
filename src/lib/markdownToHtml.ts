@@ -1,5 +1,6 @@
 import rehypePrism from '@mapbox/rehype-prism';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
 import remarkParse from 'remark-parse';
@@ -10,6 +11,7 @@ export default async function markdownToHtml(markdown: string) {
   const result = await unified()
     .use(remarkParse)
     .use(remarkRehype)
+    .use(remarkGfm)
     .use(rehypePrism)
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings)
