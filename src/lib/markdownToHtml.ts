@@ -8,15 +8,20 @@ import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
 
 export default async function markdownToHtml(markdown: string) {
-  const result = await unified()
-    .use(remarkParse)
-    .use(remarkGfm)
-    .use(remarkRehype)
-    //.use(rehypePrism)
-    .use(rehypeSlug)
-    .use(rehypeAutolinkHeadings)
-    .use(rehypeStringify)
-    .process(markdown);
+  try {
+    const result = await unified()
+      .use(remarkParse)
+      .use(remarkGfm)
+      .use(remarkRehype)
+      .use(rehypePrism)
+      .use(rehypeSlug)
+      .use(rehypeAutolinkHeadings)
+      .use(rehypeStringify)
+      .process(markdown);
 
-  return result.toString();
+    return result.toString();
+  } catch (error) {
+    console.error('Error processing markdown:', error);
+    throw error;
+  }
 }
