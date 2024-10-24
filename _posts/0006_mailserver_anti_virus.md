@@ -134,6 +134,7 @@ $mydomain = '自分のドメイン名' #例: example.com
 ```
 160, 161行目
 `amavisd`が`Postfix`と喋るための設定です。
+`ClamAV`がメールをチェックしたあと、`postfix`の10025番ポートに向けてメールをフォワードします。
 ポートは変えても大丈夫ですが、この後の`Postfix`の設定で合わせるのを忘れないで下さい。
 ``` text
 $notify_method = 'smtp:[127.0.0.1]:10025';
@@ -148,12 +149,14 @@ $myhostname = 'メールサーバーのFQDN' #例: mail.example.com
 #### /etc/postfix/main.cf
 
 設定ファイル 最終行に追記
+`amavisd`がlistenしている10024に向けてメールを投げつけます。
 ``` text
 content_filter=smtp-amavis:[127.0.0.1]:10024
 ```
 
 #### /etc/postfix/master.cf
 設定ファイル 最終行に追記
+`amavisd`にメールを投げたあと、10025にメールが返ってくるのでそれをlistenしてあげます。
 ``` text
 smtp-amavis unix -    -    n    -    2 smtp
     -o smtp_data_done_timeout=1200
