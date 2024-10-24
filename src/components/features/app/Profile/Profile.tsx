@@ -19,6 +19,10 @@ export const Profile = () => (
     <p className="text-primary-1">
       山とか登ったり、自転車乗ったり、スキーしたりしてます。
     </p>
+    <p className="text-primary-1">
+      技術スタック: Python, Next.js, Proxmox, Linux, Java, サーバー
+    </p>
+
 
     <div className="flex gap-4">
       {sns.map(({ href, icon, label }) => (
