@@ -1,10 +1,10 @@
 ---
 title: 自宅のLANを壁に埋めた
 excerpt: CF管通してLANケーブルを壁に埋めた
-coverImage: '/assets/blog/0007/'
+coverImage: '/assets/blog/0007/6.jpg'
 date: '2024-11-01'
 ogImage:
-  url: '/assets/blog/0007/'
+  url: '/assets/blog/0007/6.jpg'
 tags:
   - 'miscellaneous'
   - 'diary'
