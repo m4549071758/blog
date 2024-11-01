@@ -82,6 +82,6 @@ https://www.sanwa.co.jp/seihin_joho/lan/how_LA-FP-MJ7.html
 まじでCAT6A針金すぎて指痛すぎる。
 ただきちんと10Gbpsでリンクアップしてるし、速度も特に落ちたりとかはしてないので良かったです。
 
-![](/assets/blog/0007/7.jpg)
+![](/assets/blog/0007/7.png)
 
-![](/assets/blog/0007/8.jpg)
+![](/assets/blog/0007/8.png)
