@@ -88,5 +88,4 @@ export default async function markdownToHtml(markdown: string) {
 
 ### その他
 
-- `rehype-raw`で Markdown と HTML のミックス記述ができるように
 - `Google Analytics`でトラフィック解析を実装
