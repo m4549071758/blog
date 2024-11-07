@@ -73,7 +73,7 @@ SMTP を話せるので、`Postfix`とそのままガッチャンコできます
 
 #### 定義ファイル更新
 
-```text
+```text:console
 # freshclam
 ClamAV update process started at Wed Oct 23 21:12:58 2024
 daily.cvd database is up-to-date (version: 27436, sigs: 2067373, f-level: 90, builder: raynman)
@@ -93,7 +93,7 @@ https://secure.eicar.org/eicar.com
 
 テストスキャンを実行します。
 
-```text
+```text:console
 # clamscan --infected --remove --recursive /home/user
 /home/user/virus.virus: Eicar-Signature FOUND
 /home/user/virus.virus: Removed.
@@ -212,7 +212,7 @@ smtp-amavis unix -    -    n    -    2 smtp
 
 ### 自動起動設定 & 起動
 
-```text
+```text:console
 # systemctl enable --now amavisd
 # systemctl restart postfix
 ```
