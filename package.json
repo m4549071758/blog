@@ -61,6 +61,8 @@
     "zustand": "^4.0.0-rc.1"
   },
   "dependencies": {
+    "rehype-code-titles": "^1.2.0",
+    "rehype-prism-plus": "^2.0.0",
     "remark-gfm": "3.0",
     "remark-link-card": "^1.3.1"
   }
