@@ -8,7 +8,7 @@ import remarkGfm from 'remark-gfm';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
-import '../styles/prism.css';
+import '@styles/prism.css';
 
 export default async function markdownToHtml(markdown: string) {
   const result = await unified()

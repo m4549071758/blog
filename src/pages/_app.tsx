@@ -8,6 +8,7 @@ import { Header } from '@/components/features/app/Header';
 import { ContentLayout } from '@/components/features/app/Layout';
 import { Seo } from '@/components/features/app/Seo';
 import * as gtag from '@/lib/gtag';
+import '@styles/prism.css';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
