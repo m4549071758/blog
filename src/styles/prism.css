@@ -1,15 +1,15 @@
 pre[class*="language-"],
 code[class*="language-"] {
 	color: #d4d4d4;
-	font-size: 13px;
 	text-shadow: none;
-	font-family: Menlo, Monaco, Consolas, "Andale Mono", "Ubuntu Mono", "Courier New", monospace;
+	font-family: Menlo, Monaco, Consolas, "Andale Mono", "Ubuntu Mono",
+		"Courier New", monospace;
 	direction: ltr;
 	text-align: left;
 	white-space: pre;
 	word-spacing: normal;
 	word-break: normal;
-	line-height: 1.5;
+	line-height: 1.7;
 	-moz-tab-size: 4;
 	-o-tab-size: 4;
 	tab-size: 4;
@@ -24,10 +24,11 @@ code[class*="language-"]::selection,
 pre[class*="language-"] *::selection,
 code[class*="language-"] *::selection {
 	text-shadow: none;
-	background: #264F78;
+	background: #264f78;
 }
 
 @media print {
+
 	pre[class*="language-"],
 	code[class*="language-"] {
 		text-shadow: none;
@@ -36,26 +37,43 @@ code[class*="language-"] *::selection {
 
 pre[class*="language-"] {
 	padding: 1em;
-	margin: .5em 0;
+	margin: 0.5em 0;
 	overflow: auto;
 	background: #1e1e1e;
+	position: relative;
 }
 
-:not(pre) > code[class*="language-"] {
-	padding: .1em .3em;
-	border-radius: .3em;
+:not(pre)>code[class*="language-"] {
+	padding: 0.1em 0.3em;
+	border-radius: 0.3em;
 	color: #db4c69;
 	background: #1e1e1e;
 }
+
+pre[class*="language-"]::before {
+	position: absolute;
+	top: 0;
+	font-size: 0.7rem;
+	right: 1rem;
+	background: rgba(87, 85, 85, 1);
+	color: white;
+	border-radius: 0 0 0.25rem 0.25rem;
+	line-height: 1;
+	padding: 0.3rem 0.5rem;
+	border-radius: 0 0 0.25rem 0.25rem;
+	box-shadow: 0 2px 20px -5px rgba(0 0 0 / 30%);
+	z-index: 10;
+}
+
 /*********************************************************
 * Tokens
 */
 .namespace {
-	opacity: .7;
+	opacity: 0.7;
 }
 
 .token.doctype .token.doctype-tag {
-	color: #569CD6;
+	color: #569cd6;
 }
 
 .token.doctype .token.name {
@@ -103,7 +121,7 @@ pre[class*="language-"] {
 }
 
 .token.operator.arrow {
-	color: #569CD6;
+	color: #569cd6;
 }
 
 .token.atrule {
@@ -127,7 +145,7 @@ pre[class*="language-"] {
 }
 
 .token.keyword {
-	color: #569CD6;
+	color: #569cd6;
 }
 
 .token.keyword.module,
@@ -228,6 +246,7 @@ pre[class*="language-"] {
 .token.namespace {
 	color: #4ec9b0;
 }
+
 /*********************************************************
 * Language Specific
 */
@@ -260,10 +279,32 @@ code[class*="language-html"] {
 .language-html .token.punctuation {
 	color: #808080;
 }
+
+pre.language-html::before {
+	content: "HTML";
+}
+
+pre.language-css::before {
+	content: "CSS";
+}
+
+pre.language-ts::before,
+pre.language-tsx::before {
+	content: "TypsScript";
+}
+
+pre.language-php::before {
+	content: "PHP";
+}
+
+pre.language-json::before {
+	content: "JSON";
+}
+
 /*********************************************************
 * Line highlighting
 */
-pre[class*="language-"] > code[class*="language-"] {
+pre[class*="language-"]>code[class*="language-"] {
 	position: relative;
 	z-index: 1;
 }
@@ -272,4 +313,57 @@ pre[class*="language-"] > code[class*="language-"] {
 	background: #f7ebc6;
 	box-shadow: inset 5px 0 0 #f7d87c;
 	z-index: 0;
+}
+
+.code-line {
+	display: block;
+	margin: 0 -14px;
+	padding: 0 16px;
+	border-left: 4px solid rgba(0, 0, 0, 0);
+}
+
+.code-line.inserted {
+	background-color: rgba(0, 255, 67, 0.2);
+	/* Set inserted line (+) color */
+}
+
+.code-line.deleted {
+	background-color: rgba(255, 0, 0, 0.2);
+	/* Set deleted line (-) color */
+}
+
+.highlight-line {
+	background-color: rgba(55, 65, 81, 0.5);
+	/* Set highlight bg color */
+	border-left: 4px solid rgb(59, 130, 246);
+	/* Set highlight accent border color */
+}
+
+.line-number::before {
+	display: inline-block;
+	width: 1rem;
+	text-align: right;
+	margin-right: 16px;
+	margin-left: -8px;
+	color: rgb(156, 163, 175);
+	/* Line number color */
+	content: attr(line);
+}
+
+.rehype-code-title {
+	font-family: Menlo, Monaco, Consolas, "Andale Mono", "Ubuntu Mono",
+		"Courier New", monospace;
+	font-size: 0.8rem;
+	border-left: 1px solid #ccc;
+	margin: 1.25rem 0 -7px 1em;
+	padding-left: 1em;
+	padding-bottom: 0.25rem;
+}
+
+.rehype-code-title::before {
+	content: "\F392";
+	font-family: bootstrap-icons;
+	display: inline-block;
+	margin: 0 0.3rem 0 0;
+	vertical-align: middle;
 }

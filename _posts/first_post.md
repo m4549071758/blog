@@ -17,3 +17,10 @@ tags:
 ## これからの予定
 
 なんか頑張って書きます。
+
+```javascript:sample.js
+console.log('Hello, World!');
+
+const a = "a";
+const b = "b";
+```
