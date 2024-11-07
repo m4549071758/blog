@@ -95,6 +95,8 @@ https://www.sanwa.co.jp/seihin_joho/lan/how_LA-FP-MJ7.html
 ```python
 a = "b"
 print(a)
+def greet(name):
+    print(f"Hello, {name}!")
 ```
 
 ```css
