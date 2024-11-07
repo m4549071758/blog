@@ -19,16 +19,3 @@ tags:
 なんか頑張って書きます。
 
 ## コードシンタックス
-
-あああ
-
-```python
-a = "b"
-print(a)
-```
-
-```css
-.class {
-  color: red;
-}
-```
