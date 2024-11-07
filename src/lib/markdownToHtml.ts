@@ -22,7 +22,7 @@ export default async function markdownToHtml(markdown: string) {
     .use(rehypeAutolinkHeadings)
     .use(rehypeStringify, { allowDangerousHtml: true })
     .use(rehypeSlug)
-    .processSync(markdown);
+    .process(markdown);
 
   return result.toString();
 }
