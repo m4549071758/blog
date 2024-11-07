@@ -24,7 +24,7 @@ https://github.com/sub-t/blog-template
 - `remark-link-card`でリンクカードを実装
   - `remarkParse`でパースした後、`rlc`でリンクカードを追加
   - `remarkRehype`と`rehypeStringify`で変換時に`allowDangerousHtml`を true に
-  - `rls.css`にリンクカードの CSS を配置
+  - `rlc.css`にリンクカードの CSS を配置
 
 https://google.com
 
