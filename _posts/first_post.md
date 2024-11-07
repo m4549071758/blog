@@ -17,3 +17,5 @@ tags:
 ## これからの予定
 
 なんか頑張って書きます。
+
+https://x.com/CatWorkers/status/1854087418359525858
