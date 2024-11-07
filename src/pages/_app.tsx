@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import '@/styles/index.css';
 import '@/styles/prism.css';
+import '@/styles/rlc.css';
 import Script from 'next/script';
 import { Footer } from '@/components/features/app/Footer';
 import { Header } from '@/components/features/app/Header';
