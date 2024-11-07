@@ -22,7 +22,7 @@ Nextcloud のセキュリティチェックも潰していきます。
 
 OS は CentOS 7 を使用します。
 
-``` text
+```:console
 $ cat /etc/redhat-release
 CentOS Linux release 7.9.2009 (Core)
 ```
@@ -32,7 +32,7 @@ CentOS Linux release 7.9.2009 (Core)
 データベースは SQLite でも代用可能ですが、安定性と高速化のため今回は MariaDB を使用します。
 また Nextcloud 21 からは MariaDB を使用する場合は Ver10.~が必須となっています。
 
-``` text
+```console
 $ mysql --version
 mysql  Ver 15.1 Distrib 10.5.9-MariaDB, for Linux (x86_64) using readline 5.1
 ```
@@ -42,7 +42,7 @@ mysql  Ver 15.1 Distrib 10.5.9-MariaDB, for Linux (x86_64) using readline 5.1
 Web サーバーは Nginx を使用します。
 バージョンは以下の通りです。
 
-``` text
+```console
 $ nginx -v
 nginx version: nginx/1.16.1
 ```
@@ -53,7 +53,7 @@ Nginx は PHP で動作します。
 Nginx が Web サーバーなので、PHP の FastCGI 実装である PHP-FPM を使用します。
 また PHP アクセラレータの OPCache を使用します。
 
-``` text
+```console
 $ php -v
 PHP 8.1.13 (cli) (built: Nov 22 2022 14:42:07) (NTS gcc x86_64)
 Copyright (c) The PHP Group
@@ -70,7 +70,7 @@ Zend Engine v4.1.13, Copyright (c) Zend Technologies
 
 パフォーマンス向上のためにキャッシュサーバーを使用します。
 
-``` text
+```:console
 $ redis-server --version
 Redis server v=6.2.1 sha=00000000:0 malloc=jemalloc-5.1.0 bits=64 build=c4351fa1988ca119
 ```
@@ -84,7 +84,7 @@ Redis server v=6.2.1 sha=00000000:0 malloc=jemalloc-5.1.0 bits=64 build=c4351fa1
 作業に必要な前提パッケージをインストールしていきます。
 ここからの作業はすべて root ユーザーで行います。
 
-``` text
+```:console
 $ su -
 
 # yum install epel-release yum-utils unzip curl wget bash-completion bzip2
@@ -93,13 +93,13 @@ $ su -
 
 次に remi リポジトリを使用するパッケージをインストールしていきます。
 
-``` text
+```:console
 # yum install --enablerepo=remi,remi-php81 php php-fpm php-cli php-common php-curl php-gd php-mbstring php-mysqlnd php-process php-xml php-opcache php-pecl-apcu php-intl php-pecl-redis php-pecl-zip php-pear php-devel php81-php-bcmath php81-php-imagick php81-php-gimp redis vim nginx
 ```
 
 remi レポジトリでインストールは、一部そのままだと読み込めないモジュールがあるので読み込めるようにします。
 
-``` text
+```:console
 # cp /etc/opt/remi/php81/php.d/20-bcmath.ini /etc/php.d/ && cp /etc/opt/remi/php81/php.d/20-gmp.ini /etc/php.d/ && cp /etc/opt/remi/php81/php.d/40-imagick.ini /etc/php.d/
 # cp /opt/remi/php81/root/usr/lib64/php/modules/bcmath.so /usr/lib64/php/modules/ &&  cp /opt/remi/php81/root/usr/lib64/php/modules/gmp.so /usr/lib64/php/modules/ && cp /opt/remi/php81/root/usr/lib64/php/modules/imagick.so /usr/lib64/php/modules/
 ```
@@ -107,7 +107,7 @@ remi レポジトリでインストールは、一部そのままだと読み込
 MariaDB をインストールしていきます。
 標準リポジトリでは Ver5.~しかインストールできないので、リポジトリを追加します。
 
-``` text
+```:console
 # curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 
 # yum install mariadb-server MariaDB-client
@@ -117,7 +117,7 @@ MariaDB をインストールしていきます。
 
 SELinux を無効化します。
 
-``` text
+```:console
 # vim /etc/selinux/config
 
 SELINUX=enforcing
@@ -127,13 +127,13 @@ SELINUX=disabled
 
 一旦再起動します。
 
-``` text
+```:console
 # reboot
 ```
 
 ポートを開放します。ルーターのポートも適宜開放してください。
 
-``` text
+```:console
 # firewall-cmd --add-port=80/tcp --permanent
 # firewall-cmd --add-port=443/tcp --permanent
 # firewall-cmd --reload
@@ -144,7 +144,7 @@ SSL 証明書を取得します。
 Nginx の設定ファイルを追加します。
 このファイルはすでにセキュリティチェック対策済みです。
 
-``` text
+```:console
 # vim /etc/nginx/conf.d/nextcloud.conf
 ```
 
@@ -153,7 +153,7 @@ server_name と ssl_certificate, ssl_certificate_key は適宜変更してくだ
 
 <details><summary>長いため折りたたみ</summary>
 
-``` text
+```:console
 upstream php-handler {
    #server 127.0.0.1:9000;
    server unix:/var/run/php-fpm/php-fpm.sock;
@@ -329,17 +329,17 @@ server {
 PHP-FPM の設定ファイルを修正します。
 基本的にコピペすれば動作しますが、env[PATH]には、以下のコマンドを実行した結果を使用してください。
 
-``` text
+```:console
 # echo $PATH
 ```
 
-``` text
+```:console
 # vim /etc/php-fpm.d/www.conf
 ```
 
 <details><summary>長いため折りたたみ</summary>
 
-``` text
+```text
 ; Start a new pool named 'www'.
 ; the variable $pool can be used in any directive and will be replaced by the
 ; pool name ('www' here)
@@ -791,13 +791,13 @@ php_value[opcache.file_cache]  = /var/lib/php/opcache
 PHP の設定ファイルを修正します。
 こちらもコピペで使用できます。
 
-``` text
+```text
 # vim /etc/php.ini
 ```
 
 <details><summary>長いので折りたたみ</summary>
 
-``` text
+```text
 [PHP]
 
 ;;;;;;;;;;;;;;;;;;;
@@ -2484,40 +2484,40 @@ apc.enable_cli=1
 PHP セッションディレクトリのグループ情報を変更します。
 これを忘れると、ログイン画面で永久にループします。
 
-``` text
+```:console
 # chown -R root:nginx /var/lib/php/session
 ```
 
 PHP-FPM と Nginx と Redis をそれぞれ自動起動するように設定して、PHP-FPM と Nginx と Redis を起動します。
 
-``` text
+```:console
 # systemctl enable nginx && systemctl enable php-fpm && systemctl enable redis
 # systemctl start nginx && systemctl start php-fpm && systemctl start redis
 ```
 
 Nextcloud 本体をダウンロード、展開します。
 
-``` text
+```:console
 # wget  https://download.nextcloud.com/server/releases/latest.tar.bz2
 # tar xf latest.tar.bz2
 ```
 
 展開した Nextcloud を Web サーバーのドキュメントルート(/var/www/html)にコピーします。
 
-``` text
+```:console
 # cp -R nextcloud/ /var/www/html/
 ```
 
 展開したデータとダウンロードしたアーカイブファイルを削除します。
 
-``` text
+```:console
 # rm -rf nextcloud && rm -f latest.tar.bz2
 ```
 
 Nextcloud のデータディレクトリを作成し、所有者を変更します。
 Nextcloud のサーバーディレクトリ所有権を変更します。
 
-``` text
+```:console
 # mkdir /var/www/html/nextcloud/data
 # chown -R nginx:nginx /var/www/html/nextcloud/data
 # chown -R nginx:nginx /var/www/html/nextcloud
@@ -2525,25 +2525,25 @@ Nextcloud のサーバーディレクトリ所有権を変更します。
 
 MariaDB を自動起動するように設定し、MariaDB を起動します。
 
-``` text
+```:console
 # systemctl enable mariadb && systemctl restart mariadb
 ```
 
 MariaDB の基本セットアップを行います。質問は New password:、Re-enter new password:で root ユーザのパスワードを設定する以外は全て[Enter]キーを押します。
 
-``` text
+```:console
 # mariadb-secure-installation
 ```
 
 文字コードの設定をするため、MariaDB 設定ファイルを編集します。
 
-``` text
+```:console
 # vim /etc/my.cnf.d/server.cnf
 ```
 
 [mariadb]以下を編集、追記します。
 
-``` text
+```text
 ~
 [embedded]
 
@@ -2560,18 +2560,18 @@ default-character-set = utf8mb4
 
 MariaDB を再起動します。
 
-``` text
+```:console
 # systemctl restart mariadb
 ```
 
 MariaDB コンソールに接続して新規データベースを作成します。
 
-``` text
+```:console
 # mysql -u root -p
 Enter Password: 先程の初期セットアップで設定したrootユーザーパスワードを入力します。
 ```
 
-``` text
+```text
 MariaDB [(none)]> CREATE DATABASE nextcloud DEFAULT CHARACTER SET utf8mb4;
 MariaDB [(none)]> quit;
 ```
@@ -2592,7 +2592,7 @@ localhost:3306 とそれぞれ入力し、[セットアップを完了します]
 Nextcloud で Redis を使うように Nexcloud 設定ファイルを編集します。
 'default_phone_region'行以下を追記します。
 
-``` text
+```:console
 # vim /var/www/html/nextcloud/config/config.php
 
 <?php
@@ -2629,14 +2629,14 @@ $CONFIG = array (
 
 バックグラウンドジョブを登録します。
 
-``` text
+```:console
 # sudo -u nginx crontab -e
 */5 * * * * php /var/www/html/nextcloud/cron.php
 ```
 
 PHP-FPM を再起動します。
 
-``` text
+```:console
 # systemctl restart php-fpm
 ```
 
@@ -2650,7 +2650,7 @@ Your web server is not set up correctly to resolve “/.well-known/webfinger”.
 
 の警告は、/etc/nginx/conf.d/nextcloud.conf の server 内に次を追記すると消えます。
 
-``` text
+```text
     location ^~ /.well-known {
       return 301 /index.php$uri;
     }
