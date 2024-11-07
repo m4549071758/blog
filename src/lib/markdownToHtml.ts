@@ -20,7 +20,7 @@ export default async function markdownToHtml(markdown: string) {
     .use(rehypeAutolinkHeadings)
     .use(rehypeStringify)
     .use(rehypeSlug)
-    .process(markdown);
+    .processSync(markdown);
 
   return result.toString();
 }

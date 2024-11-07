@@ -60,21 +60,18 @@
   }
 }
 
-/* コードタイトルのスタイル */
 .rehype-code-title {
-  background-color: #2d2d2d;
-  color: #ffffff;
-  padding: 0.5em;
-  font-size: 0.9em;
-  font-family: monospace;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  margin-top: 1em;
-}
+  margin-bottom: -0.6rem;
+  padding: 0.5em 1em;
+  font-family: Consolas, 'Andale Mono WT', 'Andale Mono', 'Lucida Console',
+    'Lucida Sans Typewriter', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono',
+    'Liberation Mono', 'Nimbus Mono L', Monaco, 'Courier New', Courier,
+    monospace;
 
-/* コードブロックとタイトルの結合を調整 */
-code[class*='language-'] {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  margin-top: 0;
+  background-color: black;
+  color: white;
+  z-index: 0;
+
+  border-top-left-radius: 0.3em;
+  border-top-right-radius: 0.3em;
 }
