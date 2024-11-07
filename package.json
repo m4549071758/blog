@@ -50,6 +50,7 @@
     "react-share": "^4.4.0",
     "rehype": "^13.0.2",
     "rehype-autolink-headings": "^6.1.1",
+    "rehype-raw": "^7.0.0",
     "rehype-slug": "^5.0.1",
     "rehype-stringify": "^9.0.3",
     "remark-autolink-headings": "^7.0.1",
