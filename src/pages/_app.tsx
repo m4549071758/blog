@@ -13,6 +13,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   useEffect(() => {
     const handleRouterChange = (url: any) => {
+      console.log('url', url);
       gtag.pageview(url);
     };
     router.events.on('routeChangeComplete', handleRouterChange);
