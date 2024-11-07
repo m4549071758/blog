@@ -91,16 +91,3 @@ https://www.sanwa.co.jp/seihin_joho/lan/how_LA-FP-MJ7.html
 ![](/assets/blog/0007/7.png)
 
 ![](/assets/blog/0007/8.png)
-
-```python
-a = "b"
-print(a)
-def greet(name):
-    print(f"Hello, {name}!")
-```
-
-```css
-.class {
-  color: red;
-}
-```
