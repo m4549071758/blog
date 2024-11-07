@@ -63,7 +63,7 @@ SMTP を話せるので、`Postfix`とそのままガッチャンコできます
 
 `epel-release`を入れておいてください。
 
-```text:title=console
+```text:console
 # dnf install amavisd-new clamd perl-Digest-SHA1 perl-IO-stringy
 ```
 
