@@ -78,56 +78,66 @@
 }
 
 /* リンクカード */
-.link-card {
+.rlc-container {
+  display: flex;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   overflow: hidden;
   margin: 16px 0;
+  text-decoration: none;
+  color: inherit;
   transition: box-shadow 0.2s;
 }
 
-.link-card:hover {
+.rlc-container:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* リンクカード内のリンクのスタイル */
-.link-card a {
-  display: flex;
-  text-decoration: none;
-  color: inherit;
-}
-
-/* コンテンツエリアのスタイル */
-.link-card-content {
-  padding: 16px;
+/* リンクカードの情報部分 */
+.rlc-info {
   flex: 1;
+  padding: 16px;
 }
 
-.link-card-title {
+/* タイトルのスタイル */
+.rlc-title {
   font-size: 1.2em;
   font-weight: bold;
   margin-bottom: 8px;
 }
 
-.link-card-description {
+/* 説明文のスタイル */
+.rlc-description {
   font-size: 0.9em;
   color: #555;
   margin-bottom: 8px;
 }
 
-.link-card-url {
+/* URL部分のスタイル */
+.rlc-url-container {
+  display: flex;
+  align-items: center;
+}
+
+.rlc-favicon {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+
+.rlc-url {
   font-size: 0.8em;
   color: #888;
 }
 
-/* 画像エリアのスタイル */
-.link-card-image {
+/* サムネイル画像のスタイル */
+.rlc-image-container {
   width: 120px;
   height: 120px;
   overflow: hidden;
 }
 
-.link-card-image img {
+.rlc-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
