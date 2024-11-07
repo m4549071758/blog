@@ -59,3 +59,22 @@
     @apply flex items-center justify-center;
   }
 }
+
+/* コードタイトルのスタイル */
+.code-title {
+  background-color: #2d2d2d;
+  color: #ffffff;
+  padding: 0.5em;
+  font-size: 0.9em;
+  font-family: monospace;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  margin-top: 1em;
+}
+
+/* コードブロックとタイトルの結合を調整 */
+code[class*='language-'] {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  margin-top: 0;
+}
