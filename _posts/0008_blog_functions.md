@@ -42,7 +42,7 @@ https://google.com
 | h   | o   |   g |  e  |
 | --- | :-- | --: | :-: |
 
-#### 下付き文字・打消し線
+#### 打消し線
 
 チルダで囲むと~打消し線~
 
@@ -60,7 +60,7 @@ www.example.com, https://example.com, contact@example.com.
 
 - `rehype-code-titles`と`rehype-prism-plus`でコードブロックにタイトルとシンタックスハイライト・行番号を追加
 
-```TypeScript:src/lib/markdownToHtml.ts showLineNumbers
+```TypeScript:src/lib/markdownToHtml.ts {9,14-15} showLineNumbers
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeCodeTitles from 'rehype-code-titles';
 import rehypePrism from 'rehype-prism-plus';
