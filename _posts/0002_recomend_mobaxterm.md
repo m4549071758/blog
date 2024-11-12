@@ -1,10 +1,10 @@
 ---
 title: 'MobaXtermのススメ'
 excerpt: 'いい感じに便利なSSHクライアントについて'
-coverImage: '/assets/blog/0002/0002_mobaxterm.png'
+coverImage: '/assets/blog/0002/0002_mobaxterm.webp'
 date: '2024-10-13'
 ogImage:
-  url: '/assets/blog/0002/0002_mobaxterm.png'
+  url: '/assets/blog/0002/0002_mobaxterm.webp'
 tags:
   - 'ssh'
   - '便利ツール'

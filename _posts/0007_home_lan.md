@@ -1,10 +1,10 @@
 ---
 title: 自宅のLANを壁に埋めた
 excerpt: CF管通してLANケーブルを壁に埋めた
-coverImage: '/assets/blog/preview/cover.jpg'
+coverImage: '/assets/blog/preview/cover.webp'
 date: '2024-11-01'
 ogImage:
-  url: '/assets/blog/0007/6.jpg'
+  url: '/assets/blog/0007/6.webp'
 tags:
   - 'miscellaneous'
   - 'diary'
@@ -55,32 +55,32 @@ https://www.amazon.co.jp/dp/B07M739GCW
 風呂の上に情報分電盤があるので、そこ経由で CF 管にケーブル突っ込んで通します。
 黒いしみは水じゃなくてシリコンスプレー吹いた跡なのでお気になさらず。
 
-![](/assets/blog/0007/1.jpg)
+![](/assets/blog/0007/1.webp)
 
 部屋に到達したら、コンセントカバー外してブランクチップついてるところごと外します。
 **ブレーカーは落としてね！！！**
 
-![](/assets/blog/0007/2.jpg)
+![](/assets/blog/0007/2.webp)
 
 ### ジャックの取り付け
 
 ケーブル剥いて、十字のやつ吹き飛ばして、ほぐします。
 
-![](/assets/blog/0007/3.jpg)
+![](/assets/blog/0007/3.webp)
 
 基本的にサンワサプライの説明通りにやれば OK。
 
 https://www.sanwa.co.jp/seihin_joho/lan/how_LA-FP-MJ7.html
 
-![](/assets/blog/0007/4.jpg)
+![](/assets/blog/0007/4.webp)
 
 あとはジャックかぶせて、押し込むだけ。
 
 コンセントカバーとか戻して、ブレーカー戻して、テスターで通電確認。
 
-![](/assets/blog/0007/5.jpg)
+![](/assets/blog/0007/5.webp)
 
-![](/assets/blog/0007/6.jpg)
+![](/assets/blog/0007/6.webp)
 
 ## まとめ
 
@@ -88,6 +88,6 @@ https://www.sanwa.co.jp/seihin_joho/lan/how_LA-FP-MJ7.html
 まじで CAT6A 針金すぎて指痛すぎる。
 ただきちんと 10Gbps でリンクアップしてるし、速度も特に落ちたりとかはしてないので良かったです。
 
-![](/assets/blog/0007/7.png)
+![](/assets/blog/0007/7.webp)
 
-![](/assets/blog/0007/8.png)
+![](/assets/blog/0007/8.webp)

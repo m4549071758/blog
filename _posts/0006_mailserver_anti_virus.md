@@ -1,10 +1,10 @@
 ---
 title: メールサーバーにウイルス対策(ClamAV)を導入する
 excerpt: ClamAVを使ってメールサーバーにリアルタイムウイルススキャンを導入する
-coverImage: '/assets/blog/0006/clamav.png'
+coverImage: '/assets/blog/0006/clamav.webp'
 date: '2024-10-23'
 ogImage:
-  url: '/assets/blog/0006/clamav.png'
+  url: '/assets/blog/0006/clamav.webp'
 tags:
   - 'mail'
   - 'security'

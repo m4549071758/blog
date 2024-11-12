@@ -1,10 +1,10 @@
 ---
 title: '最初の投稿'
 excerpt: 'こんにちは、ブログを作ってみました。'
-coverImage: '/assets/blog/dynamic-routing/cover.jpg'
+coverImage: '/assets/blog/dynamic-routing/cover.webp'
 date: '2024-10-12'
 ogImage:
-  url: '/assets/blog/dynamic-routing/cover.jpg'
+  url: '/assets/blog/dynamic-routing/cover.webp'
 tags:
   - 'miscellaneous'
 ---

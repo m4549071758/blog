@@ -1,10 +1,10 @@
 ---
 title: ブログの機能をいろいろ追加
 excerpt: テンプレートから追加したり変えたりした機能
-coverImage: '/assets/blog/preview/cover.jpg'
+coverImage: '/assets/blog/preview/cover.webp'
 date: '2024-11-07'
 ogImage:
-  url: '/assets/blog/dynamic-routing/cover.jpg'
+  url: '/assets/blog/dynamic-routing/cover.webp'
 tags:
   - 'miscellaneous'
 ---

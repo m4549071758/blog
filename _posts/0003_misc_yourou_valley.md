@@ -1,10 +1,10 @@
 ---
 title: '養老渓谷に行きました'
 excerpt: 'ドライブがてら養老渓谷に行ってきました。'
-coverImage: '/assets/blog/0003/cover.jpg'
+coverImage: '/assets/blog/0003/cover.webp'
 date: '2024-10-13'
 ogImage:
-  url: '/assets/blog/0003/cover.jpg'
+  url: '/assets/blog/0003/cover.webp'
 tags:
   - 'miscellaneous'
   - 'diary'
@@ -43,29 +43,29 @@ tags:
 まず降りていくと、上流につながる道があります。
 そこを奥まで進むと滝を上から見られます。
 
-![粟又の滝上流](/assets/blog/0003/IMG_20241013_101538.jpg)
+![粟又の滝上流](/assets/blog/0003/IMG_20241013_101538.webp)
 
-![粟又の滝上流](/assets/blog/0003/IMG_20241013_101536.jpg)
+![粟又の滝上流](/assets/blog/0003/IMG_20241013_101536.webp)
 
-![粟又の滝上流](/assets/blog/0003/cover.jpg)
+![粟又の滝上流](/assets/blog/0003/cover.webp)
 
 ## 中流
 
 そこから降りていくと、中流が見られます。
 
-![粟又の滝中流](/assets/blog/0003/IMG_20241013_101234.jpg)
+![粟又の滝中流](/assets/blog/0003/IMG_20241013_101234.webp)
 
-![粟又の滝中流](/assets/blog/0003/IMG_20241013_101318.jpg)
+![粟又の滝中流](/assets/blog/0003/IMG_20241013_101318.webp)
 
 ## 下流
 
 一度上り返し、別の入り口から降りていくと滝の下流に出られます。
 
-![粟又の滝下流](/assets/blog/0003/IMG_20241013_102548.jpg)
+![粟又の滝下流](/assets/blog/0003/IMG_20241013_102548.webp)
 
 こちらは急な階段と坂があるのでけっこうしんどいです。
 
 # おまけ
 
 なんでこんなとこにバナナ生えてんだろ
-![バナナ](/assets/blog/0003/IMG_20241013_101717.jpg)
+![バナナ](/assets/blog/0003/IMG_20241013_101717.webp)
