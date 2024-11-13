@@ -47,7 +47,7 @@ export default function Home() {
       main={
         <div className="flex justify-center items-center h-screen">
           <ScrollSync>
-            <div className="h-[90vh] w-[90vw] flex flex-row justify-center">
+            <div className="h-[90vh] w-[90vw] flex flex-row">
               <ScrollSyncPane>
                 <textarea
                   className="w-1/2 h-full p-4 border-r border-gray-300 overflow-auto"
