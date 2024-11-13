@@ -45,24 +45,22 @@ export default function Home() {
   return (
     <MainLayout
       main={
-        <div className="flex justify-center items-center h-screen">
-          <ScrollSync>
-            <div className="h-[90vh] w-[90vw] flex flex-row">
-              <ScrollSyncPane>
-                <textarea
-                  className="w-1/2 h-full p-4 border-r border-gray-300 overflow-auto"
-                  value={markdown}
-                  onChange={handleMarkdownChange}
-                />
-              </ScrollSyncPane>
-              <ScrollSyncPane>
-                <div className="w-1/2 h-full p-4 overflow-auto">
-                  <PostBody content={html} />
-                </div>
-              </ScrollSyncPane>
-            </div>
-          </ScrollSync>
-        </div>
+        <ScrollSync>
+          <div className="h-[90vh] w-[90vw] mx-auto flex flex-row">
+            <ScrollSyncPane>
+              <textarea
+                className="w-1/2 p-4 border-r border-gray-300 overflow-auto"
+                value={markdown}
+                onChange={handleMarkdownChange}
+              />
+            </ScrollSyncPane>
+            <ScrollSyncPane>
+              <div className="w-1/2 p-4 overflow-auto">
+                <PostBody content={html} />
+              </div>
+            </ScrollSyncPane>
+          </div>
+        </ScrollSync>
       }
     />
   );
