@@ -1,4 +1,5 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
+import { ScrollSync, ScrollSyncPane } from 'react-scroll-sync'; // 追加
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeCodeTitles from 'rehype-code-titles';
 import rehypeExternalLinks from 'rehype-external-links';
@@ -15,7 +16,6 @@ import { PostBody } from '@/components/features/post/Post/PostBody';
 export default function Home() {
   const [markdown, setMarkdown] = useState<string>('# Hello, world!');
   const [html, setHtml] = useState<string>('');
-  const previewRef = useRef<HTMLDivElement>(null); // プレビューエリアの参照
 
   const handleMarkdownChange = async (
     event: React.ChangeEvent<HTMLTextAreaElement>,
@@ -24,19 +24,6 @@ export default function Home() {
     setMarkdown(newMarkdown);
     const newHtml = await markdownToHtml(newMarkdown);
     setHtml(newHtml);
-  };
-
-  const handleEditorScroll = (event: React.UIEvent<HTMLTextAreaElement>) => {
-    const textarea = event.target as HTMLTextAreaElement;
-    const scrollTop = textarea.scrollTop;
-    const scrollHeight = textarea.scrollHeight - textarea.clientHeight;
-    const scrollPercentage = scrollTop / scrollHeight;
-
-    if (previewRef.current) {
-      const preview = previewRef.current;
-      const previewScrollHeight = preview.scrollHeight - preview.clientHeight;
-      preview.scrollTop = scrollPercentage * previewScrollHeight;
-    }
   };
 
   const markdownToHtml = async (markdown: string) => {
@@ -58,17 +45,22 @@ export default function Home() {
   return (
     <MainLayout
       main={
-        <div className="flex flex-row h-screen">
-          <textarea
-            className="w-1/2 p-4 border-r border-gray-300 overflow-auto"
-            value={markdown}
-            onChange={handleMarkdownChange}
-            onScroll={handleEditorScroll}
-          />
-          <div className="w-1/2 p-4 overflow-auto" ref={previewRef}>
-            <PostBody content={html} />
+        <ScrollSync>
+          <div className="flex flex-row h-screen">
+            <ScrollSyncPane>
+              <textarea
+                className="w-1/2 p-4 border-r border-gray-300 overflow-auto"
+                value={markdown}
+                onChange={handleMarkdownChange}
+              />
+            </ScrollSyncPane>
+            <ScrollSyncPane>
+              <div className="w-1/2 p-4 overflow-auto">
+                <PostBody content={html} />
+              </div>
+            </ScrollSyncPane>
           </div>
-        </div>
+        </ScrollSync>
       }
     />
   );
