@@ -23,3 +23,8 @@ https://github.com/sub-t/blog-template
 
 - `rehype-raw`で Markdown と HTML のミックス記述ができるように
 - `Google Analytics`でトラフィック解析を実装
+
+# Admin ページ
+
+新規で自作 CMS と連携するための Admin ページを作成。
+Admin ページは Cloudflare Access でメールアドレス認証が必要
