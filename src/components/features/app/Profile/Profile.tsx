@@ -8,7 +8,7 @@ export const Profile = () => (
       <Image
         className="object-cover w-28 h-28 rounded-full"
         alt="avatar"
-        src="/assets/author.png"
+        src="/assets/author.webp"
       />
       <h1 className="text-2xl font-semibold text-primary-1">かとり</h1>
     </div>
@@ -22,7 +22,6 @@ export const Profile = () => (
     <p className="text-primary-1">
       技術スタック: Python, Next.js, Proxmox, Linux, Java, サーバー
     </p>
-
 
     <div className="flex gap-4">
       {sns.map(({ href, icon, label }) => (
