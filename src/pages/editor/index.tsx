@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ScrollSync, ScrollSyncPane } from 'react-scroll-sync'; // 追加
+import { ScrollSync, ScrollSyncPane } from 'react-scroll-sync';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeCodeTitles from 'rehype-code-titles';
 import rehypeExternalLinks from 'rehype-external-links';
@@ -46,7 +46,7 @@ export default function Home() {
     <MainLayout
       main={
         <ScrollSync>
-          <div className="flex flex-row h-screen">
+          <div className="h-[90vh] w-[90vw] mx-auto flex flex-row">
             <ScrollSyncPane>
               <textarea
                 className="w-1/2 p-4 border-r border-gray-300 overflow-auto"
