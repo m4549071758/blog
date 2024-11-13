@@ -4133,6 +4133,7 @@ react-remove-scroll@2.5.4:
 react-scroll-sync@^0.11.2:
   version "0.11.2"
   resolved "https://registry.yarnpkg.com/react-scroll-sync/-/react-scroll-sync-0.11.2.tgz#fe8a3a09eab5a44323bdf0f63283c1dd0cd99b45"
+  integrity sha512-n7m+bbRTSWuczhKQf6Evvl7PFGkTt4RfP4bhyUtUyv6znovpybhAScQDdrFr9Jh280nG39x9AWMY8j477PHL1A==
   dependencies:
     prop-types "^15.5.7"
 
