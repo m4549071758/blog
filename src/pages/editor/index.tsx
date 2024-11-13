@@ -49,13 +49,13 @@ export default function Home() {
           <div className="h-[90vh] w-[90vw] mx-auto flex flex-row">
             <ScrollSyncPane>
               <textarea
-                className="w-1/2 p-4 border-r border-gray-300 overflow-auto"
+                className="w-1/2 h-full p-4 border-r border-gray-300 overflow-auto"
                 value={markdown}
                 onChange={handleMarkdownChange}
               />
             </ScrollSyncPane>
             <ScrollSyncPane>
-              <div className="w-1/2 p-4 overflow-auto">
+              <div className="w-1/2 h-full p-4 overflow-auto">
                 <PostBody content={html} />
               </div>
             </ScrollSyncPane>
