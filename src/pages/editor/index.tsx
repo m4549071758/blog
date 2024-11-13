@@ -30,11 +30,11 @@ export default function Home() {
       .use(remarkGfm)
       .use(remarkRehype, { allowDangerousHtml: true })
       .use(rehypeCodeTitles)
-      .use(rehypePrism)
+      .use(rehypePrism, { ignoreMissing: true })
       .use(rehypeAutolinkHeadings)
-      .use(rehypeExternalLinks, { target: '_blank', rel: ['nofollow'] })
-      .use(rehypeSlug)
+      .use(rehypeExternalLinks)
       .use(rehypeStringify, { allowDangerousHtml: true })
+      .use(rehypeSlug)
       .process(markdown);
 
     return result.toString();

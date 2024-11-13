@@ -16,7 +16,7 @@ export default async function markdownToHtml(markdown: string) {
     .use(remarkGfm)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeCodeTitles)
-    .use(rehypePrism)
+    .use(rehypePrism, { ignoreMissing: true })
     .use(rehypeAutolinkHeadings)
     .use(rehypeStringify, { allowDangerousHtml: true })
     .use(rehypeSlug)
