@@ -10,6 +10,7 @@ import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
 import { MainLayout } from '@/components/features/app/Layout';
+import { PostBody } from '@/components/features/post/Post/PostBody'; // 追加
 
 export default function Home() {
   const [markdown, setMarkdown] = useState<string>('# Hello, world!');
@@ -49,10 +50,10 @@ export default function Home() {
             value={markdown}
             onChange={handleMarkdownChange}
           />
-          <div
-            className="w-1/2 p-4"
-            dangerouslySetInnerHTML={{ __html: html }}
-          />
+          <div className="w-1/2 p-4">
+            <PostBody content={html} />{' '}
+            {/* 修正：PostBodyコンポーネントを使用 */}
+          </div>
         </div>
       }
     />
