@@ -50,9 +50,8 @@ export default function Home() {
             value={markdown}
             onChange={handleMarkdownChange}
           />
-          <div className="w-1/2 p-4">
-            <PostBody content={html} />{' '}
-            {/* 修正：PostBodyコンポーネントを使用 */}
+          <div className="w-1/2 p-4 overflow-auto">
+            <PostBody content={html} /> {}
           </div>
         </div>
       }
