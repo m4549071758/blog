@@ -12,6 +12,10 @@
   } */
 }
 
+.custom-page .xl\:max-w-7xl {
+  max-width: none !important;
+}
+
 @layer components {
   .bg-global {
     @apply bg-neutral-50 dark:bg-neutral-900;
