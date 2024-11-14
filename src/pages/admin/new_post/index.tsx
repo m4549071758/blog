@@ -26,6 +26,14 @@ export default function Home() {
     setHtml(newHtml);
   };
 
+  const handleSaveDraft = () => {
+    console.log('下書き保存:', markdown);
+  };
+
+  const handleSubmit = () => {
+    console.log('送信:', markdown);
+  };
+
   const markdownToHtml = async (markdown: string) => {
     const result = await unified()
       .use(remarkParse)
@@ -45,7 +53,21 @@ export default function Home() {
   return (
     <MainLayout
       main={
-        <div className="custom-page">
+        <div className="custom-page relative">
+          <div className="absolute top-4 right-4 flex space-x-2">
+            <button
+              onClick={handleSaveDraft}
+              className="bg-gray-500 text-white px-4 py-2 rounded"
+            >
+              下書き保存
+            </button>
+            <button
+              onClick={handleSubmit}
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              送信
+            </button>
+          </div>
           <ScrollSync>
             <div className="h-[90vh] w-[90vw] mx-auto flex flex-row">
               <ScrollSyncPane>
