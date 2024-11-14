@@ -53,7 +53,7 @@ export default function Home() {
   return (
     <MainLayout
       main={
-        <div className="custom-page relative">
+        <>
           <div className="absolute top-4 right-4 flex space-x-2">
             <button
               onClick={handleSaveDraft}
@@ -68,23 +68,25 @@ export default function Home() {
               送信
             </button>
           </div>
-          <ScrollSync>
-            <div className="h-[90vh] w-[90vw] mx-auto flex flex-row">
-              <ScrollSyncPane>
-                <textarea
-                  className="w-1/2 p-4 border-r border-gray-300 overflow-auto"
-                  value={markdown}
-                  onChange={handleMarkdownChange}
-                />
-              </ScrollSyncPane>
-              <ScrollSyncPane>
-                <div className="w-1/2 p-4 overflow-auto">
-                  <PostBody content={html} />
-                </div>
-              </ScrollSyncPane>
-            </div>
-          </ScrollSync>
-        </div>
+          <div className="custom-page">
+            <ScrollSync>
+              <div className="h-[90vh] w-[90vw] mx-auto flex flex-row">
+                <ScrollSyncPane>
+                  <textarea
+                    className="w-1/2 p-4 border-r border-gray-300 overflow-auto"
+                    value={markdown}
+                    onChange={handleMarkdownChange}
+                  />
+                </ScrollSyncPane>
+                <ScrollSyncPane>
+                  <div className="w-1/2 p-4 overflow-auto">
+                    <PostBody content={html} />
+                  </div>
+                </ScrollSyncPane>
+              </div>
+            </ScrollSync>
+          </div>
+        </>
       }
     />
   );
