@@ -54,6 +54,20 @@ export default function Home() {
     <MainLayout
       main={
         <>
+          <div className="flex space-x-2">
+            <button
+              onClick={handleSaveDraft}
+              className="bg-gray-500 text-white px-4 py-2 rounded"
+            >
+              下書き保存
+            </button>
+            <button
+              onClick={handleSubmit}
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              送信
+            </button>
+          </div>
           <div className="custom-page">
             <ScrollSync>
               <div className="h-[90vh] w-[90vw] mx-auto flex flex-row">
@@ -71,20 +85,6 @@ export default function Home() {
                 </ScrollSyncPane>
               </div>
             </ScrollSync>
-          </div>
-          <div className="absolute top-4 right-4 flex space-x-2">
-            <button
-              onClick={handleSaveDraft}
-              className="bg-gray-500 text-white px-4 py-2 rounded"
-            >
-              下書き保存
-            </button>
-            <button
-              onClick={handleSubmit}
-              className="bg-blue-500 text-white px-4 py-2 rounded"
-            >
-              送信
-            </button>
           </div>
         </>
       }
