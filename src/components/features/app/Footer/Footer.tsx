@@ -21,7 +21,7 @@ export const Footer = () => {
             ))}
           </div>
           <div className="text-neutral-200 text-sm text-center">
-            &copy; 2024 - {SITE_NAME}
+            <Link href="/admin">&copy; 2024 - {SITE_NAME}</Link>
           </div>
         </div>
       </ContentLayout>
