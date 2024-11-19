@@ -26,6 +26,14 @@ export default function Home() {
     setHtml(newHtml);
   };
 
+  const handleSaveDraft = () => {
+    console.log('下書き保存:', markdown);
+  };
+
+  const handleSubmit = () => {
+    console.log('送信:', markdown);
+  };
+
   const markdownToHtml = async (markdown: string) => {
     const result = await unified()
       .use(remarkParse)
@@ -45,24 +53,40 @@ export default function Home() {
   return (
     <MainLayout
       main={
-        <div className="custom-page">
-          <ScrollSync>
-            <div className="h-[90vh] w-[90vw] mx-auto flex flex-row">
-              <ScrollSyncPane>
-                <textarea
-                  className="w-1/2 p-4 border-r border-gray-300 overflow-auto"
-                  value={markdown}
-                  onChange={handleMarkdownChange}
-                />
-              </ScrollSyncPane>
-              <ScrollSyncPane>
-                <div className="w-1/2 p-4 overflow-auto">
-                  <PostBody content={html} />
-                </div>
-              </ScrollSyncPane>
-            </div>
-          </ScrollSync>
-        </div>
+        <>
+          <div className="flex space-x-2">
+            <button
+              onClick={handleSaveDraft}
+              className="bg-gray-500 text-white px-4 py-2 rounded"
+            >
+              下書き保存
+            </button>
+            <button
+              onClick={handleSubmit}
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              送信
+            </button>
+          </div>
+          <div className="custom-page">
+            <ScrollSync>
+              <div className="h-[90vh] w-[90vw] mx-auto flex flex-row">
+                <ScrollSyncPane>
+                  <textarea
+                    className="w-1/2 p-4 border-r border-gray-300 overflow-auto"
+                    value={markdown}
+                    onChange={handleMarkdownChange}
+                  />
+                </ScrollSyncPane>
+                <ScrollSyncPane>
+                  <div className="w-1/2 p-4 overflow-auto">
+                    <PostBody content={html} />
+                  </div>
+                </ScrollSyncPane>
+              </div>
+            </ScrollSync>
+          </div>
+        </>
       }
     />
   );
