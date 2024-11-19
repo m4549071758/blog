@@ -1,10 +1,10 @@
 ---
 title: 'ZFS RAIDにキャッシュデバイスを追加'
 excerpt: 'ZILとL2ARCを追加して、パフォーマンスを向上'
-coverImage: '/assets/blog/0008/001.webp'
+coverImage: '/assets/blog/0009/001.webp'
 date: '2024-11-19'
 ogImage:
-  url: '/assets/blog/0008/001.webp'
+  url: '/assets/blog/0009/001.webp'
 tags:
   - '自宅サーバー'
 ---
@@ -99,7 +99,7 @@ cache                                               -      -      -      -      
 
 両方とも動作しているのがわかると思います。
 
-![ZFSキャッシュ](/assets/blog/0008/001.webp)
+![ZFSキャッシュ](/assets/blog/0009/001.webp)
 
 ## おわり
 ベンチマーク取るのを完全に忘れていたので体感ですが、Nextcloudでのアップロードやサムネイルの表示などが4割マシくらいで速くなった気がします。
