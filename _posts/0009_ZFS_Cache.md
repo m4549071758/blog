@@ -1,3 +1,14 @@
+---
+title: 'ZFS RAIDにキャッシュデバイスを追加'
+excerpt: 'ZILとL2ARCを追加して、パフォーマンスを向上'
+coverImage: '/assets/blog/0009/001.webp'
+date: '2024-11-19'
+ogImage:
+  url: '/assets/blog/0009/001.webp'
+tags:
+  - '自宅サーバー'
+---
+
 ## ZFS RAIDについて
 現在、自宅のサーバーのメインストレージは`ZFS RAIDZ`による冗長化を行っています。
 
