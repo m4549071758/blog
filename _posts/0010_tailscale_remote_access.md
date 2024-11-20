@@ -57,7 +57,7 @@ https://tailscale.com/pricing
 
 使用目的はPersonal Useです。
 
-![image.webp](/assets/blog/0010/002)
+![image.webp](/assets/blog/0010/002.webp)
 
 最初のデバイスを登録しろ、と言われますが今回は下のSkipを押して飛ばします。
 ![image.webp](/assets/blog/0010/003.webp)
