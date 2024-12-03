@@ -7,6 +7,7 @@ ogImage:
   url: '/assets/blog/0004/cover.webp'
 tags:
   - 'miscellaneous'
+  - '自宅サーバー'
 ---
 
 自宅のサーバー環境を紹介します。

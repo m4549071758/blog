@@ -8,6 +8,7 @@ ogImage:
 tags:
   - 'network'
   - 'dns'
+  - '自宅サーバー'
 ---
 
 # はじめに
