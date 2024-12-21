@@ -9,7 +9,7 @@ import rlc from 'remark-link-card';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
-import { directiveToHtml } from './directiveToHtml';
+import directiveToHtml from './directiveToHtml';
 
 export default async function markdownToHtml(markdown: string) {
   const result = await unified()
