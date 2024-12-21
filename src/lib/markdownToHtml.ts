@@ -3,6 +3,7 @@ import rehypeCodeTitles from 'rehype-code-titles';
 import rehypePrism from 'rehype-prism-plus';
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
+import remarkDirective from 'remark-directive';
 import remarkGfm from 'remark-gfm';
 import rlc from 'remark-link-card';
 import remarkParse from 'remark-parse';
@@ -14,6 +15,7 @@ export default async function markdownToHtml(markdown: string) {
     .use(remarkParse)
     .use(rlc)
     .use(remarkGfm)
+    .use(remarkDirective)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeCodeTitles)
     .use(rehypePrism, { ignoreMissing: true })
