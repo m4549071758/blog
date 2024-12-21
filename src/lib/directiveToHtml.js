@@ -3,18 +3,18 @@ import { visit } from 'unist-util-visit';
 function directiveToHtml() {
   return (tree) => {
     visit(tree, (node) => {
-      // containerDirective ノードのみ処理する
+      // containerDirectiveノードのみ
       if (node.type === 'containerDirective') {
         const data = node.data || (node.data = {});
 
-        // ディレクティブ名を取得（例: info, warning, error）
+        // ディレクティブ名（info, warning, error）
         const directiveType = node.name;
 
-        // hName（タグ名）とクラス名を設定
+        // タグとクラス名
         data.hName = 'div';
         data.hProperties = { className: [`alert-${directiveType}`] };
 
-        // タイトルの自動追加（必要に応じて）
+        // タイトルの追加
         if (node.children && node.children.length > 0) {
           node.children.unshift({
             type: 'element',
