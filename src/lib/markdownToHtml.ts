@@ -8,6 +8,7 @@ import remarkGfm from 'remark-gfm';
 import rlc from 'remark-link-card';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
+import remarkHint from 'remark-hint';
 import { unified } from 'unified';
 
 export default async function markdownToHtml(markdown: string) {
@@ -16,7 +17,7 @@ export default async function markdownToHtml(markdown: string) {
     .use(rlc)
     .use(remarkGfm)
     .use(remarkDirective)
-    .use(require('remark-hint'))
+    .use(remarkHint)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeCodeTitles)
     .use(rehypePrism, { ignoreMissing: true })
