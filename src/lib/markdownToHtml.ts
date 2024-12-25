@@ -5,10 +5,10 @@ import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
 import remarkDirective from 'remark-directive';
 import remarkGfm from 'remark-gfm';
+import remarkHint from 'remark-hint';
 import rlc from 'remark-link-card';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
-import remarkHint from 'remark-hint';
 import { unified } from 'unified';
 
 export default async function markdownToHtml(markdown: string) {
