@@ -63,6 +63,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         </ContentLayout>
         <Footer />
       </div>
+      <Script
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon='{"token": "284dd6ae58764e1dbf8929a7aa798fd9"}'
+      ></Script>
     </>
   );
 }
