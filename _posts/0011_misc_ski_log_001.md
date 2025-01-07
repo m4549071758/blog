@@ -47,7 +47,7 @@ SALOMON S/PRO 100 27.5cm
 mont-bell アルパインゴーグル PL
 ![新ゴーグル](/assets/blog/0011/004.webp)
 これは去年買いました。前使ってた SWANS のゴーグルのレンズにデカ傷が入ってしまったので買い換えました。
-![旧ゴーグル](/assets/blog/0011/004.webp)
+![旧ゴーグル](/assets/blog/0011/001.webp)
 偏光レンズで見やすいです。雪山登山にも持っていこうかなと思ってます。
 
 ### ウェア
@@ -79,9 +79,13 @@ mont-bell フォールラインヘルメット
 ## ギャラリー
 
 ![ログ1](/assets/blog/0011/006.webp)
+
 ![ログ2](/assets/blog/0011/007.webp)
+
 ![ログ3](/assets/blog/0011/008.webp)
+
 ![ログ4](/assets/blog/0011/009.webp)
+
 ![ログ5](/assets/blog/0011/010.webp)
 
 ## おわり
