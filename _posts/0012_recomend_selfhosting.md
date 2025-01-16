@@ -44,6 +44,41 @@ Fess とかくっつけると QoL が上がると思います。
 
 https://qiita.com/a0x41/items/89301e4cbe2d9946a953
 
+## Dawarich
+
+https://dawarich.app/
+
+### Alternative
+
+- Google Map タイムライン
+
+### 紹介
+
+Google Map のタイムライン機能をセルフホストできるアプリ。
+Owntracks みたいなアプリをスマホに入れてトラッキングが出来ます。
+Google からのインポートもできる。
+
+![image.png](/assets/blog/0012/009.webp)
+リバースプロキシの後ろで動かすときは`docker-compose.yml`を編集するのですが、ここでちょっと詰まりポイント。
+
+```docker-compose.yml
+64行目、115行目あたり
+      APPLICATION_HOSTS: localhost,timeline.example.com
+```
+
+ここで許可ホストを追加するとき、`localhost, timeline.example.com`のようにカンマのあとにスペースを入れるとうまくいかないので注意。
+クセでスペースを入れてしまって 1 時間ほど迷ってました。
+
+#### 日本語
+
+- 非対応
+
+### 構築記事
+
+公式のチュートリアルがわかりやすいので。
+
+https://dawarich.app/docs/intro
+
 ## Grafana + InfluxDB
 
 https://grafana.com/ja/
@@ -178,7 +213,7 @@ office ファイルとか編集出来たり、共有リンクをカスタマイ�
 
 https://qiita.com/katori_m/items/227c06fc2a4b79095864
 
-# OnlyOffice
+## OnlyOffice
 
 https://www.onlyoffice.com/ja/
 
