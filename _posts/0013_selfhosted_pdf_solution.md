@@ -66,14 +66,7 @@ $ sudo dnf install -y git automake autoconf libtool leptonica-devel pkg-config z
 OCR 機能を使用するために、jbig2enc をビルドします。
 
 ```text:console
-$ mkdir ~/.git
-$ cd ~/.git &&\
-$ git clone https://github.com/agl/jbig2enc.git &&\
-$ cd jbig2enc &&\
-$ ./autogen.sh &&\
-$ ./configure &&\
-$ make &&\
-$ sudo make install
+$ mkdir ~/.git cd ~/.git && git clone https://github.com/agl/jbig2enc.git && cd jbig2enc && ./autogen.sh && ./configure && make && sudo make install
 ```
 
 #### 追加のソフトウェア
@@ -89,19 +82,13 @@ $ sudo dnf install -y libreoffice-writer libreoffice-calc libreoffice-impress te
 本体をビルドします。
 
 ```text:console
-$ cd ~/.git &&\
-$ git clone https://github.com/Stirling-Tools/Stirling-PDF.git &&\
-$ cd Stirling-PDF &&\
-$ chmod +x ./gradlew &&\
-$ ./gradlew build
+$ cd ~/.git && git clone https://github.com/Stirling-Tools/Stirling-PDF.git && cd Stirling-PDF && chmod +x ./gradlew && ./gradlew build
 ```
 
 ビルドが完了したら、ファイルを移動します。
 
 ```text:console
-$ sudo mkdir /opt/Stirling-PDF &&\
-$ sudo mv ./build/libs/Stirling-PDF-*.jar /opt/Stirling-PDF/ &&\
-$ sudo mv scripts /opt/Stirling-PDF/ &&\
+$ sudo mkdir /opt/Stirling-PDF && sudo mv ./build/libs/Stirling-PDF-*.jar /opt/Stirling-PDF/ && sudo mv scripts /opt/Stirling-PDF/
 ```
 
 #### OCR のサポート言語追加
