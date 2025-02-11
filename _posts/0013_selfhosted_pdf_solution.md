@@ -57,6 +57,7 @@ Stirling PDF の前提ソフトウェアは次の通りです。
 ### インストール
 
 ```text:console
+$ sudo dnf config-manager --set-enabled crb
 $ sudo dnf install -y git automake autoconf libtool leptonica-devel pkg-config zlib-devel make gcc-c++ java-21-openjdk python3 python3-pip
 ```
 
