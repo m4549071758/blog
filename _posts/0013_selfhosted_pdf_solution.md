@@ -56,7 +56,7 @@ Stirling PDF の前提ソフトウェアは次の通りです。
 
 ### インストール
 
-```
+```text: console
 $ sudo dnf install -y git automake autoconf libtool leptonica-devel pkg-config zlib-devel make gcc-c++ java-21-openjdk python3 python3-pip
 ```
 
@@ -64,7 +64,7 @@ $ sudo dnf install -y git automake autoconf libtool leptonica-devel pkg-config z
 
 OCR 機能を使用するために、jbig2enc をビルドします。
 
-```
+```text: console
 $ mkdir ~/.git
 $ cd ~/.git &&\
 $ git clone https://github.com/agl/jbig2enc.git &&\
@@ -79,7 +79,7 @@ $ sudo make install
 
 ファイル変換機能を利用するために`LibreOffice`を、OCR のために`tesseract`を、パターン認識のために`opencv`をインストールします。
 
-```
+```text: console
 $ sudo dnf install -y libreoffice-writer libreoffice-calc libreoffice-impress tesseract pip3 install uno opencv-python-headless unoconv pngquant WeasyPrint
 ```
 
@@ -87,7 +87,7 @@ $ sudo dnf install -y libreoffice-writer libreoffice-calc libreoffice-impress te
 
 本体をビルドします。
 
-```
+```text: console
 $ cd ~/.git &&\
 $ git clone https://github.com/Stirling-Tools/Stirling-PDF.git &&\
 $ cd Stirling-PDF &&\
@@ -97,7 +97,7 @@ $ ./gradlew build
 
 ビルドが完了したら、ファイルを移動します。
 
-```
+```text: console
 $ sudo mkdir /opt/Stirling-PDF &&\
 $ sudo mv ./build/libs/Stirling-PDF-*.jar /opt/Stirling-PDF/ &&\
 $ sudo mv scripts /opt/Stirling-PDF/ &&\
@@ -107,13 +107,13 @@ $ sudo mv scripts /opt/Stirling-PDF/ &&\
 
 一括で全言語をサポートしたい場合は次のコマンドを実行します。
 
-```
+```text: console
 $ sudo dnf install -y tesseract-langpack-*
 ```
 
 今回は日本語と英語を追加します。
 
-```
+```text: console
 $ sudo dnf install -y tesseract-langpack-jpn tesseract-langpack-eng
 ```
 
@@ -122,13 +122,13 @@ $ sudo dnf install -y tesseract-langpack-jpn tesseract-langpack-eng
 Stirling PDF をサービスとして登録します。
 .env ファイルを作成します。
 
-```
+```text: console
 $ touch /opt/Stirling-PDF/.env
 ```
 
 サービスファイルを作ります。
 
-```/etc/systemd/system/stirlingpdf.service
+```text: /etc/systemd/system/stirlingpdf.service
 [Unit]
 Description=Stirling-PDF service
 After=syslog.target network.target
@@ -152,7 +152,7 @@ WantedBy=multi-user.target
 
 デーモンを再読み込みして、サービスを起動します。
 
-```
+```text: console
 $ sudo systemctl daemon-reload
 $ sudo systemctl enable --now stirlingpdf
 ```
