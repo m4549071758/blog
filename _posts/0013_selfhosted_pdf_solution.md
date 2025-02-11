@@ -68,7 +68,8 @@ $ sudo snap install jbig2enc --edge
 ファイル変換機能を利用するために`LibreOffice`を、OCR のために`tesseract`を、パターン認識のために`opencv`をインストールします。
 
 ```text:console
-$ sudo dnf install -y libreoffice-writer libreoffice-calc libreoffice-impress tesseract pip3 install uno opencv-python-headless unoconv pngquant WeasyPrint
+$ sudo dnf install -y libreoffice-writer libreoffice-calc libreoffice-impress tesseract
+$ pip3 install uno opencv-python-headless unoconv pngquant WeasyPrint
 ```
 
 #### Stirling PDF のビルド
