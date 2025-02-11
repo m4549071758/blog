@@ -44,36 +44,23 @@ Stirling PDF の前提ソフトウェアは次の通りです。
 - Gradle 7.0 以降
 - Git
 - Python 3.8 + pip
-- Make
-- GCC/G++
-- Automake
-- Autoconf
-- libtool
-- pkg-config
-- zlib1g-dev
-- libleptonica-dev
--
 
 ### インストール
 
 ```text:console
 $ sudo dnf config-manager --set-enabled crb
-$ sudo dnf install -y git libtool leptonica-devel pkg-config zlib-devel make gcc-c++ java-21-openjdk python3 python3-pip
-```
-
-手元の環境だと`automake`と`autoconf`がバージョンの問題で弾かれたのでソースからビルドします。
-
-```text:console
-$ sudo dnf groupinstall -y "Development Tools" && sudo dnf install -y perl texinfo help2man && cd /usr/local/src && sudo curl -LO https://ftp.gnu.org/gnu/autoconf/autoconf-2.71.tar.gz && sudo tar -xzf autoconf-2.71.tar.gz && cd autoconf-2.71 && sudo ./configure --prefix=/usr/local && sudo make -j$(nproc) && sudo make install && cd /usr/local/src && sudo curl -LO https://ftp.gnu.org/gnu/automake/automake-1.16.5.tar.gz && sudo tar -xzf automake-1.16.5.tar.gz && cd automake-1.16.5 && sudo ./configure --prefix=/usr/local && sudo make -j$(nproc) && sudo make install && echo 'export PATH=/usr/local/bin:$PATH' | sudo tee -a /etc/profile.d/custom_path.sh && source /etc/profile.d/custom_path.sh && autoconf --version && automake --version
-
+$ sudo dnf install -y git java-21-openjdk python3 python3-pip epel-release
 ```
 
 #### OCR
 
-OCR 機能を使用するために、jbig2enc をビルドします。
+OCR 機能を使用するために、jbig2enc を snap からインストールします。
 
 ```text:console
-$ mkdir ~/.git cd ~/.git && git clone https://github.com/agl/jbig2enc.git && cd jbig2enc && ./autogen.sh && ./configure && make && sudo make install
+$ sudo dnf install snapd
+$ sudo systemctl enable --now snapd.socket
+$ sudo ln -s /var/lib/snapd/snap /snap
+$ sudo snap install jbig2enc --edge
 ```
 
 #### 追加のソフトウェア
