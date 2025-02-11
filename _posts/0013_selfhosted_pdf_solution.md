@@ -49,7 +49,7 @@ Stirling PDF の前提ソフトウェアは次の通りです。
 
 ```text:console
 $ sudo dnf config-manager --set-enabled crb
-$ sudo dnf install -y git java-21-openjdk python3 python3-pip epel-release
+$ sudo dnf install -y git java-21-openjdk python3 python3-pip epel-release leptonica-devel
 ```
 
 #### OCR
@@ -111,10 +111,11 @@ $ sudo mkdir /opt/Stirling-PDF && sudo mv ./build/libs/Stirling-PDF-*.jar /opt/S
 $ sudo dnf install -y tesseract-langpack-*
 ```
 
-今回は日本語と英語を追加します。
+今回は日本語を追加します。
+リポジトリで見つけられなかった場合は tessdata の Github リポジトリから jpn.traineddata をダウンロードして、/usr/share/tesseract/tessdata/ に配置します。
 
 ```text:console
-$ sudo dnf install -y tesseract-langpack-jpn tesseract-langpack-eng
+$ sudo dnf install -y tesseract-langpack-jpn
 ```
 
 #### サービス登録
@@ -127,6 +128,7 @@ $ touch /opt/Stirling-PDF/.env
 ```
 
 サービスファイルを作ります。
+jar ファイルのバージョンは適宜書き換えてください。
 
 ```text:/etc/systemd/system/stirlingpdf.service
 [Unit]
@@ -143,7 +145,7 @@ Type=simple
 
 EnvironmentFile=/opt/Stirling-PDF/.env
 WorkingDirectory=/opt/Stirling-PDF
-ExecStart=/usr/bin/java -jar Stirling-PDF-0.17.2.jar
+ExecStart=/usr/bin/java -jar Stirling-PDF-0.41.0.jar
 ExecStop=/bin/kill -15 $MAINPID
 
 [Install]
