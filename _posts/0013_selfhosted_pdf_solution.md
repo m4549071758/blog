@@ -64,7 +64,7 @@ $ sudo dnf install -y git libtool leptonica-devel pkg-config zlib-devel make gcc
 手元の環境だと`automake`と`autoconf`がバージョンの問題で弾かれたのでソースからビルドします。
 
 ```text:console
-sudo dnf groupinstall -y "Development Tools" && sudo dnf install -y perl texinfo help2man && cd /usr/local/src && sudo curl -LO https://ftp.gnu.org/gnu/autoconf/autoconf-2.71.tar.gz && sudo tar -xzf autoconf-2.71.tar.gz && cd autoconf-2.71 && sudo ./configure --prefix=/usr/local && sudo make -j$(nproc) && sudo make install && cd /usr/local/src && sudo curl -LO https://ftp.gnu.org/gnu/automake/automake-1.16.5.tar.gz && sudo tar -xzf automake-1.16.5.tar.gz && cd automake-1.16.5 && sudo ./configure --prefix=/usr/local && sudo make -j$(nproc) && sudo make install && echo 'export PATH=/usr/local/bin:$PATH' | sudo tee -a /etc/profile.d/custom_path.sh && source /etc/profile.d/custom_path.sh && autoconf --version && automake --version
+$ sudo dnf groupinstall -y "Development Tools" && sudo dnf install -y perl texinfo help2man && cd /usr/local/src && sudo curl -LO https://ftp.gnu.org/gnu/autoconf/autoconf-2.71.tar.gz && sudo tar -xzf autoconf-2.71.tar.gz && cd autoconf-2.71 && sudo ./configure --prefix=/usr/local && sudo make -j$(nproc) && sudo make install && cd /usr/local/src && sudo curl -LO https://ftp.gnu.org/gnu/automake/automake-1.16.5.tar.gz && sudo tar -xzf automake-1.16.5.tar.gz && cd automake-1.16.5 && sudo ./configure --prefix=/usr/local && sudo make -j$(nproc) && sudo make install && echo 'export PATH=/usr/local/bin:$PATH' | sudo tee -a /etc/profile.d/custom_path.sh && source /etc/profile.d/custom_path.sh && autoconf --version && automake --version
 
 ```
 
