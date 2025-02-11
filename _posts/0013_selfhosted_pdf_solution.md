@@ -74,6 +74,23 @@ $ pip3 install uno opencv-python-headless unoconv pngquant WeasyPrint
 
 #### Stirling PDF のビルド
 
+標準で入っている JDK17 から JDK21 に切り替えます。
+
+```text:console
+$ sudo alternatives --config java
+
+There are 3 programs which provide 'java'.
+
+  Selection    Command
+-----------------------------------------------
+   1           java-21-openjdk.x86_64 (/usr/lib/jvm/java-21-openjdk-21.0.6.0.7-1.el9.alma.1.x86_64/bin/java)
+   2           java-1.8.0-openjdk.x86_64 (/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.442.b06-2.el9.x86_64/jre/bin/java)
+*+ 3           java-17-openjdk.x86_64 (/usr/lib/jvm/java-17-openjdk-17.0.14.0.7-2.el9.alma.1.x86_64/bin/java)
+
+Enter to keep the current selection[+], or type selection number: 1
+
+```
+
 本体をビルドします。
 
 ```text:console
