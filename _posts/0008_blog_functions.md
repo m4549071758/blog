@@ -105,7 +105,7 @@ export default async function markdownToHtml(markdown: string) {
 
 `rehype-github-alerts`を追加して`alert`ブロックと引用ブロックを追加しました。
 
-```alert
+```text:alert
 > [!NOTE]
 > ユーザーが流し読みしているときでも考慮すべき情報を強調します。
 
@@ -122,7 +122,7 @@ export default async function markdownToHtml(markdown: string) {
 > リスクを含み、するべきではないことを強調表示します。
 ```
 
-```note
+```text:note
 > 引用です。
 > > 二重引用もできます。
 ```
