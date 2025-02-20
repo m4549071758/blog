@@ -10,6 +10,7 @@ import rlc from 'remark-link-card';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
+import rehypeAdmonitionClass from './admonition';
 
 export default async function markdownToHtml(markdown: string) {
   const options = {};
@@ -25,6 +26,7 @@ export default async function markdownToHtml(markdown: string) {
     .use(rehypeAutolinkHeadings)
     .use(rehypeStringify, { allowDangerousHtml: true })
     .use(rehypeSlug)
+    .use(rehypeAdmonitionClass)
     .process(markdown);
 
   return result.toString();
