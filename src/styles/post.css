@@ -1,5 +1,5 @@
 @import 'prism-themes/themes/prism-vsc-dark-plus.css';
-@import '@/node_modules/rehype-github-alerts/dist/styling/css/index.css';
+@import url('./githubAlert.css');
 
 .post {
   @apply my-5 text-base font-medium text-neutral-800 dark:text-white !important;
