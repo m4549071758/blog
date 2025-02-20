@@ -4,10 +4,10 @@ import rehypePrism from 'rehype-prism-plus';
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
 import remarkGfm from 'remark-gfm';
+import plugin from 'remark-github-beta-blockquote-admonitions';
 import rlc from 'remark-link-card';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
-import plugin from 'remark-github-beta-blockquote-admonitions';
 import { unified } from 'unified';
 
 export default async function markdownToHtml(markdown: string) {
