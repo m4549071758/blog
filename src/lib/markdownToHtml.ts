@@ -7,12 +7,15 @@ import remarkGfm from 'remark-gfm';
 import rlc from 'remark-link-card';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
+import plugin from 'remark-github-beta-blockquote-admonitions';
 import { unified } from 'unified';
 
 export default async function markdownToHtml(markdown: string) {
+  const options = {};
   const result = await unified()
     .use(remarkParse)
     .use(rlc)
+    .use(plugin, options)
     .use(remarkGfm)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeCodeTitles)

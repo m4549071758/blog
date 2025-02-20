@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { ScrollSync, ScrollSyncPane } from 'react-scroll-sync';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeCodeTitles from 'rehype-code-titles';
-import rehypeExternalLinks from 'rehype-external-links';
 import rehypePrism from 'rehype-prism-plus';
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
 import remarkGfm from 'remark-gfm';
+import rlc from 'remark-link-card';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
+import plugin from 'remark-github-beta-blockquote-admonitions';
 import { unified } from 'unified';
 import { MainLayout } from '@/components/features/app/Layout';
 import { PostBody } from '@/components/features/post/Post/PostBody';
@@ -35,16 +36,18 @@ export default function Home() {
   };
 
   const markdownToHtml = async (markdown: string) => {
+    const options = {};
     const result = await unified()
       .use(remarkParse)
+      .use(rlc)
+      .use(plugin, options)
       .use(remarkGfm)
       .use(remarkRehype, { allowDangerousHtml: true })
       .use(rehypeCodeTitles)
       .use(rehypePrism, { ignoreMissing: true })
       .use(rehypeAutolinkHeadings)
-      .use(rehypeExternalLinks, { target: '_blank', rel: ['nofollow'] })
-      .use(rehypeSlug)
       .use(rehypeStringify, { allowDangerousHtml: true })
+      .use(rehypeSlug)
       .process(markdown);
 
     return result.toString();
