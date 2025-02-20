@@ -40,3 +40,11 @@
 .post pre {
   @apply p-4 mb-9 rounded-md !important;
 }
+
+.post blockquote {
+  @apply border-l-4 border-accent-1 bg-neutral-100 dark:bg-neutral-800 text-primary-1 px-4 py-3 my-6 rounded-md;
+}
+
+.post blockquote p {
+  @apply m-0;
+}
