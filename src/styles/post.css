@@ -59,6 +59,11 @@
   @apply flex items-center font-bold mb-1;
 }
 
+/* 追加: admonition-titleのpタグがある場合のスタイル */
+.admonition>.admonition-title {
+  @apply m-0 text-primary-1;
+}
+
 .admonition p {
   @apply m-0 text-primary-1;
 }
