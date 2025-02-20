@@ -41,6 +41,7 @@
   @apply p-4 mb-9 rounded-md !important;
 }
 
+/* 引用 */
 .post blockquote {
   @apply border-l-4 border-teal-800 dark:border-teal-400 bg-neutral-100 dark:bg-neutral-800 text-primary-1 px-4 py-3 my-6 rounded-md;
 }
@@ -49,62 +50,61 @@
   @apply m-0;
 }
 
-@layer components {
-  .admonition {
-    @apply border-l-4 px-4 py-3 my-6 rounded-md bg-neutral-100 dark:bg-neutral-800;
-  }
+/* 注釈 */
+.admonition {
+  @apply border-l-4 px-4 py-3 my-6 rounded-md bg-neutral-100 dark:bg-neutral-800;
+}
 
-  .admonition-title {
-    @apply flex items-center font-bold mb-1;
-  }
+.admonition-title {
+  @apply flex items-center font-bold mb-1;
+}
 
-  .admonition p {
-    @apply m-0 text-primary-1;
-  }
+.admonition p {
+  @apply m-0 text-primary-1;
+}
 
-  /* カラー設定 */
-  .admonition-note {
-    @apply border-blue-500 text-blue-700 dark:text-blue-400;
-  }
+/* カラー設定 */
+.admonition-note {
+  @apply border-blue-500 text-blue-700 dark:text-blue-400;
+}
 
-  .admonition-tip {
-    @apply border-green-500 text-green-700 dark:text-green-400;
-  }
+.admonition-tip {
+  @apply border-green-500 text-green-700 dark:text-green-400;
+}
 
-  .admonition-important {
-    @apply border-purple-500 text-purple-700 dark:text-purple-400;
-  }
+.admonition-important {
+  @apply border-purple-500 text-purple-700 dark:text-purple-400;
+}
 
-  .admonition-warning {
-    @apply border-yellow-500 text-yellow-700 dark:text-yellow-400;
-  }
+.admonition-warning {
+  @apply border-yellow-500 text-yellow-700 dark:text-yellow-400;
+}
 
-  .admonition-caution {
-    @apply border-red-500 text-red-700 dark:text-red-400;
-  }
+.admonition-caution {
+  @apply border-red-500 text-red-700 dark:text-red-400;
+}
 
-  /* アイコン付きタイトル */
-  .admonition-title::before {
-    @apply mr-2;
-  }
+/* アイコン付きタイトル */
+.admonition-title::before {
+  @apply mr-2;
+}
 
-  .admonition-note .admonition-title::before {
-    content: "ℹ️";
-  }
+.admonition-note .admonition-title::before {
+  content: "ℹ️";
+}
 
-  .admonition-tip .admonition-title::before {
-    content: "💡";
-  }
+.admonition-tip .admonition-title::before {
+  content: "💡";
+}
 
-  .admonition-important .admonition-title::before {
-    content: "📢";
-  }
+.admonition-important .admonition-title::before {
+  content: "📢";
+}
 
-  .admonition-warning .admonition-title::before {
-    content: "⚠️";
-  }
+.admonition-warning .admonition-title::before {
+  content: "⚠️";
+}
 
-  .admonition-caution .admonition-title::before {
-    content: "❗";
-  }
+.admonition-caution .admonition-title::before {
+  content: "❗";
 }
