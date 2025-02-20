@@ -4622,6 +4622,7 @@ remark-gfm@3.0:
 remark-github-beta-blockquote-admonitions@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/remark-github-beta-blockquote-admonitions/-/remark-github-beta-blockquote-admonitions-3.1.1.tgz#eb1d9ed59b2eb151c86a5e6efec8e992f5edd806"
+  integrity sha512-36ofXpQnz9wrZthe0WB1qtNCgflHFsz7VoUG/j+WJU/GxMpo7Tp+qN86s/Tvx6MiusQIDg0BZhWXnfklEXRiVw==
   dependencies:
     unist-util-visit "^5.0.0"
 
