@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ScrollSync, ScrollSyncPane } from 'react-scroll-sync';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeCodeTitles from 'rehype-code-titles';
+import { rehypeGithubAlerts } from 'rehype-github-alerts';
 import rehypePrism from 'rehype-prism-plus';
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
@@ -48,6 +49,7 @@ export default function Home() {
       .use(rehypeAutolinkHeadings)
       .use(rehypeStringify, { allowDangerousHtml: true })
       .use(rehypeSlug)
+      .use(rehypeGithubAlerts, true)
       .process(markdown);
 
     return result.toString();
