@@ -2,7 +2,7 @@
 title: ブログの機能をいろいろ追加
 excerpt: テンプレートから追加したり変えたりした機能
 coverImage: '/assets/blog/preview/cover.webp'
-date: '2024-02-20'
+date: '2025-02-20'
 ogImage:
   url: '/assets/blog/dynamic-routing/cover.webp'
 tags:
