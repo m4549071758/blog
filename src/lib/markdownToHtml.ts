@@ -9,15 +9,16 @@ import remarkGfm from 'remark-gfm';
 import rlc from 'remark-link-card';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
+import remarkYoutube from 'remark-youtube';
 import { unified } from 'unified';
 
 export default async function markdownToHtml(markdown: string) {
-  const options = {};
   const result = await unified()
     .use(remarkParse)
     .use(remarkBreaks)
-    .use(rlc)
     .use(remarkGfm)
+    .use(rlc)
+    .use(remarkYoutube)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeCodeTitles)
     .use(rehypePrism, { ignoreMissing: true })

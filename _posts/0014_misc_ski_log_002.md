@@ -18,7 +18,7 @@ tags:
 
 ## ようつべ
 
-https://youtu.be/yrwoBOHiR2E
+[](https://www.youtube.com/watch?v=yrwoBOHiR2E)
 
 ## 舞子スノーリゾート
 
