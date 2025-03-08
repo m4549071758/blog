@@ -19,6 +19,7 @@ tags:
 ### 2025/03/08
 
 - `remark-youtube`で YouTube 埋め込みを追加
+- `remark-collapse`で折りたたみを追加
 
 ## テンプレート
 
@@ -164,6 +165,12 @@ export default async function markdownToHtml(markdown: string) {
 埋め込みたいリンクをインラインリンク形式で書き、`remark-link-card`の処理を回避
 
 [](https://www.youtube.com/watch?v=yrwoBOHiR2E)
+
+### 折りたたみ
+
+<details><summary>開いてみる</summary>
+見えた🎉🎉🎉
+</details>
 
 ### その他
 
