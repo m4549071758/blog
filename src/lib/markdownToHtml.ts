@@ -2,6 +2,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeCodeTitles from 'rehype-code-titles';
 import { rehypeGithubAlerts } from 'rehype-github-alerts';
 import rehypePrism from 'rehype-prism-plus';
+import rehypeResponsiveIframe from './rehypeResponsiveIframe';
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
 import remarkBreaks from 'remark-breaks';
@@ -26,6 +27,7 @@ export default async function markdownToHtml(markdown: string) {
     .use(rehypeStringify, { allowDangerousHtml: true })
     .use(rehypeSlug)
     .use(rehypeGithubAlerts, true)
+    .use(rehypeResponsiveIframe)
     .process(markdown);
 
   return result.toString();
