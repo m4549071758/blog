@@ -2,7 +2,6 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeCodeTitles from 'rehype-code-titles';
 import { rehypeGithubAlerts } from 'rehype-github-alerts';
 import rehypePrism from 'rehype-prism-plus';
-import rehypeResponsiveIframe from './rehypeResponsiveIframe';
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
 import remarkBreaks from 'remark-breaks';
@@ -12,6 +11,7 @@ import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import remarkYoutube from 'remark-youtube';
 import { unified } from 'unified';
+import rehypeResponsiveIframe from './rehypeResponsiveIframe';
 
 export default async function markdownToHtml(markdown: string) {
   const result = await unified()

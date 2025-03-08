@@ -1,6 +1,6 @@
-import { visit } from 'unist-util-visit';
 import h from 'hastscript';
 import { Plugin } from 'unified';
+import { visit } from 'unist-util-visit';
 
 const rehypeResponsiveIframe: Plugin = () => {
   return (tree) => {
