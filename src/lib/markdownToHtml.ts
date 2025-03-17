@@ -9,15 +9,17 @@ import remarkGfm from 'remark-gfm';
 import rlc from 'remark-link-card';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
+import remarkYoutube from 'remark-youtube';
 import { unified } from 'unified';
+import rehypeResponsiveIframe from './rehypeResponsiveIframe';
 
 export default async function markdownToHtml(markdown: string) {
-  const options = {};
   const result = await unified()
     .use(remarkParse)
     .use(remarkBreaks)
-    .use(rlc)
     .use(remarkGfm)
+    .use(rlc)
+    .use(remarkYoutube)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeCodeTitles)
     .use(rehypePrism, { ignoreMissing: true })
@@ -25,6 +27,7 @@ export default async function markdownToHtml(markdown: string) {
     .use(rehypeStringify, { allowDangerousHtml: true })
     .use(rehypeSlug)
     .use(rehypeGithubAlerts, true)
+    .use(rehypeResponsiveIframe)
     .process(markdown);
 
   return result.toString();
