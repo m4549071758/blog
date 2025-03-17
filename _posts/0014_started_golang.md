@@ -2,7 +2,7 @@
 title: 'Golang、始めました'
 excerpt: 'python -> golang'
 coverImage: '/assets/blog/hello-world/cover.webp'
-date: '2025-02-11'
+date: '2025-03-17'
 ogImage:
   url: '/assets/blog/hello-world/cover.webp'
 tags:
@@ -26,7 +26,8 @@ tags:
 https://github.com/m4549071758/go-wakeonlan
 
 Wake On Lan できる Web アプリです。
-![ブラウザ画像](/assets/blog/0014/001.webp)
+
+![ブラウザ画像](/assets/blog/0015/001.webp)
 
 ハードコードにはなりますが、カード形式で表示してボタンを押すだけで起動できたり、手動で MAC アドレスを入力して起動させたりできます。
 
