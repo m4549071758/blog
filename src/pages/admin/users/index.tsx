@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { login, getAuthToken, isAuthenticated } from '@/lib/authHandler';
 import { MainLayout } from '@/components/features/app/Layout';
+import { login, getAuthToken, isAuthenticated } from '@/lib/authHandler';
 
 interface User {
   id: string;
@@ -14,7 +14,7 @@ const UserListPage = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  var token = '';
+  let token = '';
   useEffect(() => {
     const fetchUsers = async () => {
       try {
