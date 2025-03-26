@@ -6,7 +6,7 @@ const API_BASE_URL = 'http://localhost:8080';
 
 // キャッシュを保持する変数
 let articlesListCache: any[] | null = null;
-let articleDetailCache: Record<string, any> = {};
+const articleDetailCache: Record<string, any> = {};
 
 // 記事一覧をAPIから取得する関数
 async function fetchArticlesList() {

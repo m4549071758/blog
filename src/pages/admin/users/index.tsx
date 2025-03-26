@@ -14,8 +14,9 @@ const UserListPage = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  let token = '';
+
   useEffect(() => {
+    let token = '';
     const fetchUsers = async () => {
       try {
         setIsLoading(true);

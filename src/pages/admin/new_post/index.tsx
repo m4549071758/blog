@@ -36,7 +36,7 @@ export default function Home() {
   };
 
   const markdownToHtml = async (markdown: string) => {
-    const options = {};
+    const _options = {};
     const result = await unified()
       .use(remarkParse)
       .use(remarkBreaks)
