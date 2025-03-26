@@ -1,6 +1,6 @@
 import { Page } from '@/components/pages/page';
 import { paginationOffset } from '@/config/pagination';
-import { getAllPosts, getMaxPage } from '@/lib/api';
+import { getMaxPage, getPaginatedPosts } from '@/lib/api';
 
 type Props = React.ComponentPropsWithoutRef<typeof Page>;
 
@@ -14,35 +14,23 @@ type Params = {
   };
 };
 
-export const getStaticProps = async ({ params }: Params) => {
-  const page = Number(params.page);
+export async function getStaticProps({ params }: Params) {
+  const page = parseInt(params.page);
 
-  const posts = getAllPosts([
+  // awaitを使用して非同期関数を呼び出す
+  const posts = await getPaginatedPosts(page, [
     'title',
     'date',
     'slug',
     'coverImage',
     'excerpt',
-  ]).slice((page - 1) * paginationOffset, page * paginationOffset);
+    'tags',
+  ]);
+
+  const maxPage = await getMaxPage();
 
   return {
-    props: { posts, maxPage: getMaxPage() },
-  };
-};
-
-export async function getStaticPaths() {
-  const pages = Array.from({
-    length: getMaxPage(),
-  }).map((_, idx) => (idx + 1).toString());
-
-  return {
-    paths: pages.map((page) => {
-      return {
-        params: {
-          page,
-        },
-      };
-    }),
-    fallback: false,
+    props: { posts, page, maxPage },
+    revalidate: 60, // 1分ごとに再検証
   };
 }
