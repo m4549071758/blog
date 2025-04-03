@@ -1,5 +1,6 @@
 import { paginationOffset } from '@/config/pagination';
 import { PostType } from '@/types/post';
+import { getAuthToken } from './authenticationHandler';
 
 // APIのベースURL
 const API_BASE_URL =
@@ -159,3 +160,64 @@ export const getRecentPosts = async (count: number, fields: Field[] = []) => {
   const allPosts = await getAllPosts(fields);
   return allPosts.slice(0, count);
 };
+
+// 更新
+// ブログ記事のAPIクライアント関数
+
+type Post = {
+  id?: string;
+  title: string;
+  content: string;
+  slug: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+// 記事IDから記事データを取得
+export async function getPostById(id: string): Promise<Post> {
+  const response = await fetch(`${API_BASE_URL}/api/articles/${id}`);
+
+  if (!response.ok) {
+    throw new Error('記事の取得に失敗しました');
+  }
+
+  return response.json();
+}
+
+// 記事を新規作成
+export async function createPost(postData: Post): Promise<Post> {
+  const token = getAuthToken();
+
+  const response = await fetch(`${API_BASE_URL}/api/articles/add`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(postData),
+  });
+
+  if (!response.ok) {
+    throw new Error('記事の作成に失敗しました');
+  }
+
+  return response.json();
+}
+
+// 記事を更新
+export async function updatePost(id: string, postData: Post): Promise<Post> {
+  const response = await fetch(`${API_BASE_URL}/api/articles/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${getAuthToken()}`,
+    },
+    body: JSON.stringify(postData),
+  });
+
+  if (!response.ok) {
+    throw new Error('記事の更新に失敗しました');
+  }
+
+  return response.json();
+}

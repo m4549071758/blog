@@ -37,8 +37,7 @@ export async function getStaticProps({ params }: Params) {
         content,
       },
     },
-    // インクリメンタル静的再生成のために再検証時間を設定
-    revalidate: 60, // 1分ごとに再検証
+    revalidate: 60,
   };
 }
 
