@@ -93,7 +93,7 @@ https://secure.eicar.org/eicar.com
 
 テストスキャンを実行します。
 
-```text:console
+```text:console showLineNumbers {3}
 # clamscan --infected --remove --recursive /home/user
 /home/user/virus.virus: Eicar-Signature FOUND
 /home/user/virus.virus: Removed.
@@ -227,7 +227,7 @@ smtp-amavis unix -    -    n    -    2 smtp
 maillog はこのようになります。
 removed が表示されていれば送信時のリアルタイムスキャンは OK です。
 
-```text
+```text {24,25} showLineNumbers
 Oct 23 21:23:27 localhost postfix/smtpd[2059609]: connect from unknown[192.168.1.115]
 Oct 23 21:23:27 localhost postfix/smtpd[2059609]: warning: hostname localhost.localdomain does not resolve to address 192.168.1.115
 Oct 23 21:23:27 localhost postfix/smtpd[2059609]: connect from unknown[192.168.1.115]
@@ -266,7 +266,7 @@ https://www.aleph-tec.com/eicar/
 ログはこのようになります。
 remove されていれば受信テストも OK です。
 
-```text
+```text {42,43} showLineNumbers
 Oct 23 21:28:55 localhost postfix/smtpd[2064107]: connect from batch.outbound.your-site.com[205.233.73.32]
 Oct 23 21:28:55 localhost postfix/smtpd[2064107]: connect from batch.outbound.your-site.com[205.233.73.32]
 Oct 23 21:28:55 localhost postfix/smtpd[2064107]: Anonymous TLS connection established from batch.outbound.your-site.com[205.233.73.32]: TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits)
