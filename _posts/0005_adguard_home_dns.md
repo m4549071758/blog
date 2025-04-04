@@ -194,7 +194,7 @@ $ source .bash_profile
 
 ### 初回同期を実行
 
-```text
+```text showLineNumbers {11}
 $ ./adguardhome-sync run
 2024-04-23T22:20:30.794+0900    INFO    sync    sync/sync.go:38 AdGuardHome sync        {"version": "0.6.9", "build": "2024-04-08T16:47:42Z", "os": "linux", "arch": "amd64"}
 2024-04-23T22:20:30.795+0900    INFO    sync    sync/http.go:63 Starting API server     {"port": 8080}
