@@ -266,7 +266,7 @@ https://www.aleph-tec.com/eicar/
 ログはこのようになります。
 remove されていれば受信テストも OK です。
 
-```text {42,43} showLineNumbers
+```text {43,44} showLineNumbers
 Oct 23 21:28:55 localhost postfix/smtpd[2064107]: connect from batch.outbound.your-site.com[205.233.73.32]
 Oct 23 21:28:55 localhost postfix/smtpd[2064107]: connect from batch.outbound.your-site.com[205.233.73.32]
 Oct 23 21:28:55 localhost postfix/smtpd[2064107]: Anonymous TLS connection established from batch.outbound.your-site.com[205.233.73.32]: TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits)
