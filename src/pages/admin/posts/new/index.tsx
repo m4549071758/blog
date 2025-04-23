@@ -23,7 +23,8 @@ export default function NewPostPage() {
   const [saveMessage, setSaveMessage] = useState('');
 
   if (!authToken) {
-    throw new Error('認証トークンがありません。ログインしてください。');
+    alert('ログインしてください');
+    location.href = 'https://www.katori.dev/admin/login';
   }
 
   const handleImageDragOver = (e: React.DragEvent<HTMLTextAreaElement>) => {
@@ -53,7 +54,7 @@ export default function NewPostPage() {
   const imageUploadHandler = async (file: File) => {
     const formData = new FormData();
     formData.append('image', file);
-    const response = await fetch('https://www.katori.dev/api/image/upload', {
+    const response = await fetch('https://www.katori.dev/api/images/upload', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${authToken}`,
