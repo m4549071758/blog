@@ -14,31 +14,32 @@ type Params = {
 };
 
 export const getStaticProps = async ({ params }: Params) => {
-  const posts = getAllPosts([
+  // awaitを追加
+  const allPosts = await getAllPosts([
     'title',
     'date',
     'slug',
     'coverImage',
     'excerpt',
     'tags',
-  ]).filter((post) => post.tags?.includes(params.tag));
+  ]);
+
+  const posts = allPosts.filter((post) => post.tags?.includes(params.tag));
 
   return {
-    props: { posts },
+    props: { posts, tag: params.tag }, // タグ名も渡す
   };
 };
 
 export async function getStaticPaths() {
-  const tags = getAllPosts(['tags']).flatMap((post) => post.tags);
+  const posts = await getAllPosts(['tags']);
+  const tags = posts.flatMap((post) => post.tags || []);
+  const uniqueTags = Array.from(new Set(tags));
 
   return {
-    paths: tags.map((tag) => {
-      return {
-        params: {
-          tag,
-        },
-      };
-    }),
+    paths: uniqueTags.map((tag) => ({
+      params: { tag },
+    })),
     fallback: false,
   };
 }
