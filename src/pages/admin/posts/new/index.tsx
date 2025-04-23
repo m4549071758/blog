@@ -24,7 +24,7 @@ export default function NewPostPage() {
 
   if (!authToken) {
     console.log('ログインしてください');
-    location.href = 'https://www.katori.dev/admin/login';
+    window.location.href = '/admin/login';
   }
 
   const handleImageDragOver = (e: React.DragEvent<HTMLTextAreaElement>) => {
