@@ -65,7 +65,8 @@ export default function NewPostPage() {
       console.log('画像のアップロードに失敗しました');
     }
     const data = await response.json();
-    return data.image_url;
+    console.log(data);
+    return data.file_url;
   };
 
   const updatePreview = async (markdown: string) => {
