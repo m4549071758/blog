@@ -19,16 +19,25 @@ export default function Home() {
   const [html, setHtml] = useState<string>('');
   const textArea = useRef<HTMLTextAreaElement>(null);
 
-  const onImageDrop = textArea.current?.addEventListener(
-    'drop',
-    (event: DragEvent) => {
-      event.preventDefault();
-      const files = event.dataTransfer?.files;
-      console.log(files);
-    },
-  );
+  // ドラッグオーバーイベントハンドラ
+  const handleDragOver = (event: React.DragEvent<HTMLTextAreaElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
 
-  const imageUploadHandler = async () => {};
+  // ドロップイベントハンドラ
+  const handleDrop = (event: React.DragEvent<HTMLTextAreaElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const files = Array.from(event.dataTransfer.files);
+
+    files.forEach((file) => {
+      console.log('ドロップされたファイル名:', file.name);
+      console.log('ファイルタイプ:', file.type);
+      console.log('ファイルサイズ:', file.size, 'バイト');
+    });
+  };
 
   const handleMarkdownChange = async (
     event: React.ChangeEvent<HTMLTextAreaElement>,
@@ -92,6 +101,9 @@ export default function Home() {
                     value={markdown}
                     onChange={handleMarkdownChange}
                     ref={textArea}
+                    onDragOver={handleDragOver}
+                    onDrop={handleDrop}
+                    placeholder="ここに画像をドラッグ&ドロップしてください"
                   />
                 </ScrollSyncPane>
                 <ScrollSyncPane>
