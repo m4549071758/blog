@@ -23,7 +23,7 @@ export default function NewPostPage() {
   const [saveMessage, setSaveMessage] = useState('');
 
   if (!authToken) {
-    alert('ログインしてください');
+    console.log('ログインしてください');
     location.href = 'https://www.katori.dev/admin/login';
   }
 
@@ -62,7 +62,7 @@ export default function NewPostPage() {
       body: formData,
     });
     if (!response.ok) {
-      throw new Error('画像のアップロードに失敗しました');
+      console.log('画像のアップロードに失敗しました');
     }
     const data = await response.json();
     return data.image_url;
