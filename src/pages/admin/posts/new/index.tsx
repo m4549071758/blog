@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { PostBody } from '@/components/features/post/Post/PostBody';
 import { createPost } from '@/lib/api';
@@ -27,6 +27,8 @@ export default function NewPostPage() {
     window.location.href = '/admin/login';
   }
 
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
   const handleImageDragOver = (e: React.DragEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -42,7 +44,6 @@ export default function NewPostPage() {
     if (files.length === 0) return;
 
     try {
-      // Promisesで全部同時にやる
       const uploadPromises = files.map((file) => imageUploadHandler(file));
       const imageUrls = await Promise.all(uploadPromises);
 
@@ -50,9 +51,11 @@ export default function NewPostPage() {
         console.log(`アップロード完了: ${file.name} → ${imageUrls[idx]}`);
       });
 
-      // markdownの画像リンク形式で挿入処理
-      const textarea = e.currentTarget;
+      // textareaRef からカーソル位置を取得
+      const textarea = textareaRef.current;
+      if (!textarea) return;
       const cursorPos = textarea.selectionStart;
+
       const markdownInsert = imageUrls
         .map((url, i) => `![${files[i].name}](${url})`)
         .join('\n');
@@ -61,7 +64,19 @@ export default function NewPostPage() {
         markdownInsert +
         post.content.slice(cursorPos);
       setPost({ ...post, content: newContent });
+
+      // プレビュー更新
       updatePreview(newContent);
+
+      // カーソル移動
+      setTimeout(() => {
+        if (textareaRef.current) {
+          const pos = cursorPos + markdownInsert.length;
+          textareaRef.current.selectionStart = pos;
+          textareaRef.current.selectionEnd = pos;
+          textareaRef.current.focus();
+        }
+      }, 0);
     } catch (error) {
       console.error('画像のアップロードに失敗しました', error);
     }
@@ -266,6 +281,7 @@ export default function NewPostPage() {
           </label>
           <textarea
             id="content"
+            ref={textareaRef}
             value={post.content}
             onChange={handleContentChange}
             onDragOver={handleImageDragOver}
