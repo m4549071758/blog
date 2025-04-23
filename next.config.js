@@ -29,13 +29,15 @@ const nextConfig = {
     { dev, dir, outDir, distDir, buildId },
   ) {
     // defaultPathMapからadmin関連のパスを除外
-    const pathMap = { ...defaultPathMap };
-    Object.keys(pathMap).forEach((path) => {
-      if (path.startsWith('/admin')) {
-        delete pathMap[path];
+    const filteredPathMap = {};
+
+    Object.entries(defaultPathMap).forEach(([path, config]) => {
+      if (!path.startsWith('/admin')) {
+        filteredPathMap[path] = config;
       }
     });
-    return pathMap;
+
+    return filteredPathMap;
   },
 };
 
