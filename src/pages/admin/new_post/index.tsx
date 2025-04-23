@@ -19,14 +19,15 @@ export default function Home() {
   const [html, setHtml] = useState<string>('');
   const textArea = useRef<HTMLTextAreaElement>(null);
 
-  // ドラッグオーバーイベントハンドラ
-  const handleDragOver = (event: React.DragEvent<HTMLTextAreaElement>) => {
+  // ドラッグイベントの共通処理
+  const handleDragEvent = (event: React.DragEvent<HTMLTextAreaElement>) => {
     event.preventDefault();
     event.stopPropagation();
   };
 
   // ドロップイベントハンドラ
   const handleDrop = (event: React.DragEvent<HTMLTextAreaElement>) => {
+    // デフォルト動作を防止
     event.preventDefault();
     event.stopPropagation();
 
@@ -101,7 +102,9 @@ export default function Home() {
                     value={markdown}
                     onChange={handleMarkdownChange}
                     ref={textArea}
-                    onDragOver={handleDragOver}
+                    onDragOver={handleDragEvent}
+                    onDragEnter={handleDragEvent}
+                    onDragLeave={handleDragEvent}
                     onDrop={handleDrop}
                     placeholder="ここに画像をドラッグ&ドロップしてください"
                   />
