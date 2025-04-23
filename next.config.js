@@ -22,6 +22,21 @@ const nextConfig = {
     }
     return config;
   },
+
+  // 管理者ページを静的エクスポート対象から除外
+  exportPathMap: async function (
+    defaultPathMap,
+    { dev, dir, outDir, distDir, buildId },
+  ) {
+    // defaultPathMapからadmin関連のパスを除外
+    const pathMap = { ...defaultPathMap };
+    Object.keys(pathMap).forEach((path) => {
+      if (path.startsWith('/admin')) {
+        delete pathMap[path];
+      }
+    });
+    return pathMap;
+  },
 };
 
 module.exports = nextConfig;
