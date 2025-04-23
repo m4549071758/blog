@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { PostBody } from '@/components/features/post/Post/PostBody';
 import { createPost } from '@/lib/api';
@@ -23,10 +23,12 @@ export default function NewPostPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
 
-  if (!authToken) {
-    console.log('ログインしてください');
-    window.location.href = '/admin/login';
-  }
+  useEffect(() => {
+    if (!authToken) {
+      console.log('ログインしてください');
+      window.location.href = '/admin/login';
+    }
+  }, []);
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
