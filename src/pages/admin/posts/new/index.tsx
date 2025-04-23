@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { PostBody } from '@/components/features/post/Post/PostBody';
 import { createPost } from '@/lib/api';
+import { getAuthToken } from '@/lib/authHandler';
 import markdownToHtmlForEditor from '@/lib/markdownToHtmlForEditor';
 
 export default function NewPostPage() {
   const router = useRouter();
-
-  // スラッグを削除
+  const authToken = getAuthToken();
   const [post, setPost] = useState({
     title: '',
     content: '',
@@ -17,24 +17,69 @@ export default function NewPostPage() {
     tags: '',
     datetime: new Date().toISOString().substring(0, 10),
   });
+
   const [htmlContent, setHtmlContent] = useState('');
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
 
-  // プレビュー更新関数
+  if (!authToken) {
+    router.push('/admin/login');
+    return null;
+  }
+
+  const handleImageDragOver = (e: React.DragEvent<HTMLTextAreaElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleImageDrop = async (e: React.DragEvent<HTMLTextAreaElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      const file = files[0];
+      if (file.type.startsWith('image/')) {
+        try {
+          const imageUrl = await imageUploadHandler(file);
+          console.log(imageUrl);
+          // ここにカーソル挿入処理書く予定
+        } catch (error) {
+          console.error('画像のアップロードに失敗しました', error);
+        }
+      }
+    }
+  };
+
+  const imageUploadHandler = async (file: File) => {
+    const formData = new FormData();
+    formData.append('image', file);
+    const response = await fetch('https://www.katori.dev/api/image/upload', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+      body: formData,
+    });
+    if (!response.ok) {
+      throw new Error('画像のアップロードに失敗しました');
+    }
+    const data = await response.json();
+    return data.image_url;
+  };
+
   const updatePreview = async (markdown: string) => {
     const html = await markdownToHtmlForEditor(markdown);
     setHtmlContent(html);
   };
 
-  // コンテンツ変更時のハンドラ
+  // コンテンツ変更ハンドラ
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newContent = e.target.value;
     setPost({ ...post, content: newContent });
     updatePreview(newContent);
   };
 
-  // タイトル変更ハンドラ（スラッグ自動生成を削除）
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTitle = e.target.value;
     setPost({
@@ -43,13 +88,12 @@ export default function NewPostPage() {
     });
   };
 
-  // 投稿保存ハンドラ
   const handleSave = async () => {
     setIsSaving(true);
     setSaveMessage('');
 
     try {
-      // 入力検証
+      // 検証
       if (!post.title.trim()) {
         throw new Error('タイトルを入力してください');
       }
@@ -130,8 +174,6 @@ export default function NewPostPage() {
         />
       </div>
 
-      {/* スラッグフィールドを削除 */}
-
       <div className="mb-4">
         <label htmlFor="cover_image" className="block font-medium mb-1">
           カバー画像URL
@@ -209,6 +251,8 @@ export default function NewPostPage() {
             id="content"
             value={post.content}
             onChange={handleContentChange}
+            onDragOver={handleImageDragOver}
+            onDrop={handleImageDrop}
             className="w-full h-[calc(100%-2rem)] p-2 border rounded font-mono"
             placeholder="# マークダウンで記事を作成できます"
           ></textarea>
