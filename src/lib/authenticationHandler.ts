@@ -1,5 +1,8 @@
 import Cookies from 'js-cookie';
 
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || 'https://localhost:8080';
+
 // トークンを取得
 export const getAuthToken = (): string | undefined => {
   return Cookies.get('auth_token');
@@ -19,7 +22,7 @@ export const validateToken = async (): Promise<boolean> => {
   }
 
   try {
-    const response = await fetch('http://localhost:8080/api/is_Auth', {
+    const response = await fetch(`${API_BASE_URL}/api/is_Auth`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
