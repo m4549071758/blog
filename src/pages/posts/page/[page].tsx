@@ -13,6 +13,22 @@ type Params = {
   };
 };
 
+export async function getStaticPaths() {
+  const maxPage = await getMaxPage();
+
+  const paths = [];
+  for (let page = 1; page <= maxPage; page++) {
+    paths.push({
+      params: { page: page.toString() },
+    });
+  }
+
+  return {
+    paths,
+    fallback: 'blocking',
+  };
+}
+
 export async function getStaticProps({ params }: Params) {
   const page = parseInt(params.page);
 
