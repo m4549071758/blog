@@ -23,8 +23,7 @@ export default function NewPostPage() {
   const [saveMessage, setSaveMessage] = useState('');
 
   if (!authToken) {
-    router.push('/admin/login');
-    return null;
+    throw new Error('認証トークンがありません。ログインしてください。');
   }
 
   const handleImageDragOver = (e: React.DragEvent<HTMLTextAreaElement>) => {
