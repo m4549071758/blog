@@ -104,7 +104,7 @@ export default function AdminPosts() {
         </div>
       ) : (
         <div className="bg-white rounded shadow overflow-hidden">
-          {articles.length === 0 ? (
+          {articles.length === null ? (
             <div className="p-6 text-center text-gray-500">
               記事がありません。新しい記事を作成してください。
             </div>
