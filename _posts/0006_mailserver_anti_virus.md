@@ -10,7 +10,7 @@ tags:
   - 'security'
 ---
 
-# はじめに
+## はじめに
 
 最近、Gmail から前回作ったメールサーバーに移行し始めています。
 
@@ -19,9 +19,9 @@ https://qiita.com/katori_m/items/58b9a49b775b7a7c31d1
 DKIM や SPF などの対策については行っているものの、送受信するメールに対するウイルス対策が欠けていました。
 そこで、Linux ユーザーお馴染みの`ClamAV`を使ってリアルタイムウイルススキャンが出来るようにしたいと思います。
 
-# 使うもの
+## 使うもの
 
-## ClamAV
+### ClamAV
 
 https://www.clamav.net/
 
@@ -29,7 +29,7 @@ https://www.clamav.net/
 軽量とは言っても 1.5GB くらいメモリを喰うので、それなりの空きメモリが必要です。
 古くからあり、Linux ユーザーにはお馴染みかと思います。
 
-### システム要件について
+#### システム要件について
 
 https://docs.clamav.net/Introduction.html
 
@@ -50,16 +50,16 @@ CPU: 1 コア 2.0GHz 以上
 RAM: 3GB + その他のアプリケーション用リソース
 とのことなので、軽量とは言ってもかなりリソースを消費します。
 
-## Amavisd
+### Amavisd
 
 https://wiki.archlinux.jp/index.php/Amavis
 
 メーラーと`ClamAV`を繋ぐためのインターフェース。
 SMTP を話せるので、`Postfix`とそのままガッチャンコできます。
 
-# 構築
+## 構築
 
-## インストール
+### インストール
 
 `epel-release`を入れておいてください。
 
@@ -67,11 +67,11 @@ SMTP を話せるので、`Postfix`とそのままガッチャンコできます
 # dnf install amavisd-new clamd perl-Digest-SHA1 perl-IO-stringy
 ```
 
-## 設定
+### 設定
 
-### ClamAV
+#### ClamAV
 
-#### 定義ファイル更新
+##### 定義ファイル更新
 
 ```text:console
 # freshclam
@@ -81,7 +81,7 @@ main.cvd database is up-to-date (version: 62, sigs: 6647427, f-level: 90, builde
 bytecode.cvd database is up-to-date (version: 335, sigs: 86, f-level: 90, builder: raynman)
 ```
 
-#### 動作確認
+##### 動作確認
 
 テストウイルスを作成します。
 このリンクが不安な方は自分で調べるなり ChatGPT で作るなりしてください。
@@ -113,7 +113,7 @@ End Date:   2024:10:23 21:16:45
 
 検知&削除されれば OK です。
 
-#### /etc/clamd.d/scan.conf
+##### /etc/clamd.d/scan.conf
 
 それぞれコメントアウトします。
 
@@ -147,9 +147,9 @@ LocalSocket /run/clamd.scan/clamd.sock
 # systemctl enable --now clamd@scan
 ```
 
-### amavisd
+#### amavisd
 
-#### /etc/amavisd/amavisd.conf
+##### /etc/amavisd/amavisd.conf
 
 設定ファイル 23 行目
 
@@ -173,9 +173,9 @@ $forward_method = 'smtp:[127.0.0.1]:10025';
 $myhostname = 'メールサーバーのFQDN' #例: mail.example.com
 ```
 
-### Postfix
+#### Postfix
 
-#### /etc/postfix/main.cf
+##### /etc/postfix/main.cf
 
 設定ファイル 最終行に追記
 `amavisd`が listen している 10024 に向けてメールを投げつけます。
@@ -184,7 +184,7 @@ $myhostname = 'メールサーバーのFQDN' #例: mail.example.com
 content_filter=smtp-amavis:[127.0.0.1]:10024
 ```
 
-#### /etc/postfix/master.cf
+##### /etc/postfix/master.cf
 
 設定ファイル 最終行に追記
 `amavisd`にメールを投げたあと、10025 にメールが返ってくるのでそれを listen してあげます。
@@ -210,16 +210,16 @@ smtp-amavis unix -    -    n    -    2 smtp
     -o smtpd_hard_error_limit=1000
 ```
 
-### 自動起動設定 & 起動
+#### 自動起動設定 & 起動
 
 ```text:console
 # systemctl enable --now amavisd
 # systemctl restart postfix
 ```
 
-# メール送受信テスト
+## メール送受信テスト
 
-## 送信テスト
+### 送信テスト
 
 ウイルスファイルを添付して送信してみます。
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/532025/77d6aec5-cad4-1d76-853e-a0377c10520d.png)
@@ -255,7 +255,7 @@ Oct 23 21:23:28 localhost postfix/qmgr[2022765]: C83AA4E296B: removed
 Oct 23 21:23:28 localhost postfix/qmgr[2022765]: C83AA4E296B: removed
 ```
 
-## 受信テスト
+### 受信テスト
 
 https://www.aleph-tec.com/eicar/
 
@@ -313,6 +313,6 @@ Oct 23 21:28:59 localhost postfix/qmgr[2022765]: E184C4E29BF: removed
 Oct 23 21:28:59 localhost postfix/qmgr[2022765]: E184C4E29BF: removed
 ```
 
-# 参考にしたサイト
+## 参考にしたサイト
 
 https://www.server-world.info/query?os=CentOS_8&p=mail&f=7

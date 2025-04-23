@@ -15,7 +15,8 @@ type Params = {
 };
 
 export async function getStaticProps({ params }: Params) {
-  const post = getPostBySlug(params.slug, [
+  // awaitを使用してgetPostBySlugの結果を待つ
+  const post = await getPostBySlug(params.slug, [
     'title',
     'date',
     'slug',
@@ -26,6 +27,7 @@ export async function getStaticProps({ params }: Params) {
     'excerpt',
     'tags',
   ]);
+
   const content = await markdownToHtml(post.content || '');
 
   return {
@@ -35,20 +37,32 @@ export async function getStaticProps({ params }: Params) {
         content,
       },
     },
+    revalidate: 60,
   };
 }
 
 export async function getStaticPaths() {
-  const posts = getAllPosts(['slug']);
+  try {
+    // awaitを使用してgetAllPostsの結果を待つ
+    const posts = await getAllPosts(['slug']);
 
-  return {
-    paths: posts.map((post) => {
-      return {
+    // 有効なスラグを持つ投稿のみをフィルタリング
+    const validPosts = posts.filter((post) => post.slug);
+
+    return {
+      paths: validPosts.map((post) => ({
         params: {
           slug: post.slug,
         },
-      };
-    }),
-    fallback: false,
-  };
+      })),
+      // 未生成のパスは生成を試みる
+      fallback: 'blocking',
+    };
+  } catch (error) {
+    console.error('Error in getStaticPaths:', error);
+    return {
+      paths: [],
+      fallback: 'blocking',
+    };
+  }
 }
