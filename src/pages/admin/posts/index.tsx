@@ -22,7 +22,7 @@ export default function AdminPosts() {
     const fetchArticles = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch('http://localhost:8080/api/articles', {
+        const response = await fetch('https://ww.katori.dev/api/articles', {
           headers: {
             ...authHeader(),
           },
