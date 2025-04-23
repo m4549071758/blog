@@ -36,18 +36,34 @@ export default function NewPostPage() {
     e.preventDefault();
     e.stopPropagation();
 
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-      const file = files[0];
-      if (file.type.startsWith('image/')) {
-        try {
-          const imageUrl = await imageUploadHandler(file);
-          console.log(imageUrl);
-          // ここにカーソル挿入処理書く予定
-        } catch (error) {
-          console.error('画像のアップロードに失敗しました', error);
-        }
-      }
+    const files = Array.from(e.dataTransfer.files).filter((file) =>
+      file.type.startsWith('image/'),
+    );
+    if (files.length === 0) return;
+
+    try {
+      // Promisesで全部同時にやる
+      const uploadPromises = files.map((file) => imageUploadHandler(file));
+      const imageUrls = await Promise.all(uploadPromises);
+
+      files.forEach((file, idx) => {
+        console.log(`アップロード完了: ${file.name} → ${imageUrls[idx]}`);
+      });
+
+      // markdownの画像リンク形式で挿入処理
+      const textarea = e.currentTarget;
+      const cursorPos = textarea.selectionStart;
+      const markdownInsert = imageUrls
+        .map((url, i) => `![${files[i].name}](${url})`)
+        .join('\n');
+      const newContent =
+        post.content.slice(0, cursorPos) +
+        markdownInsert +
+        post.content.slice(cursorPos);
+      setPost({ ...post, content: newContent });
+      updatePreview(newContent);
+    } catch (error) {
+      console.error('画像のアップロードに失敗しました', error);
     }
   };
 
