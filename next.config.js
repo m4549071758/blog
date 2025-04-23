@@ -23,21 +23,18 @@ const nextConfig = {
     return config;
   },
 
-  // 管理者ページを静的エクスポート対象から除外
+  output: 'standalone',
+  // エクスポート時に静的に出せないページを除外する
   exportPathMap: async function (
     defaultPathMap,
     { dev, dir, outDir, distDir, buildId },
   ) {
-    // defaultPathMapからadmin関連のパスを除外
-    const filteredPathMap = {};
+    const pathMap = {
+      ...defaultPathMap,
+    };
+    delete pathMap['/admin/posts/new'];
 
-    Object.entries(defaultPathMap).forEach(([path, config]) => {
-      if (!path.startsWith('/admin')) {
-        filteredPathMap[path] = config;
-      }
-    });
-
-    return filteredPathMap;
+    return pathMap;
   },
 };
 
