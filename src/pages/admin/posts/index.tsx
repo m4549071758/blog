@@ -33,7 +33,7 @@ export default function AdminPosts() {
         }
 
         const data = await response.json();
-        setArticles(data);
+        setArticles(Array.isArray(data) ? data : []);
       } catch (err) {
         console.error('記事一覧取得エラー:', err);
         setError(
@@ -57,7 +57,7 @@ export default function AdminPosts() {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/api/articles/${articleId}`,
+        `https://www.katori.dev/api/articles/${articleId}`,
         {
           method: 'DELETE',
           headers: {
@@ -104,7 +104,7 @@ export default function AdminPosts() {
         </div>
       ) : (
         <div className="bg-white rounded shadow overflow-hidden">
-          {articles.length === null ? (
+          {articles.length === 0 ? (
             <div className="p-6 text-center text-gray-500">
               記事がありません。新しい記事を作成してください。
             </div>
