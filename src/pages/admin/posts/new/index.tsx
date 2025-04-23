@@ -145,6 +145,7 @@ export default function NewPostPage() {
       const postData = {
         ...post,
         tags: tagsArray,
+        slug: '',
       };
 
       // 新規投稿作成APIを呼び出し

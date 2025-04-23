@@ -11,7 +11,7 @@ tags:
   - '自宅サーバー'
 ---
 
-# はじめに
+## はじめに
 
 https://qiita.com/m4549071758/items/cfaa9743eb417e985240
 
@@ -23,9 +23,9 @@ https://qiita.com/m4549071758/items/cfaa9743eb417e985240
 
 今回は`AlmaLinux 9`で設定を進めていきます。Ubuntu などの Debian 系ディストロは、`systemd-resolve`が 53 番ポートをリッスンしているらしいので止めておいてください。
 
-# AdGuard Home 構築
+## AdGuard Home 構築
 
-## AdGuard Home のインストール
+### AdGuard Home のインストール
 
 まずは AdGuard 本体をインストールしていきます。
 公式でワンラインインストールコマンドがあるのでそちらを利用します。
@@ -42,29 +42,29 @@ https://github.com/AdguardTeam/AdGuardHome#automated-install-linux-and-mac
 # systemctl enable --now AdGuardHome.service
 ```
 
-## AdGuard Home の初期設定
+### AdGuard Home の初期設定
 
 無事起動したら、`http://SERVER_ADDRESS:3000`にアクセスすると初期セットアップ画面が開くと思います。
 
-### ウェルカム画面
+#### ウェルカム画面
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/532025/ee528dfc-3ba5-e059-3dd3-a4067cf82d9f.png)
 
 基本的にはウィザードに従って必要なところを入力していけば OK です。
 
-### インターフェース設定
+#### インターフェース設定
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/532025/c362191f-936a-7564-310f-0494e7e84153.png)
 
 Web インターフェース用のポートが埋まっている場合は好きなポート番号に変えても構いませんが、この後に同期用ツールでベーシック認証に使用するので覚えておいてください。
 
-### ユーザー設定
+#### ユーザー設定
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/532025/3308d3f0-c609-e5da-a391-8520c9352164.png)
 
 こちらのユーザー名とパスワードも後で使用します。
 
-### 完了画面
+#### 完了画面
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/532025/f9fc7abf-1ddc-15d0-3f84-bc8db8f75fa8.png)
 
@@ -73,11 +73,11 @@ Web インターフェース用のポートが埋まっている場合は好き�
 ここまで設定が終わったら、2 台目も初期セットアップをしてダッシュボードにログインできる状態までセットアップしてください。
 2 台目のサーバーは自動で設定が同期されるので、この下の DNS 及び広告ブロック設定は必要ありません。
 
-# DNS 及び広告ブロック設定
+## DNS 及び広告ブロック設定
 
-## DNS 設定
+### DNS 設定
 
-### アップストリーム DNS サーバー設定
+#### アップストリーム DNS サーバー設定
 
 AdGuard Home が問い合わせ先として使用する DNS サーバーを設定します。
 `設定`->`DNS設定`の`アップストリームDNSサーバー`を追加します。
@@ -101,7 +101,7 @@ https://dns10.quad9.net:443/dns-query
 
 下の方にある`DNSSECを有効にする`にチェックを入れると、DNS 問い合わせ時に DNSSEC の検証を行ってくれます。
 
-### 暗号化設定
+#### 暗号化設定
 
 DoH 及び DoT を有効化するために、証明書を設定します。
 
@@ -119,23 +119,23 @@ certbot で取得した場合証明書と秘密鍵は、`/etc/letsencrypt/live/�
 正しく設定できていれば、証明書チェーンは有効です、となるのでそのまま構成を保存してください。
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/532025/9854e5ea-b6a5-36c7-ed19-9ab509011752.png)
 
-## 内部ネットワーク用 DNS 設定
+### 内部ネットワーク用 DNS 設定
 
 内部ネットワーク用の DNS 設定は、ナビゲーションの`フィルタ`->`DNS書き換え`からアクセスします。
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/532025/b913713e-d0d5-a24f-2862-88f89ab4339b.png)
 リライトしたいドメイン名と IP アドレスを入力して保存するだけです。
 
-## 広告ブロック設定
+### 広告ブロック設定
 
 広告ブロック用のフィルタ設定をします。
 
-### デフォルトフィルタ
+#### デフォルトフィルタ
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/532025/fe1f19cd-2df4-fde3-b8bb-1eeb98561dc4.png)
 `フィルタ`->`DNSブロックリスト`を開き、`AdGuard DNS filter`と`AdAway Default Blocklist`を有効化します。
 
-### カスタムフィルタ
+#### カスタムフィルタ
 
 280blocker や、なん j フィルタなどを追加したい場合は、`DNSブロックリスト`の`ブロックリストを追加する`->`カスタムリストを追加する`から追加できます。
 
@@ -153,7 +153,7 @@ https://wikiwiki.jp/nanj-adguard/
 
 https://wikiwiki.jp/nanj-adguard/%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%83%BC%E3%83%AA%E3%82%B9%E3%83%88
 
-# AdguardHome-sync 構築
+## AdguardHome-sync 構築
 
 ここからは同期ツールの設定をします。
 
@@ -236,7 +236,7 @@ REPLICA1_PASSWORD=2台目で設定したパスワード
 これで冗長化設定および広告ブロック設定は終了です。
 いろいろと自分でいじってみるといいと思います。
 
-# おまけ
+## おまけ
 
 フィルタによっては CDN もブロックしてしまうものがあると思います。
 ほかにも、ブロックされたくないドメインは明示的に許可することができます。

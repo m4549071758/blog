@@ -123,7 +123,7 @@ cache                                               -      -      -      -      
 
 両方とも動作しているのがわかると思います。
 
-![ZFSキャッシュ](/assets/blog/0009/001.webp)
+![ZFSキャッシュ](https://www.katori.dev/api/images/01966271-5ef3-73ec-a6b6-2365ecbf52ad.webp)
 
 ## おわり
 
