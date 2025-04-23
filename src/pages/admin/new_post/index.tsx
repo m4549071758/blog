@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { ScrollSync, ScrollSyncPane } from 'react-scroll-sync';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeCodeTitles from 'rehype-code-titles';
@@ -17,6 +17,18 @@ import { PostBody } from '@/components/features/post/Post/PostBody';
 export default function Home() {
   const [markdown, setMarkdown] = useState<string>('# Hello, world!');
   const [html, setHtml] = useState<string>('');
+  const textArea = useRef<HTMLTextAreaElement>(null);
+
+  const onImageDrop = textArea.current?.addEventListener(
+    'drop',
+    (event: DragEvent) => {
+      event.preventDefault();
+      const files = event.dataTransfer?.files;
+      console.log(files);
+    },
+  );
+
+  const imageUploadHandler = async () => {};
 
   const handleMarkdownChange = async (
     event: React.ChangeEvent<HTMLTextAreaElement>,
@@ -79,6 +91,7 @@ export default function Home() {
                     className="w-1/2 p-4 border-r border-gray-300 overflow-auto"
                     value={markdown}
                     onChange={handleMarkdownChange}
+                    ref={textArea}
                   />
                 </ScrollSyncPane>
                 <ScrollSyncPane>
