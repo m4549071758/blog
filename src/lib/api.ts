@@ -37,11 +37,24 @@ async function fetchArticleDetail(articleId: string) {
   try {
     const response = await fetch(`${API_BASE_URL}/api/articles/${articleId}`);
 
+    // 404エラーの場合は特別に処理
+    if (response.status === 404) {
+      console.warn(`Article not found: ${articleId}`);
+      return null;
+    }
+
     if (!response.ok) {
       throw new Error(`API request failed: ${response.status}`);
     }
 
     const data = await response.json();
+
+    // レスポンスが空または無効なデータの場合
+    if (!data || typeof data !== 'object') {
+      console.warn(`Invalid data received for article ID ${articleId}`);
+      return null;
+    }
+
     articleDetailCache[articleId] = data;
     return data;
   } catch (error) {
@@ -94,6 +107,17 @@ export const getPostBySlug = async (slug: string, fields: string[] = []) => {
     tags: 'tags',
     date: 'datetime',
   };
+
+  // 必須フィールドが欠けていないか確認
+  const hasRequiredFields = ['title', 'content'].every(
+    (field) =>
+      typeof articleDetail[fieldMapping[field] || field] !== 'undefined',
+  );
+
+  if (!hasRequiredFields) {
+    console.warn(`Article ${slug} is missing required fields`);
+    return {}; // 必須フィールドがない場合は空オブジェクトを返す
+  }
 
   fields.forEach((field) => {
     if (field === 'slug') {

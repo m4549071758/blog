@@ -28,7 +28,7 @@ export default function NewPostPage() {
       console.log('ログインしてください');
       window.location.href = '/admin/login';
     }
-  }, []);
+  }, [authToken]);
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
