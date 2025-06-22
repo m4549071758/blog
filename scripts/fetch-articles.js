@@ -2,8 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 // APIのベースURL
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8080';
+const API_BASE_URL = 'https://www.katori.dev';
 
 // APIから記事データを取得してJSONファイルに保存
 async function fetchAndSaveArticles() {
