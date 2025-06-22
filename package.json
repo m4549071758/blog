@@ -4,13 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "npm run generate-static-files && next build && next export",
     "export": "next export",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "generate-static-files": "node scripts/generate-sitemap.js && node scripts/generate-rss.js"
   },
   "devDependencies": {
     "@mapbox/rehype-prism": "^0.8.0",

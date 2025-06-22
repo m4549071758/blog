@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Katori's blog</title>
+    <link>http://localhost:3000</link>
+    <description>Katori's Tech blog - プログラミング、技術、ライフスタイルについて</description>
+    <language>ja</language>
+    <lastBuildDate>Sun, 22 Jun 2025 06:49:00 GMT</lastBuildDate>
+    <atom:link href="http://localhost:3000/feed.xml" rel="self" type="application/rss+xml" />
+    
+        <item>
+      <title><![CDATA[Golang、始めました]]></title>
+      <link>http://localhost:3000/posts/0014_started_golang</link>
+      <description><![CDATA[python -> golang]]></description>
+      <pubDate>Mon, 17 Mar 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">http://localhost:3000/posts/0014_started_golang</guid>
+            <category>diary</category>
+        <category>miscellaneous</category>
+        <category>golang</category>
+    </item>
+    <item>
+      <title><![CDATA[ブログの機能をいろいろ追加]]></title>
+      <link>http://localhost:3000/posts/0008_blog_functions</link>
+      <description><![CDATA[テンプレートから追加したり変えたりした機能]]></description>
+      <pubDate>Sat, 08 Mar 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">http://localhost:3000/posts/0008_blog_functions</guid>
+            <category>miscellaneous</category>
+    </item>
+    <item>
+      <title><![CDATA[スキーに行きました その2]]></title>
+      <link>http://localhost:3000/posts/0014_misc_ski_log_002</link>
+      <description><![CDATA[舞子スノーリゾートでスキーしてきました]]></description>
+      <pubDate>Fri, 28 Feb 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">http://localhost:3000/posts/0014_misc_ski_log_002</guid>
+            <category>miscellaneous</category>
+        <category>diary</category>
+    </item>
+    <item>
+      <title><![CDATA[PDFの編集アプリをセルフホストして怪レいオンラインアプリから脱却しよう]]></title>
+      <link>http://localhost:3000/posts/0013_selfhosted_pdf_solution</link>
+      <description><![CDATA[オンラインPDFソリューション]]></description>
+      <pubDate>Tue, 11 Feb 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">http://localhost:3000/posts/0013_selfhosted_pdf_solution</guid>
+            <category>自宅サーバー</category>
+        <category>セルフホスト</category>
+    </item>
+    <item>
+      <title><![CDATA[セルフホストのススメ | 2025年Ver.]]></title>
+      <link>http://localhost:3000/posts/0012_recomend_selfhosting</link>
+      <description><![CDATA[おすすめセルフホストサービス]]></description>
+      <pubDate>Thu, 16 Jan 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">http://localhost:3000/posts/0012_recomend_selfhosting</guid>
+            <category>自宅サーバー</category>
+        <category>セルフホスト</category>
+    </item>
+    <item>
+      <title><![CDATA[スキーに行きました]]></title>
+      <link>http://localhost:3000/posts/0011_misc_ski_log_001</link>
+      <description><![CDATA[ホワイトワールド尾瀬岩鞍でスキーしてきました]]></description>
+      <pubDate>Thu, 02 Jan 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">http://localhost:3000/posts/0011_misc_ski_log_001</guid>
+            <category>miscellaneous</category>
+        <category>diary</category>
+    </item>
+    <item>
+      <title><![CDATA[ProxmoxのLXCコンテナとTailscaleでリモートアクセスVPNを作ろう]]></title>
+      <link>http://localhost:3000/posts/0010_tailscale_remote_access</link>
+      <description><![CDATA[高速なP2PVPN]]></description>
+      <pubDate>Wed, 20 Nov 2024 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">http://localhost:3000/posts/0010_tailscale_remote_access</guid>
+            <category>自宅サーバー</category>
+        <category>network</category>
+    </item>
+    <item>
+      <title><![CDATA[ZFS RAIDにキャッシュデバイスを追加]]></title>
+      <link>http://localhost:3000/posts/0009_ZFS_Cache</link>
+      <description><![CDATA[ZILとL2ARCを追加して、パフォーマンスを向上]]></description>
+      <pubDate>Tue, 19 Nov 2024 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">http://localhost:3000/posts/0009_ZFS_Cache</guid>
+            <category>自宅サーバー</category>
+    </item>
+    <item>
+      <title><![CDATA[自宅のLANを壁に埋めた]]></title>
+      <link>http://localhost:3000/posts/0007_home_lan</link>
+      <description><![CDATA[CF管通してLANケーブルを壁に埋めた]]></description>
+      <pubDate>Fri, 01 Nov 2024 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">http://localhost:3000/posts/0007_home_lan</guid>
+            <category>miscellaneous</category>
+        <category>diary</category>
+    </item>
+    <item>
+      <title><![CDATA[メールサーバーにウイルス対策(ClamAV)を導入する]]></title>
+      <link>http://localhost:3000/posts/0006_mailserver_anti_virus</link>
+      <description><![CDATA[ClamAVを使ってメールサーバーにリアルタイムウイルススキャンを導入する]]></description>
+      <pubDate>Wed, 23 Oct 2024 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">http://localhost:3000/posts/0006_mailserver_anti_virus</guid>
+            <category>mail</category>
+        <category>security</category>
+    </item>
+    <item>
+      <title><![CDATA[自宅の環境]]></title>
+      <link>http://localhost:3000/posts/0004_home_environment</link>
+      <description><![CDATA[自宅サーバーの環境紹介]]></description>
+      <pubDate>Tue, 15 Oct 2024 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">http://localhost:3000/posts/0004_home_environment</guid>
+            <category>miscellaneous</category>
+        <category>自宅サーバー</category>
+    </item>
+    <item>
+      <title><![CDATA[AdGuard Home DNSで広告ブロック + 宅内DNS]]></title>
+      <link>http://localhost:3000/posts/0005_adguard_home_dns</link>
+      <description><![CDATA[AdGuard Homeを使って広告ブロックしながら内向きDNSを作ろう。冗長化もね。]]></description>
+      <pubDate>Tue, 15 Oct 2024 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">http://localhost:3000/posts/0005_adguard_home_dns</guid>
+            <category>network</category>
+        <category>dns</category>
+        <category>自宅サーバー</category>
+    </item>
+    <item>
+      <title><![CDATA[MobaXtermのススメ]]></title>
+      <link>http://localhost:3000/posts/0002_recomend_mobaxterm</link>
+      <description><![CDATA[いい感じに便利なSSHクライアントについて]]></description>
+      <pubDate>Sun, 13 Oct 2024 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">http://localhost:3000/posts/0002_recomend_mobaxterm</guid>
+            <category>ssh</category>
+        <category>便利ツール</category>
+    </item>
+    <item>
+      <title><![CDATA[養老渓谷に行きました]]></title>
+      <link>http://localhost:3000/posts/0003_misc_yourou_valley</link>
+      <description><![CDATA[ドライブがてら養老渓谷に行ってきました。]]></description>
+      <pubDate>Sun, 13 Oct 2024 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">http://localhost:3000/posts/0003_misc_yourou_valley</guid>
+            <category>miscellaneous</category>
+        <category>diary</category>
+    </item>
+    <item>
+      <title><![CDATA[Nextcloudを構築しました]]></title>
+      <link>http://localhost:3000/posts/0001_nextcloud_buildup</link>
+      <description><![CDATA[自宅サーバーにNextcloudを構築したときのメモ]]></description>
+      <pubDate>Sat, 12 Oct 2024 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">http://localhost:3000/posts/0001_nextcloud_buildup</guid>
+            <category>nextcloud</category>
+    </item>
+    <item>
+      <title><![CDATA[最初の投稿]]></title>
+      <link>http://localhost:3000/posts/first_post</link>
+      <description><![CDATA[こんにちは、ブログを作ってみました。]]></description>
+      <pubDate>Sat, 12 Oct 2024 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">http://localhost:3000/posts/first_post</guid>
+            <category>miscellaneous</category>
+    </item>
+  </channel>
+</rss>

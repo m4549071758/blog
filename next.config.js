@@ -22,8 +22,11 @@ const nextConfig = {
     }
     return config;
   },
-
-  output: 'standalone',
+  output: 'export',
+  trailingSlash: true,
+  images: {
+    unoptimized: true,
+  },
   // エクスポート時に静的に出せないページを除外する
   exportPathMap: async function (
     defaultPathMap,
@@ -33,6 +36,8 @@ const nextConfig = {
       ...defaultPathMap,
     };
     delete pathMap['/admin/posts/new'];
+    delete pathMap['/sitemap.xml'];
+    delete pathMap['/feed.xml'];
 
     return pathMap;
   },
