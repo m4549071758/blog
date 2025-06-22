@@ -20,27 +20,85 @@ async function fetchAndSaveArticles() {
     if (!Array.isArray(articles)) {
       throw new Error('Invalid API response: expected array');
     }
+    console.log(`📡 ${articles.length}件の記事を取得しました`);
 
-    // 記事データを整形
-    const posts = articles
-      .filter((article) => article.article_id && article.datetime)
-      .map((article) => ({
-        slug: article.article_id,
-        date: article.datetime,
-        title: article.title || article.article_id,
-        excerpt: article.excerpt || '',
-        tags: article.tags || [],
-      }))
-      .sort((a, b) => new Date(b.date) - new Date(a.date));
+    // 記事の詳細情報を並列取得（最大5件同時）
+    const batchSize = 5;
+    const detailedPosts = [];
+
+    for (let i = 0; i < articles.length; i += batchSize) {
+      const batch = articles.slice(i, i + batchSize);
+      console.log(
+        `📄 記事詳細を取得中: ${i + 1}-${Math.min(
+          i + batchSize,
+          articles.length,
+        )}/${articles.length}`,
+      );
+
+      const batchPromises = batch.map(async (article) => {
+        try {
+          const detailResponse = await fetch(
+            `${API_BASE_URL}/api/articles/${article.article_id}`,
+          );
+
+          if (detailResponse.ok) {
+            const detail = await detailResponse.json();
+            return {
+              slug: detail.id,
+              date: detail.datetime,
+              title: detail.title,
+              excerpt: detail.excerpt || '',
+              tags: detail.tags || [],
+              coverImage: detail.cover_image || '',
+              ogImage: detail.og_image || '',
+            };
+          } else {
+            // 詳細取得に失敗した場合は基本情報のみ使用
+            console.warn(`⚠️  記事詳細取得失敗: ${article.article_id}`);
+            return {
+              slug: article.article_id,
+              date: new Date().toISOString(),
+              title: article.title,
+              excerpt: article.excerpt || '',
+              tags: [],
+              coverImage: '',
+              ogImage: '',
+            };
+          }
+        } catch (error) {
+          console.error(
+            `❌ 記事詳細取得エラー (${article.article_id}):`,
+            error,
+          );
+          return {
+            slug: article.article_id,
+            date: new Date().toISOString(),
+            title: article.title,
+            excerpt: article.excerpt || '',
+            tags: [],
+            coverImage: '',
+            ogImage: '',
+          };
+        }
+      });
+
+      const batchResults = await Promise.all(batchPromises);
+      detailedPosts.push(...batchResults);
+    }
+
+    // 記事データを日付順でソート
+    const sortedPosts = detailedPosts.sort(
+      (a, b) => new Date(b.date) - new Date(a.date),
+    );
 
     // publicディレクトリにデータを保存
     const outputPath = path.join(process.cwd(), 'public', 'articles-data.json');
-    fs.writeFileSync(outputPath, JSON.stringify(posts, null, 2));
+    fs.writeFileSync(outputPath, JSON.stringify(sortedPosts, null, 2));
 
     console.log(`✅ 記事データを保存しました: ${outputPath}`);
-    console.log(`📊 記事数: ${posts.length}`);
+    console.log(`📊 記事数: ${sortedPosts.length}`);
 
-    return posts;
+    return sortedPosts;
   } catch (error) {
     console.error('❌ API記事取得エラー:', error);
 

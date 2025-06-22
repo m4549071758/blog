@@ -2,124 +2,136 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Static pages -->
   <url>
-    <loc>http://localhost:3000</loc>
-    <lastmod>2025-06-22T06:49:00.895Z</lastmod>
+    <loc>https://www.katori.dev</loc>
+    <lastmod>2025-06-22T07:25:25.746Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/posts</loc>
-    <lastmod>2025-06-22T06:49:00.895Z</lastmod>
+    <loc>https://www.katori.dev/posts</loc>
+    <lastmod>2025-06-22T07:25:25.746Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/tags</loc>
-    <lastmod>2025-06-22T06:49:00.895Z</lastmod>
+    <loc>https://www.katori.dev/tags</loc>
+    <lastmod>2025-06-22T07:25:25.746Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/about</loc>
-    <lastmod>2025-06-22T06:49:00.895Z</lastmod>
+    <loc>https://www.katori.dev/about</loc>
+    <lastmod>2025-06-22T07:25:25.746Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <!-- Dynamic pages -->
     <url>
-    <loc>http://localhost:3000/posts/0014_started_golang</loc>
-    <lastmod>2025-03-17T00:00:00.000Z</lastmod>
+    <loc>https://www.katori.dev/posts/01979617-5b03-7a29-bda8-389cafb48649</loc>
+    <lastmod>2025-06-21T15:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/posts/0008_blog_functions</loc>
-    <lastmod>2025-03-08T00:00:00.000Z</lastmod>
+    <loc>https://www.katori.dev/posts/01966267-39fa-73ec-a082-64847a865e46</loc>
+    <lastmod>2025-05-06T15:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/posts/0014_misc_ski_log_002</loc>
-    <lastmod>2025-02-28T00:00:00.000Z</lastmod>
+    <loc>https://www.katori.dev/posts/01968c65-5f71-7a0e-aa86-1fdfef6cec5c</loc>
+    <lastmod>2025-04-30T15:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/posts/0013_selfhosted_pdf_solution</loc>
-    <lastmod>2025-02-11T00:00:00.000Z</lastmod>
+    <loc>https://www.katori.dev/posts/019665c9-d7b1-74fa-a3d5-0c10dff5b127</loc>
+    <lastmod>2025-04-23T15:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/posts/0012_recomend_selfhosting</loc>
-    <lastmod>2025-01-16T00:00:00.000Z</lastmod>
+    <loc>https://www.katori.dev/posts/01966281-913c-73ec-bc50-4f1d506f130a</loc>
+    <lastmod>2025-03-16T15:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/posts/0011_misc_ski_log_001</loc>
-    <lastmod>2025-01-02T00:00:00.000Z</lastmod>
+    <loc>https://www.katori.dev/posts/01966270-cd29-73ec-bb4e-75a1f45a769c</loc>
+    <lastmod>2025-03-07T15:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/posts/0010_tailscale_remote_access</loc>
-    <lastmod>2024-11-20T00:00:00.000Z</lastmod>
+    <loc>https://www.katori.dev/posts/01966280-193d-73ec-a7d0-0be6896f7b2b</loc>
+    <lastmod>2025-02-27T15:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/posts/0009_ZFS_Cache</loc>
-    <lastmod>2024-11-19T00:00:00.000Z</lastmod>
+    <loc>https://www.katori.dev/posts/0196627e-0942-73ec-aefb-5ca38eba9f85</loc>
+    <lastmod>2025-02-10T15:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/posts/0007_home_lan</loc>
-    <lastmod>2024-11-01T00:00:00.000Z</lastmod>
+    <loc>https://www.katori.dev/posts/0196627d-070c-73ec-80ad-8259d16e7144</loc>
+    <lastmod>2025-01-15T15:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/posts/0006_mailserver_anti_virus</loc>
-    <lastmod>2024-10-23T00:00:00.000Z</lastmod>
+    <loc>https://www.katori.dev/posts/0196627a-4056-73ec-8786-f616e38dbe46</loc>
+    <lastmod>2025-01-01T15:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/posts/0004_home_environment</loc>
-    <lastmod>2024-10-15T00:00:00.000Z</lastmod>
+    <loc>https://www.katori.dev/posts/01966276-a17d-73ec-921f-c3e6dd453f8e</loc>
+    <lastmod>2024-11-19T15:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/posts/0005_adguard_home_dns</loc>
-    <lastmod>2024-10-15T00:00:00.000Z</lastmod>
+    <loc>https://www.katori.dev/posts/01966272-0948-73ec-93f4-312b0659facf</loc>
+    <lastmod>2024-11-18T15:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/posts/0002_recomend_mobaxterm</loc>
-    <lastmod>2024-10-13T00:00:00.000Z</lastmod>
+    <loc>https://www.katori.dev/posts/0196626f-0769-73ec-99a5-8cc90b63920d</loc>
+    <lastmod>2024-10-31T15:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/posts/0003_misc_yourou_valley</loc>
-    <lastmod>2024-10-13T00:00:00.000Z</lastmod>
+    <loc>https://www.katori.dev/posts/0196626c-1f88-73ec-85e4-aff89e46b0dc</loc>
+    <lastmod>2024-10-22T15:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/posts/0001_nextcloud_buildup</loc>
-    <lastmod>2024-10-12T00:00:00.000Z</lastmod>
+    <loc>https://www.katori.dev/posts/0196626a-79d9-73ec-9ee0-786eb5f57c8b</loc>
+    <lastmod>2024-10-14T15:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://localhost:3000/posts/first_post</loc>
-    <lastmod>2024-10-12T00:00:00.000Z</lastmod>
+    <loc>https://www.katori.dev/posts/0196625c-28a4-73ec-a911-991cc6bf54e1</loc>
+    <lastmod>2024-10-12T15:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.katori.dev/posts/01966261-ffc2-73ec-9d3a-803d62eca2fc</loc>
+    <lastmod>2024-10-12T15:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.katori.dev/posts/0196625a-462d-73ec-b063-c2716b0abba3</loc>
+    <lastmod>2024-10-11T15:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

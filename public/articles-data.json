@@ -1,0 +1,219 @@
+[
+  {
+    "slug": "01979617-5b03-7a29-bda8-389cafb48649",
+    "date": "2025-06-22T00:00:00+09:00",
+    "title": "nginxをチューニングしましたよのお話",
+    "excerpt": "nginxのパフォーマンスチューニング",
+    "tags": [
+      "nginx",
+      "自宅サーバー",
+      "diary",
+      "ネットワーク"
+    ],
+    "coverImage": "https://www.katori.dev/api/images/0196626e-7348-73ec-a6e9-55b6213a9fa0.webp",
+    "ogImage": "https://www.katori.dev/api/images/0196626e-7348-73ec-a6e9-55b6213a9fa0.webp"
+  },
+  {
+    "slug": "01966267-39fa-73ec-a082-64847a865e46",
+    "date": "2025-05-07T00:00:00+09:00",
+    "title": "自宅の環境",
+    "excerpt": "自宅サーバーの環境紹介",
+    "tags": [
+      "miscellaneous",
+      "自宅サーバー"
+    ],
+    "coverImage": "https://www.katori.dev/api/images/0196a93c-ed0f-74a3-a770-78007040e5d4.webp",
+    "ogImage": "https://www.katori.dev/api/images/0196a93c-ed0f-74a3-a770-78007040e5d4.webp"
+  },
+  {
+    "slug": "01968c65-5f71-7a0e-aa86-1fdfef6cec5c",
+    "date": "2025-05-01T00:00:00+09:00",
+    "title": "自宅にSFP+で10GbE環境を構築した",
+    "excerpt": "八丁スイッチからの卒業",
+    "tags": [
+      "自宅サーバー",
+      "ネットワーク"
+    ],
+    "coverImage": "https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/532025/9f0898c2-f43c-4e42-901b-99afa933b496.jpeg",
+    "ogImage": "https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/532025/9f0898c2-f43c-4e42-901b-99afa933b496.jpeg"
+  },
+  {
+    "slug": "019665c9-d7b1-74fa-a3d5-0c10dff5b127",
+    "date": "2025-04-24T00:00:00+09:00",
+    "title": "CMSを自作しました",
+    "excerpt": "golang製のフルスクラッチCMS",
+    "tags": [
+      "golang",
+      "diary"
+    ],
+    "coverImage": "https://www.katori.dev/api/images/01966270-56e3-73ec-869b-81e57b0474da.webp",
+    "ogImage": "https://www.katori.dev/api/images/01966270-56e3-73ec-869b-81e57b0474da.webp"
+  },
+  {
+    "slug": "01966281-913c-73ec-bc50-4f1d506f130a",
+    "date": "2025-03-17T00:00:00+09:00",
+    "title": "Golang、始めました",
+    "excerpt": "python -> golang",
+    "tags": [
+      "diary",
+      "miscellaneous",
+      "golang"
+    ],
+    "coverImage": "https://www.katori.dev/api/images/01966280-99e1-73ec-adf0-4aa61c4fd4b1.webp",
+    "ogImage": "https://www.katori.dev/api/images/01966280-99e1-73ec-adf0-4aa61c4fd4b1.webp"
+  },
+  {
+    "slug": "01966270-cd29-73ec-bb4e-75a1f45a769c",
+    "date": "2025-03-08T00:00:00+09:00",
+    "title": "ブログの機能をいろいろ追加",
+    "excerpt": "テンプレートから追加したり変えたりした機能",
+    "tags": [
+      "miscellaneous"
+    ],
+    "coverImage": "https://www.katori.dev/api/images/0196626e-7348-73ec-a6e9-55b6213a9fa0.webp",
+    "ogImage": "https://www.katori.dev/api/images/01966270-56e3-73ec-869b-81e57b0474da.webp"
+  },
+  {
+    "slug": "01966280-193d-73ec-a7d0-0be6896f7b2b",
+    "date": "2025-02-28T00:00:00+09:00",
+    "title": "スキーに行きました その2",
+    "excerpt": "舞子スノーリゾートでスキーしてきました",
+    "tags": [
+      "miscellaneous",
+      "diary"
+    ],
+    "coverImage": "https://www.katori.dev/api/images/0196627e-ea04-73ec-b804-53ffcb6e5980.webp",
+    "ogImage": "https://www.katori.dev/api/images/0196627e-ea04-73ec-b804-53ffcb6e5980.webp"
+  },
+  {
+    "slug": "0196627e-0942-73ec-aefb-5ca38eba9f85",
+    "date": "2025-02-11T00:00:00+09:00",
+    "title": "PDFの編集アプリをセルフホストして怪レいオンラインアプリから脱却しよう",
+    "excerpt": "オンラインPDFソリューション",
+    "tags": [
+      "自宅サーバー",
+      "セルフホスト"
+    ],
+    "coverImage": "https://www.katori.dev/api/images/01966270-56e3-73ec-869b-81e57b0474da.webp",
+    "ogImage": "https://www.katori.dev/api/images/01966270-56e3-73ec-869b-81e57b0474da.webp"
+  },
+  {
+    "slug": "0196627d-070c-73ec-80ad-8259d16e7144",
+    "date": "2025-01-16T00:00:00+09:00",
+    "title": "セルフホストのススメ | 2025年Ver.",
+    "excerpt": "おすすめセルフホストサービス",
+    "tags": [
+      "自宅サーバー",
+      "セルフホスト"
+    ],
+    "coverImage": "https://www.katori.dev/api/images/0196626e-7348-73ec-a6e9-55b6213a9fa0.webp",
+    "ogImage": "https://www.katori.dev/api/images/0196626e-7348-73ec-a6e9-55b6213a9fa0.webp"
+  },
+  {
+    "slug": "0196627a-4056-73ec-8786-f616e38dbe46",
+    "date": "2025-01-02T00:00:00+09:00",
+    "title": "スキーに行きました",
+    "excerpt": "ホワイトワールド尾瀬岩鞍でスキーしてきました",
+    "tags": [
+      "miscellaneous",
+      "diary"
+    ],
+    "coverImage": "https://www.katori.dev/api/images/0196627a-199e-73ec-a86d-307736fd2d63.webp",
+    "ogImage": "https://www.katori.dev/api/images/0196627a-199e-73ec-a86d-307736fd2d63.webp"
+  },
+  {
+    "slug": "01966276-a17d-73ec-921f-c3e6dd453f8e",
+    "date": "2024-11-20T00:00:00+09:00",
+    "title": "ProxmoxのLXCコンテナとTailscaleでリモートアクセスVPNを作ろう",
+    "excerpt": "高速なP2PVPN",
+    "tags": [
+      "自宅サーバー",
+      "network"
+    ],
+    "coverImage": "https://www.katori.dev/api/images/01966273-b3f1-73ec-8956-10b7e705207f.webp",
+    "ogImage": "https://www.katori.dev/api/images/01966273-b3f1-73ec-8956-10b7e705207f.webp"
+  },
+  {
+    "slug": "01966272-0948-73ec-93f4-312b0659facf",
+    "date": "2024-11-19T00:00:00+09:00",
+    "title": "ZFS RAIDにキャッシュデバイスを追加",
+    "excerpt": "ZILとL2ARCを追加して、パフォーマンスを向上",
+    "tags": [
+      "自宅サーバー"
+    ],
+    "coverImage": "https://www.katori.dev/api/images/01966271-5ef3-73ec-a6b6-2365ecbf52ad.webp",
+    "ogImage": "https://www.katori.dev/api/images/01966271-5ef3-73ec-a6b6-2365ecbf52ad.webp"
+  },
+  {
+    "slug": "0196626f-0769-73ec-99a5-8cc90b63920d",
+    "date": "2024-11-01T00:00:00+09:00",
+    "title": "自宅のLANを壁に埋めた",
+    "excerpt": "CF管通してLANケーブルを壁に埋めた",
+    "tags": [
+      "miscellaneous",
+      "diary"
+    ],
+    "coverImage": "https://www.katori.dev/api/images/0196626e-7348-73ec-a6e9-55b6213a9fa0.webp",
+    "ogImage": "https://www.katori.dev/api/images/0196626e-7348-73ec-a6e9-55b6213a9fa0.webp"
+  },
+  {
+    "slug": "0196626c-1f88-73ec-85e4-aff89e46b0dc",
+    "date": "2024-10-23T00:00:00+09:00",
+    "title": "メールサーバーにウイルス対策(ClamAV)を導入する",
+    "excerpt": "ClamAVを使ってメールサーバーにリアルタイムウイルススキャンを導入する",
+    "tags": [
+      "mail",
+      "security"
+    ],
+    "coverImage": "https://www.katori.dev/api/images/0196626c-0195-73ec-bc7e-0d1089c512f3.webp",
+    "ogImage": "https://www.katori.dev/api/images/0196626c-0195-73ec-bc7e-0d1089c512f3.webp"
+  },
+  {
+    "slug": "0196626a-79d9-73ec-9ee0-786eb5f57c8b",
+    "date": "2024-10-15T00:00:00+09:00",
+    "title": "AdGuard Home DNSで広告ブロック + 宅内DNS",
+    "excerpt": "AdGuard Homeを使って広告ブロックしながら内向きDNSを作ろう。冗長化もね。",
+    "tags": [
+      "network",
+      "dns",
+      "自宅サーバー"
+    ],
+    "coverImage": "https://www.katori.dev/api/images/0196626a-338d-73ec-b7b7-7036bdf21160.webp",
+    "ogImage": "https://www.katori.dev/api/images/0196626a-338d-73ec-b7b7-7036bdf21160.webp"
+  },
+  {
+    "slug": "0196625c-28a4-73ec-a911-991cc6bf54e1",
+    "date": "2024-10-13T00:00:00+09:00",
+    "title": "MobaXtermのススメ",
+    "excerpt": "いい感じに便利なSSHクライアントについて",
+    "tags": [
+      "ssh",
+      "便利ツール"
+    ],
+    "coverImage": "https://www.katori.dev/api/images/0196625b-df08-73ec-9cce-54909a66402d.webp",
+    "ogImage": "https://www.katori.dev/api/images/0196625b-df08-73ec-9cce-54909a66402d.webp"
+  },
+  {
+    "slug": "01966261-ffc2-73ec-9d3a-803d62eca2fc",
+    "date": "2024-10-13T00:00:00+09:00",
+    "title": "養老渓谷に行きました",
+    "excerpt": "ドライブがてら養老渓谷に行ってきました。",
+    "tags": [
+      "miscellaneous",
+      "diary"
+    ],
+    "coverImage": "https://www.katori.dev/api/images/0196625f-d688-73ec-9902-4995435ed19c.webp",
+    "ogImage": "https://www.katori.dev/api/images/0196625f-d688-73ec-9902-4995435ed19c.webp"
+  },
+  {
+    "slug": "0196625a-462d-73ec-b063-c2716b0abba3",
+    "date": "2024-10-12T00:00:00+09:00",
+    "title": "Nextcloudを構築しました",
+    "excerpt": "自宅サーバーにNextcloudを構築したときのメモ",
+    "tags": [
+      "nextcloud"
+    ],
+    "coverImage": "https://www.katori.dev/api/images/01966259-da32-73ec-97cc-13eed364f189.webp",
+    "ogImage": "https://www.katori.dev/api/images/01966259-da32-73ec-97cc-13eed364f189.webp"
+  }
+]
