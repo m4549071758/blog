@@ -34,3 +34,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 .env
+
+public/articles-data.json
+public/sitemap.xml
+public/feed.xml
