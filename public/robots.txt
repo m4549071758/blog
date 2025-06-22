@@ -1,0 +1,14 @@
+# Robots.txt for Katori's blog
+
+User-agent: *
+Allow: /
+
+# Disallow admin pages
+Disallow: /admin/
+
+# Allow crawling of assets
+Allow: /assets/
+Allow: /favicons/
+
+# Sitemap location
+Sitemap: https://your-domain.com/sitemap.xml
