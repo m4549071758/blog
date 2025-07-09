@@ -2,8 +2,8 @@ module.exports = {
   apps: [
     {
       name: 'blog',
-      script: 'next',
-      args: 'start',
+      script: 'npx',
+      args: 'next start',
       instances: 1,
       autorestart: true,
       watch: false,
