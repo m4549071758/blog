@@ -98,6 +98,7 @@ export const getPostBySlug = async (slug: string, fields: string[] = []) => {
 
   // フィールドマッピング（JSONキーとPostTypeのキーが異なる場合）
   const fieldMapping: Record<string, string> = {
+    id: 'id',
     slug: 'id',
     content: 'content',
     title: 'title',
@@ -106,6 +107,7 @@ export const getPostBySlug = async (slug: string, fields: string[] = []) => {
     ogImage: 'og_image',
     tags: 'tags',
     date: 'datetime',
+    like_count: 'like_count',
   };
 
   // 必須フィールドが欠けていないか確認

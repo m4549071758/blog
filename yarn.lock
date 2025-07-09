@@ -1972,6 +1972,11 @@ find-up@^4.1.0:
     locate-path "^5.0.0"
     path-exists "^4.0.0"
 
+fingerprintjs@^0.5.3:
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/fingerprintjs/-/fingerprintjs-0.5.3.tgz#0026422fae1ab1003691e136c143e19b7527b255"
+  integrity sha512-LPW+iJ9yaV+FIXbmPkbyp7n6UoxV1euVozieaq3ckuvPEAyJRRB0JxbBsShHh5h1jc9yn/EZ95EEb78109zuKg==
+
 flat-cache@^3.0.4:
   version "3.0.4"
   resolved "https://registry.npmjs.org/flat-cache/-/flat-cache-3.0.4.tgz"

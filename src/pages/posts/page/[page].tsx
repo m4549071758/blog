@@ -34,12 +34,14 @@ export async function getStaticProps({ params }: Params) {
 
   // awaitを使用して非同期関数を呼び出す
   const posts = await getPaginatedPosts(page, [
+    'id',
     'title',
     'date',
     'slug',
     'coverImage',
     'excerpt',
     'tags',
+    'like_count',
   ]);
 
   const maxPage = await getMaxPage();
