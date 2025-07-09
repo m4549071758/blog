@@ -1,4 +1,5 @@
 export type PostType = {
+  id?: string;
   slug: string;
   title: string;
   date: string;
@@ -9,4 +10,5 @@ export type PostType = {
   };
   content: string;
   tags: string[];
+  like_count?: number;
 };

@@ -1,3 +1,4 @@
+import { AiOutlineHeart } from 'react-icons/ai';
 import { Date } from '@/components/common/Date';
 import { Image } from '@/components/common/Image';
 import { Link } from '@/components/common/Link';
@@ -8,9 +9,10 @@ type Props = {
   date: string;
   excerpt: string;
   slug: string;
+  likeCount?: number;
 };
 
-export const Story = ({ title, coverImage, date, excerpt, slug }: Props) => {
+export const Story = ({ title, coverImage, date, excerpt, slug, likeCount }: Props) => {
   return (
     <Link href={`/posts/${slug}`}>
       <a className="select-none overflow-hidden w-full h-full vstack md:flex-row cursor-pointer focus:outline-2 ">
@@ -22,7 +24,15 @@ export const Story = ({ title, coverImage, date, excerpt, slug }: Props) => {
           />
         </div>
         <div className="md:w-2/3 p-4 md:p-6 vstack gap-2 bg-primary-1">
-          <Date date={date} />
+          <div className="flex justify-between items-start">
+            <Date date={date} />
+            {likeCount !== undefined && (
+              <div className="flex items-center gap-1 text-sm text-gray-500">
+                <AiOutlineHeart className="w-4 h-4" />
+                <span>{likeCount}</span>
+              </div>
+            )}
+          </div>
           <h3 className="text-primary-1 text-xl font-medium">{title}</h3>
           <p className="text-neutral-700 dark:text-neutral-300 font-normal text-md line-clamp-2 md:line-clamp-3">
             {excerpt}

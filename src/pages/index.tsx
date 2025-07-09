@@ -10,11 +10,13 @@ export default View;
 export const getStaticProps = async () => {
   // awaitを使用して非同期処理の結果を待つ
   const posts = await getAllPosts([
+    'id',
     'title',
     'date',
     'slug',
     'coverImage',
     'excerpt',
+    'like_count',
   ]);
 
   // 最初の4件のみを取得

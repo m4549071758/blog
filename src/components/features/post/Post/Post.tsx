@@ -7,7 +7,7 @@ type Props = {
 };
 
 export const Post: React.VFC<Props> = ({ post }) => {
-  const { title, coverImage, date, tags, content } = post;
+  const { id, title, coverImage, date, tags, content } = post;
 
   return (
     <div className="p-8 bg-primary-1">
@@ -16,6 +16,7 @@ export const Post: React.VFC<Props> = ({ post }) => {
         coverImage={coverImage}
         date={date}
         tags={tags}
+        articleId={id}
       />
       <PostBody content={content} />
     </div>

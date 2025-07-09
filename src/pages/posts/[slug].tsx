@@ -47,6 +47,7 @@ export async function getStaticProps({ params }: Params) {
   try {
     // awaitを使用してgetPostBySlugの結果を待つ
     const post = await getPostBySlug(params.slug, [
+      'id',
       'title',
       'date',
       'slug',
@@ -56,6 +57,7 @@ export async function getStaticProps({ params }: Params) {
       'coverImage',
       'excerpt',
       'tags',
+      'like_count',
     ]);
 
     // 記事が見つからない場合は404を返す
