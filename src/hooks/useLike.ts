@@ -24,7 +24,6 @@ export const useLike = (articleId: string) => {
     isLoading: true,
   });
   const [fingerprint, setFingerprint] = useState<string>('');
-  const [csrfToken, setCsrfToken] = useState<string>('');
 
   // FingerprintJSの初期化とフィンガープリント取得
   useEffect(() => {
@@ -39,24 +38,6 @@ export const useLike = (articleId: string) => {
     };
 
     getFingerprint();
-  }, []);
-
-  // CSRFトークン取得
-  useEffect(() => {
-    const getCsrfToken = async () => {
-      try {
-        // 末尾のスラッシュを除去してからエンドポイントを構築
-        const baseUrl = API_BASE_URL.replace(/\/$/, '');
-        const response = await axios.get(`${baseUrl}/api/csrf-token`, {
-          withCredentials: true,
-        });
-        setCsrfToken(response.data.csrf_token);
-      } catch (error) {
-        console.error('Failed to get CSRF token:', error);
-      }
-    };
-
-    getCsrfToken();
   }, []);
 
   // いいね状態の取得
@@ -90,7 +71,7 @@ export const useLike = (articleId: string) => {
 
   // いいねのトグル
   const toggleLike = useCallback(async () => {
-    if (!fingerprint || !csrfToken || likeState.isLoading) return;
+    if (!fingerprint || likeState.isLoading) return;
 
     try {
       setLikeState((prev) => ({ ...prev, isLoading: true }));
@@ -105,10 +86,8 @@ export const useLike = (articleId: string) => {
         },
         {
           headers: {
-            'X-CSRF-Token': csrfToken,
             'Content-Type': 'application/json',
           },
-          withCredentials: true,
         },
       );
 
@@ -121,7 +100,7 @@ export const useLike = (articleId: string) => {
       console.error('Failed to toggle like:', error);
       setLikeState((prev) => ({ ...prev, isLoading: false }));
     }
-  }, [articleId, fingerprint, csrfToken, likeState.isLoading]);
+  }, [articleId, fingerprint, likeState.isLoading]);
 
   return {
     likeCount: likeState.likeCount,
