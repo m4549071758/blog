@@ -47,7 +47,9 @@ export const useLike = (articleId: string) => {
       try {
         // 末尾のスラッシュを除去してからエンドポイントを構築
         const baseUrl = API_BASE_URL.replace(/\/$/, '');
-        const response = await axios.get(`${baseUrl}/api/csrf-token`);
+        const response = await axios.get(`${baseUrl}/api/csrf-token`, {
+          withCredentials: true,
+        });
         setCsrfToken(response.data.csrf_token);
       } catch (error) {
         console.error('Failed to get CSRF token:', error);
@@ -106,6 +108,7 @@ export const useLike = (articleId: string) => {
             'X-CSRF-Token': csrfToken,
             'Content-Type': 'application/json',
           },
+          withCredentials: true,
         },
       );
 
