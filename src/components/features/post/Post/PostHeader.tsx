@@ -32,12 +32,10 @@ export const PostHeader = ({
         {title}
       </h1>
       <div className="vstack gap-4">
-        <Date date={date} />
-        {articleId && (
-          <div className="flex justify-center">
-            <LikeButton articleId={articleId} />
-          </div>
-        )}
+        <div className="flex items-center gap-4">
+          <Date date={date} />
+          {articleId && <LikeButton articleId={articleId} />}
+        </div>
         <div className="wrap gap-2">
           <span className="select-none text-primary-1">
             <AiTwotoneTags />
