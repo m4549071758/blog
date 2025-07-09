@@ -15,13 +15,20 @@ async function fetchArticlesList() {
   if (articlesListCache) return articlesListCache;
 
   try {
+    console.log('Fetching articles from:', `${API_BASE_URL}/api/articles`);
     const response = await fetch(`${API_BASE_URL}/api/articles`);
 
+    console.log('Response status:', response.status);
+    console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+
     if (!response.ok) {
-      throw new Error(`API request failed: ${response.status}`);
+      const errorText = await response.text();
+      console.error('API response error:', errorText);
+      throw new Error(`API request failed: ${response.status} - ${errorText}`);
     }
 
     const data = await response.json();
+    console.log('Articles data:', data);
     articlesListCache = data;
     return data;
   } catch (error) {
@@ -35,7 +42,10 @@ async function fetchArticleDetail(articleId: string) {
   if (articleDetailCache[articleId]) return articleDetailCache[articleId];
 
   try {
+    console.log('Fetching article detail for ID:', articleId);
     const response = await fetch(`${API_BASE_URL}/api/articles/${articleId}`);
+
+    console.log('Article detail response status:', response.status);
 
     // 404エラーの場合は特別に処理
     if (response.status === 404) {
@@ -44,10 +54,13 @@ async function fetchArticleDetail(articleId: string) {
     }
 
     if (!response.ok) {
-      throw new Error(`API request failed: ${response.status}`);
+      const errorText = await response.text();
+      console.error('Article detail API response error:', errorText);
+      throw new Error(`API request failed: ${response.status} - ${errorText}`);
     }
 
     const data = await response.json();
+    console.log('Article detail data:', data);
 
     // レスポンスが空または無効なデータの場合
     if (!data || typeof data !== 'object') {
