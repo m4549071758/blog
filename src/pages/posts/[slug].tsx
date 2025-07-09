@@ -57,7 +57,6 @@ export async function getStaticProps({ params }: Params) {
       'coverImage',
       'excerpt',
       'tags',
-      'like_count',
     ]);
 
     // 記事が見つからない場合は404を返す
@@ -76,8 +75,8 @@ export async function getStaticProps({ params }: Params) {
           content,
         },
       },
-      // キャッシュの有効期限を短くして、定期的にデータを更新
-      revalidate: 60,
+      // いいね機能のためにより頻繁に更新
+      revalidate: 10,
     };
   } catch (error) {
     console.error('Error in getStaticProps:', error);

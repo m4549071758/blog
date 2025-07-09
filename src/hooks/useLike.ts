@@ -34,6 +34,8 @@ export const useLike = (articleId: string) => {
         setFingerprint(result.visitorId);
       } catch (error) {
         console.error('Failed to get fingerprint:', error);
+        // フィンガープリントの取得に失敗した場合でも、いいね数は表示する
+        setLikeState((prev) => ({ ...prev, isLoading: false }));
       }
     };
 
@@ -43,7 +45,7 @@ export const useLike = (articleId: string) => {
   // いいね状態の取得
   useEffect(() => {
     const fetchLikeStatus = async () => {
-      if (!fingerprint || !articleId) return;
+      if (!articleId) return;
 
       try {
         // 末尾のスラッシュを除去してからエンドポイントを構築
@@ -51,13 +53,13 @@ export const useLike = (articleId: string) => {
         const response = await axios.get<LikeResponse>(
           `${baseUrl}/api/articles/${articleId}/like-status`,
           {
-            params: { fingerprint },
+            params: { fingerprint: fingerprint || 'anonymous' },
           },
         );
 
         setLikeState({
           likeCount: response.data.like_count,
-          isLiked: response.data.is_liked,
+          isLiked: fingerprint ? response.data.is_liked : false,
           isLoading: false,
         });
       } catch (error) {
@@ -66,6 +68,7 @@ export const useLike = (articleId: string) => {
       }
     };
 
+    // fingerprintが取得できていない場合でも、いいね数は取得する
     fetchLikeStatus();
   }, [articleId, fingerprint]);
 
