@@ -48,6 +48,6 @@ export async function getStaticProps({ params }: Params) {
 
   return {
     props: { posts, page, maxPage },
-    revalidate: 60, // 1分ごとに再検証
+    revalidate: 30, // 30秒ごとに再検証（いいね数の更新のため）
   };
 }

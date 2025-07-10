@@ -24,6 +24,7 @@ export const Stories = ({ posts, icon, title }: Props) => {
               slug={post.slug}
               excerpt={post.excerpt}
               likeCount={post.like_count}
+              id={post.id}
             />
           ))}
         </div>

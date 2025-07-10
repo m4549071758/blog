@@ -45,7 +45,10 @@ export const useLike = (articleId: string) => {
   // いいね状態の取得
   useEffect(() => {
     const fetchLikeStatus = async () => {
-      if (!articleId) return;
+      if (!articleId || articleId.trim() === '') {
+        setLikeState((prev) => ({ ...prev, isLoading: false }));
+        return;
+      }
 
       try {
         // 末尾のスラッシュを除去してからエンドポイントを構築
@@ -74,7 +77,7 @@ export const useLike = (articleId: string) => {
 
   // いいねのトグル
   const toggleLike = useCallback(async () => {
-    if (!fingerprint || likeState.isLoading) return;
+    if (!fingerprint || likeState.isLoading || !articleId || articleId.trim() === '') return;
 
     try {
       setLikeState((prev) => ({ ...prev, isLoading: true }));
