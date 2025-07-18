@@ -27,7 +27,6 @@ async function fetchArticlesList() {
     }
 
     const data = await response.json();
-    console.log('Articles data:', data);
     articlesListCache = data;
     return data;
   } catch (error) {
@@ -44,8 +43,6 @@ async function fetchArticleDetail(articleId: string) {
     console.log('Fetching article detail for ID:', articleId);
     const response = await fetch(`${API_BASE_URL}/api/articles/${articleId}`);
 
-    console.log('Article detail response status:', response.status);
-
     // 404エラーの場合は特別に処理
     if (response.status === 404) {
       console.warn(`Article not found: ${articleId}`);
@@ -59,7 +56,6 @@ async function fetchArticleDetail(articleId: string) {
     }
 
     const data = await response.json();
-    console.log('Article detail data:', data);
 
     // レスポンスが空または無効なデータの場合
     if (!data || typeof data !== 'object') {
