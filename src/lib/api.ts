@@ -19,7 +19,6 @@ async function fetchArticlesList() {
     const response = await fetch(`${API_BASE_URL}/api/articles`);
 
     console.log('Response status:', response.status);
-    console.log('Response headers:', Object.fromEntries(response.headers.entries()));
 
     if (!response.ok) {
       const errorText = await response.text();
