@@ -136,8 +136,11 @@ export const getPostBySlug = async (slug: string, fields: string[] = []) => {
       const apiField = fieldMapping[field] || field;
       if (typeof articleDetail[apiField] !== 'undefined') {
         // coverImageとogImageは特別扱い - URLをそのまま使用
-        if (field === 'coverImage' || field === 'ogImage') {
+        if (field === 'coverImage') {
           items[field] = articleDetail[apiField]; // URLをそのまま使用
+        } else if (field === 'ogImage') {
+          // ogImageは { url: string } の形式に変換
+          items[field] = { url: articleDetail[apiField] };
         } else {
           items[field] = articleDetail[apiField];
         }
