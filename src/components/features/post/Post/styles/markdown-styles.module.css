@@ -16,3 +16,11 @@
 .markdown h3 {
   @apply text-2xl mt-8 mb-4 leading-snug;
 }
+
+.markdown img {
+  @apply block mx-auto my-6 rounded-lg shadow-md transition-transform duration-200;
+}
+
+.markdown img:hover {
+  @apply shadow-lg transform translate-y-[-4px];
+}
