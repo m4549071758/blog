@@ -20,7 +20,7 @@ export const Profile = () => (
       山とか登ったり、自転車乗ったり、スキーしたりしてます。
     </p>
     <p className="text-primary-1">
-      技術スタック: Python, Next.js, Proxmox, Linux, Java, サーバー
+      技術スタック: Golang, Python, Next.js, Proxmox, Linux, Java, サーバー
     </p>
 
     <div className="flex gap-4">

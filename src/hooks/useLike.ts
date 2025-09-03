@@ -53,12 +53,10 @@ export const useLike = (articleId: string) => {
       try {
         // 末尾のスラッシュを除去してからエンドポイントを構築
         const baseUrl = API_BASE_URL.replace(/\/$/, '');
-        const response = await axios.get<LikeResponse>(
-          `${baseUrl}/api/like-status/${articleId}`,
-          {
-            params: { fingerprint: fingerprint || 'anonymous' },
-          },
-        );
+        const requestUrl = `${baseUrl}/api/articles/${articleId}/like-status`;
+        const response = await axios.get<LikeResponse>(requestUrl, {
+          params: { fingerprint: fingerprint || 'anonymous' },
+        });
 
         setLikeState({
           likeCount: response.data.like_count,
@@ -77,7 +75,13 @@ export const useLike = (articleId: string) => {
 
   // いいねのトグル
   const toggleLike = useCallback(async () => {
-    if (!fingerprint || likeState.isLoading || !articleId || articleId.trim() === '') return;
+    if (
+      !fingerprint ||
+      likeState.isLoading ||
+      !articleId ||
+      articleId.trim() === ''
+    )
+      return;
 
     try {
       setLikeState((prev) => ({ ...prev, isLoading: true }));

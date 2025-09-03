@@ -4,7 +4,7 @@ export const seoConfig = {
     "Katori's Tech blog - プログラミング、技術、ライフスタイルについての記事を投稿しています",
   siteUrl: process.env.NEXT_PUBLIC_ROOT_URL || 'https://localhost:3000',
   authorName: 'Katori',
-  twitterHandle: '@your_twitter_handle',
+  twitterHandle: '@katori_v2',
   defaultImage: '/assets/author.webp',
   locale: 'ja_JP',
   themeColor: '#000000',
@@ -17,9 +17,15 @@ export const generateArticleMeta = (post: {
   date: string;
   slug: string;
   tags?: string[];
+  ogImage: { url: string };
 }) => {
   const url = `${seoConfig.siteUrl}/posts/${post.slug}`;
-  const imageUrl = `${seoConfig.siteUrl}${seoConfig.defaultImage}`;
+  // 投稿にOG画像がある場合はそれを使用、ない場合はデフォルト画像を使用
+  const imageUrl = post.ogImage?.url
+    ? post.ogImage.url.startsWith('http')
+      ? post.ogImage.url
+      : `${seoConfig.siteUrl}${post.ogImage.url}`
+    : `${seoConfig.siteUrl}${seoConfig.defaultImage}`;
 
   return {
     title: `${post.title} | ${seoConfig.siteName}`,

@@ -19,7 +19,6 @@ async function fetchArticlesList() {
     const response = await fetch(`${API_BASE_URL}/api/articles`);
 
     console.log('Response status:', response.status);
-    console.log('Response headers:', Object.fromEntries(response.headers.entries()));
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -28,7 +27,6 @@ async function fetchArticlesList() {
     }
 
     const data = await response.json();
-    console.log('Articles data:', data);
     articlesListCache = data;
     return data;
   } catch (error) {
@@ -45,8 +43,6 @@ async function fetchArticleDetail(articleId: string) {
     console.log('Fetching article detail for ID:', articleId);
     const response = await fetch(`${API_BASE_URL}/api/articles/${articleId}`);
 
-    console.log('Article detail response status:', response.status);
-
     // 404エラーの場合は特別に処理
     if (response.status === 404) {
       console.warn(`Article not found: ${articleId}`);
@@ -60,7 +56,6 @@ async function fetchArticleDetail(articleId: string) {
     }
 
     const data = await response.json();
-    console.log('Article detail data:', data);
 
     // レスポンスが空または無効なデータの場合
     if (!data || typeof data !== 'object') {
@@ -141,8 +136,11 @@ export const getPostBySlug = async (slug: string, fields: string[] = []) => {
       const apiField = fieldMapping[field] || field;
       if (typeof articleDetail[apiField] !== 'undefined') {
         // coverImageとogImageは特別扱い - URLをそのまま使用
-        if (field === 'coverImage' || field === 'ogImage') {
+        if (field === 'coverImage') {
           items[field] = articleDetail[apiField]; // URLをそのまま使用
+        } else if (field === 'ogImage') {
+          // ogImageは { url: string } の形式に変換
+          items[field] = { url: articleDetail[apiField] };
         } else {
           items[field] = articleDetail[apiField];
         }
