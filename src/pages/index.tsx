@@ -24,7 +24,5 @@ export const getStaticProps = async () => {
 
   return {
     props: { posts: limitedPosts },
-    // データ再検証のために再生成するまでの秒数（いいね数の更新のため短い間隔に設定）
-    revalidate: 30, // 30秒ごとに再検証
   };
 };

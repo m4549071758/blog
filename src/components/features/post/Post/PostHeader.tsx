@@ -41,8 +41,8 @@ export const PostHeader = ({
             <AiTwotoneTags />
           </span>
           {tags.map((tag) => (
-            <Link key={tag} href={`/tags/${tag}`} passHref>
-              <a className="badge">{tag}</a>
+            <Link key={tag} href={`/tags/${tag}`} className="badge">
+              {tag}
             </Link>
           ))}
         </div>

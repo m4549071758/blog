@@ -75,8 +75,6 @@ export async function getStaticProps({ params }: Params) {
           content,
         },
       },
-      // いいね機能のためにより頻繁に更新
-      revalidate: 10,
     };
   } catch (error) {
     console.error('Error in getStaticProps:', error);
@@ -102,14 +100,14 @@ export async function getStaticPaths() {
           slug: post.slug,
         },
       })),
-      // 未生成のパスに対しては生成を試みる
-      fallback: true,
+      // output: exportでは全てのパスを事前生成する必要がある
+      fallback: false,
     };
   } catch (error) {
     console.error('Error in getStaticPaths:', error);
     return {
       paths: [],
-      fallback: true,
+      fallback: false,
     };
   }
 }

@@ -1,4 +1,4 @@
-import { SiGithub, SiTwitter, SiQiita } from 'react-icons/si';
+import { SiGithub, SiQiita } from 'react-icons/si';
 
 export const sns = [
   {

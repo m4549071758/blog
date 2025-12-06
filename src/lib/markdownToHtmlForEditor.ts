@@ -16,15 +16,15 @@ export default async function markdownToHtmlForEditor(markdown: string) {
   const result = await unified()
     .use(remarkParse)
     .use(remarkBreaks)
-    .use(remarkGfm)
-    .use(remarkYoutube)
+    .use(remarkGfm as any)
+    .use(remarkYoutube as any)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeCodeTitles)
     .use(rehypePrism, { ignoreMissing: true })
     .use(rehypeAutolinkHeadings)
     .use(rehypeStringify, { allowDangerousHtml: true })
     .use(rehypeSlug)
-    .use(rehypeGithubAlerts, true)
+    .use(rehypeGithubAlerts as any, true)
     .use(rehypeResponsiveIframe)
     .process(markdown);
 

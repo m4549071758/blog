@@ -25,7 +25,7 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: 'blocking',
+    fallback: false,
   };
 }
 
@@ -48,6 +48,5 @@ export async function getStaticProps({ params }: Params) {
 
   return {
     props: { posts, page, maxPage },
-    revalidate: 30, // 30秒ごとに再検証（いいね数の更新のため）
   };
 }

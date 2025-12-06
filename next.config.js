@@ -3,6 +3,8 @@ const path = require('path');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Turbopack configuration (empty to acknowledge Next.js 16 default)
+  turbopack: {},
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
@@ -27,7 +29,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // エクスポート時に静的に出せないページを除外する
+  // NOTE: exportPathMap is deprecated in Next.js 15 but still works in Pages Router
+  // Consider migrating to App Router and using generateStaticParams in the future
   exportPathMap: async function (
     defaultPathMap,
     { dev, dir, outDir, distDir, buildId },

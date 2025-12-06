@@ -1,7 +1,7 @@
 import { Link } from '@/components/common/Link';
 import { ConditionalLink } from '@/components/common/Link/ConditionalLink';
-import { CellType } from '../types/cell';
 import { StyledCell } from './StyledCell';
+import { CellType } from '../types/cell';
 
 type Props = {
   cell: CellType;
@@ -38,10 +38,8 @@ export const Cell: React.VFC<Props> = ({ cell, page, count }) => {
       return <StyledCell variant="ellipsis">{cell}</StyledCell>;
     default:
       return (
-        <Link href={`/posts/page/${cell}`} passHref>
-          <a>
-            <StyledCell active={cell === page}>{cell}</StyledCell>
-          </a>
+        <Link href={`/posts/page/${cell}`}>
+          <StyledCell active={cell === page}>{cell}</StyledCell>
         </Link>
       );
   }
