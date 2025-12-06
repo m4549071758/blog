@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Head from 'next/head';
 import Link from 'next/link';
 import { ProtectedRoute } from '@/components/common/ProtectedRoute';
 import { MainLayout } from '@/components/features/app/Layout';
@@ -24,11 +23,14 @@ export default function AdminPosts() {
     const fetchArticles = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch('https://www.katori.dev/api/articles', {
-          headers: {
-            ...authHeader(),
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL || 'https://www.katori.dev'}/api/articles`,
+          {
+            headers: {
+              ...authHeader(),
+            },
           },
-        });
+        );
 
         if (!response.ok) {
           throw new Error('記事の取得に失敗しました');
@@ -59,7 +61,7 @@ export default function AdminPosts() {
 
     try {
       const response = await fetch(
-        `https://www.katori.dev/api/articles/${articleId}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL || 'https://www.katori.dev'}/api/articles/${articleId}`,
         {
           method: 'DELETE',
           headers: {
@@ -185,9 +187,6 @@ export default function AdminPosts() {
 
   return (
     <ProtectedRoute>
-      <Head>
-        <title>記事一覧 | 管理画面</title>
-      </Head>
       <MainLayout main={postsContent}></MainLayout>
     </ProtectedRoute>
   );
