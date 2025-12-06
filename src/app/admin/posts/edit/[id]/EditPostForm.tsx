@@ -240,7 +240,7 @@ export default function EditPostForm() {
         <div className="w-full md:w-1/2 h-full">
           <h3 className="block font-medium mb-1 text-gray-700 dark:text-gray-300">プレビュー</h3>
           <div className="w-full h-[calc(100%-2rem)] border rounded overflow-auto bg-white dark:bg-gray-800">
-            <PostBody content={htmlContent} />
+            {/* <PostBody content={htmlContent} /> */}
           </div>
         </div>
       </div>
