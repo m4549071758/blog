@@ -1,10 +1,12 @@
+'use client';
+
 import { useState } from 'react';
-import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 import { MainLayout } from '@/components/features/app/Layout';
 
-export default function Login() {
+export default function AdminLogin() {
   const router = useRouter();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -16,7 +18,7 @@ export default function Login() {
     setIsLoading(true);
     setError('');
 
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
     try {
       const response = await fetch(`${API_URL}/api/login`, {
@@ -45,8 +47,7 @@ export default function Login() {
       });
 
       // ダッシュボードページへリダイレクト
-      const redirectTo = (router.query.redirectTo as string) || '/admin';
-      router.push(redirectTo);
+      router.push('/admin');
     } catch (err) {
       console.error('Login error:', err);
       setError('ユーザー名またはパスワードが正しくありません');
@@ -56,22 +57,22 @@ export default function Login() {
   };
 
   const loginForm = (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
-      <h1 className="text-2xl font-bold mb-6 text-center">ログイン</h1>
+    <div className="max-w-md mx-auto mt-10 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+      <h1 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-white">ログイン</h1>
 
       {error && (
-        <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">{error}</div>
+        <div className="mb-4 p-3 bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-100 rounded">{error}</div>
       )}
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label className="block text-gray-700 mb-2" htmlFor="username">
+          <label className="block text-gray-700 dark:text-gray-300 mb-2" htmlFor="username">
             ユーザー名
           </label>
           <input
             id="username"
             type="text"
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
@@ -79,13 +80,13 @@ export default function Login() {
         </div>
 
         <div className="mb-6">
-          <label className="block text-gray-700 mb-2" htmlFor="password">
+          <label className="block text-gray-700 dark:text-gray-300 mb-2" htmlFor="password">
             パスワード
           </label>
           <input
             id="password"
             type="password"
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required

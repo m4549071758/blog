@@ -1,3 +1,5 @@
+'use client';
+
 import { DefaultSeo } from 'next-seo';
 import { WebsiteStructuredData } from '@/components/common/StructuredData';
 import { ROOT_URL } from '@/config/app';

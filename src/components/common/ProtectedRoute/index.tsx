@@ -1,5 +1,7 @@
+'use client';
+
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { validateToken } from '@/lib/authenticationHandler';
 
 interface ProtectedRouteProps {
@@ -18,10 +20,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 
         if (!isValid) {
           // 認証失敗時はログインページへリダイレクト
-          router.push({
-            pathname: '/admin/login',
-            query: { redirectTo: router.asPath },
-          });
+          router.push('/admin/login');
           return;
         }
 

@@ -1,12 +1,15 @@
+'use client';
+
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter, useParams } from 'next/navigation';
 import { PostBody } from '@/components/features/post/Post/PostBody';
 import { getPostBySlug, updatePost } from '@/lib/api';
 import markdownToHtmlForEditor from '@/lib/markdownToHtmlForEditor';
 
 export default function EditPostPage() {
   const router = useRouter();
-  const { id } = router.query;
+  const params = useParams();
+  const id = params?.id;
 
   const [post, setPost] = useState({
     title: '',
@@ -108,7 +111,7 @@ export default function EditPostPage() {
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">記事の編集</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">記事の編集</h1>
         <div className="flex items-center gap-2">
           {saveMessage && (
             <span
@@ -130,7 +133,7 @@ export default function EditPostPage() {
       </div>
 
       <div className="mb-4">
-        <label htmlFor="title" className="block font-medium mb-1">
+        <label htmlFor="title" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
           タイトル
         </label>
         <input
@@ -138,12 +141,12 @@ export default function EditPostPage() {
           id="title"
           value={post.title}
           onChange={(e) => setPost({ ...post, title: e.target.value })}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white dark:border-gray-600"
         />
       </div>
 
       <div className="mb-4">
-        <label htmlFor="slug" className="block font-medium mb-1">
+        <label htmlFor="slug" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
           記事ID
         </label>
         <input
@@ -151,13 +154,13 @@ export default function EditPostPage() {
           id="slug"
           value={post.slug}
           onChange={(e) => setPost({ ...post, slug: e.target.value })}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white dark:border-gray-600"
           disabled
         />
       </div>
 
       <div className="mb-4">
-        <label htmlFor="cover_image" className="block font-medium mb-1">
+        <label htmlFor="cover_image" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
           カバー画像URL
         </label>
         <input
@@ -165,24 +168,24 @@ export default function EditPostPage() {
           id="cover_image"
           value={post.cover_image || ''}
           onChange={(e) => setPost({ ...post, cover_image: e.target.value })}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white dark:border-gray-600"
         />
       </div>
 
       <div className="mb-4">
-        <label htmlFor="excerpt" className="block font-medium mb-1">
+        <label htmlFor="excerpt" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
           抜粋
         </label>
         <textarea
           id="excerpt"
           value={post.excerpt || ''}
           onChange={(e) => setPost({ ...post, excerpt: e.target.value })}
-          className="w-full p-2 border rounded h-24"
+          className="w-full p-2 border rounded h-24 dark:bg-gray-800 dark:text-white dark:border-gray-600"
         ></textarea>
       </div>
 
       <div className="mb-4">
-        <label htmlFor="og_image" className="block font-medium mb-1">
+        <label htmlFor="og_image" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
           OG画像URL
         </label>
         <input
@@ -190,12 +193,12 @@ export default function EditPostPage() {
           id="og_image"
           value={post.og_image || ''}
           onChange={(e) => setPost({ ...post, og_image: e.target.value })}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white dark:border-gray-600"
         />
       </div>
 
       <div className="mb-4">
-        <label htmlFor="tags" className="block font-medium mb-1">
+        <label htmlFor="tags" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
           タグ（カンマ区切り）
         </label>
         <input
@@ -203,13 +206,13 @@ export default function EditPostPage() {
           id="tags"
           value={post.tags || ''}
           onChange={(e) => setPost({ ...post, tags: e.target.value })}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white dark:border-gray-600"
           placeholder="タグ1, タグ2, タグ3"
         />
       </div>
 
       <div className="mb-4">
-        <label htmlFor="datetime" className="block font-medium mb-1">
+        <label htmlFor="datetime" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
           公開日
         </label>
         <input
@@ -217,26 +220,26 @@ export default function EditPostPage() {
           id="datetime"
           value={post.datetime ? post.datetime.substring(0, 10) : ''}
           onChange={(e) => setPost({ ...post, datetime: e.target.value })}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white dark:border-gray-600"
         />
       </div>
 
       <div className="flex flex-col md:flex-row gap-4 h-[600px]">
         <div className="w-full md:w-1/2 h-full">
-          <label htmlFor="content" className="block font-medium mb-1">
+          <label htmlFor="content" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
             コンテンツ (Markdown)
           </label>
           <textarea
             id="content"
             value={post.content}
             onChange={handleContentChange}
-            className="w-full h-[calc(100%-2rem)] p-2 border rounded font-mono"
+            className="w-full h-[calc(100%-2rem)] p-2 border rounded font-mono dark:bg-gray-800 dark:text-white dark:border-gray-600"
           ></textarea>
         </div>
 
         <div className="w-full md:w-1/2 h-full">
-          <h3 className="block font-medium mb-1">プレビュー</h3>
-          <div className="w-full h-[calc(100%-2rem)] border rounded overflow-auto bg-white">
+          <h3 className="block font-medium mb-1 text-gray-700 dark:text-gray-300">プレビュー</h3>
+          <div className="w-full h-[calc(100%-2rem)] border rounded overflow-auto bg-white dark:bg-gray-800">
             <PostBody content={htmlContent} />
           </div>
         </div>

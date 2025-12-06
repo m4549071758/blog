@@ -1,5 +1,6 @@
+'use client';
+
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import { RiChatNewLine } from 'react-icons/ri';
 import { Breadcrumb } from '@/components/common/Breadcrumb';
 import { MainLayout } from '@/components/features/app/Layout';
@@ -10,13 +11,12 @@ import { PostType } from '@/types/post';
 
 type Props = {
   posts: PostType[];
+  page: number;
   maxPage: number;
 };
 
-export const Page: React.VFC<Props> = ({ posts, maxPage }) => {
+export const Page: React.VFC<Props> = ({ posts, page, maxPage }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
-  const page = Number(router.query.page);
 
   const breadcrumbItems = [{ label: 'ブログ' }, { label: `ページ ${page}` }];
 

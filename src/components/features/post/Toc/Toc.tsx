@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect } from 'react';
 import { MdOutlineContentCopy } from 'react-icons/md';
 import tocbot from 'tocbot';

@@ -1,4 +1,5 @@
-import { useRouter } from 'next/router';
+'use client';
+
 import { FaHashtag } from 'react-icons/fa';
 import { Breadcrumb } from '@/components/common/Breadcrumb';
 import { MainLayout } from '@/components/features/app/Layout';
@@ -8,11 +9,10 @@ import { PostType } from '@/types/post';
 
 type Props = {
   posts: PostType[];
+  tag: string;
 };
 
-export const Tag: React.VFC<Props> = ({ posts }) => {
-  const tag = useRouter().query.tag;
-
+export const Tag: React.VFC<Props> = ({ posts, tag }) => {
   const breadcrumbItems = [
     { label: 'タグ', href: '/tags' },
     { label: `#${tag}` },

@@ -50,7 +50,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
             <li key={index} className="flex items-center">
               {index > 0 && (
                 <MdChevronRight className="w-4 h-4 mx-1 text-gray-400" />
-              )}{' '}
+              )}
               {item.href ? (
                 <Link
                   href={item.href}

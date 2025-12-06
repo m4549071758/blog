@@ -29,21 +29,6 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // NOTE: exportPathMap is deprecated in Next.js 15 but still works in Pages Router
-  // Consider migrating to App Router and using generateStaticParams in the future
-  exportPathMap: async function (
-    defaultPathMap,
-    { dev, dir, outDir, distDir, buildId },
-  ) {
-    const pathMap = {
-      ...defaultPathMap,
-    };
-    delete pathMap['/admin/posts/new'];
-    delete pathMap['/sitemap.xml'];
-    delete pathMap['/feed.xml'];
-
-    return pathMap;
-  },
 };
 
 module.exports = nextConfig;

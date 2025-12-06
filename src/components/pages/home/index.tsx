@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import { RiChatNewLine } from 'react-icons/ri';
 import { Link } from '@/components/common/Link';

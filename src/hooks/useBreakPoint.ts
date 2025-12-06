@@ -1,3 +1,6 @@
+'use client';
+
+import { useMemo } from 'react';
 import { useWindowSize } from './useWindowSize';
 
 type Bp = 'sm' | 'md' | 'lg' | 'xl';
@@ -11,5 +14,5 @@ const bps = {
 
 export const useBreakPoint = (bp: Bp) => {
   const { width } = useWindowSize();
-  return width >= bps[bp];
+  return useMemo(() => width >= bps[bp], [width, bp]);
 };

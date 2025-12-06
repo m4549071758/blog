@@ -4,7 +4,7 @@ import { getAuthToken } from './authenticationHandler';
 
 // APIのベースURL
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL || 'http://10.0.1.122:8080';
+  process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8080';
 
 // キャッシュを保持する変数
 let articlesListCache: any[] | null = null;

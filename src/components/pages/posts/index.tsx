@@ -1,3 +1,5 @@
+'use client';
+
 import { NextSeo } from 'next-seo';
 import { Breadcrumb } from '@/components/common/Breadcrumb';
 import { ArticleStructuredData } from '@/components/common/StructuredData';

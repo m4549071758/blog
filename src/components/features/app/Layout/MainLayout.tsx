@@ -1,3 +1,5 @@
+'use client';
+
 import { Portal } from '@radix-ui/react-portal';
 import { useBreakPoint } from '@/hooks/useBreakPoint';
 import { cn } from '@/lib/cn';

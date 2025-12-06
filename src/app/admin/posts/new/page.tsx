@@ -1,6 +1,7 @@
 'use client';
+
 import { useState, useRef, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { PostBody } from '@/components/features/post/Post/PostBody';
 import { createPost } from '@/lib/api';
 import { getAuthToken } from '@/lib/authHandler';
@@ -8,7 +9,16 @@ import markdownToHtmlForEditor from '@/lib/markdownToHtmlForEditor';
 
 export default function NewPostPage() {
   const router = useRouter();
-  const authToken = getAuthToken();
+  // クライアントサイドでのみ実行されるようにuseEffect内で取得するか、
+  // getAuthTokenがSSRで安全か確認する必要があるが、
+  // 既存コードに倣いトップレベルで呼んでいる（ただしApp Routerでは注意が必要）。
+  // getAuthTokenがCookies.getを使用しているならクライアントでのみ動作するはず。
+  const [authToken, setAuthToken] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    setAuthToken(getAuthToken());
+  }, []);
+
   const [post, setPost] = useState({
     title: '',
     content: '',
@@ -24,6 +34,9 @@ export default function NewPostPage() {
   const [saveMessage, setSaveMessage] = useState('');
 
   useEffect(() => {
+    // authTokenが初期化された後チェック
+    if (authToken === undefined) return;
+    
     if (!authToken) {
       console.log('ログインしてください');
       window.location.href = '/admin/login';
@@ -173,7 +186,7 @@ export default function NewPostPage() {
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">新規記事作成</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">新規記事作成</h1>
         <div className="flex items-center gap-2">
           {saveMessage && (
             <span
@@ -197,7 +210,7 @@ export default function NewPostPage() {
       </div>
 
       <div className="mb-4">
-        <label htmlFor="title" className="block font-medium mb-1">
+        <label htmlFor="title" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
           タイトル
         </label>
         <input
@@ -205,13 +218,13 @@ export default function NewPostPage() {
           id="title"
           value={post.title}
           onChange={handleTitleChange}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white dark:border-gray-600"
           placeholder="記事のタイトルを入力"
         />
       </div>
 
       <div className="mb-4">
-        <label htmlFor="cover_image" className="block font-medium mb-1">
+        <label htmlFor="cover_image" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
           カバー画像URL
         </label>
         <input
@@ -219,26 +232,26 @@ export default function NewPostPage() {
           id="cover_image"
           value={post.cover_image}
           onChange={(e) => setPost({ ...post, cover_image: e.target.value })}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white dark:border-gray-600"
           placeholder="https://example.com/image.jpg"
         />
       </div>
 
       <div className="mb-4">
-        <label htmlFor="excerpt" className="block font-medium mb-1">
+        <label htmlFor="excerpt" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
           抜粋
         </label>
         <textarea
           id="excerpt"
           value={post.excerpt}
           onChange={(e) => setPost({ ...post, excerpt: e.target.value })}
-          className="w-full p-2 border rounded h-24"
+          className="w-full p-2 border rounded h-24 dark:bg-gray-800 dark:text-white dark:border-gray-600"
           placeholder="記事の簡単な説明を入力してください"
         ></textarea>
       </div>
 
       <div className="mb-4">
-        <label htmlFor="og_image" className="block font-medium mb-1">
+        <label htmlFor="og_image" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
           OG画像URL
         </label>
         <input
@@ -246,13 +259,13 @@ export default function NewPostPage() {
           id="og_image"
           value={post.og_image}
           onChange={(e) => setPost({ ...post, og_image: e.target.value })}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white dark:border-gray-600"
           placeholder="https://example.com/og-image.jpg"
         />
       </div>
 
       <div className="mb-4">
-        <label htmlFor="tags" className="block font-medium mb-1">
+        <label htmlFor="tags" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
           タグ（カンマ区切り）
         </label>
         <input
@@ -260,13 +273,13 @@ export default function NewPostPage() {
           id="tags"
           value={post.tags}
           onChange={(e) => setPost({ ...post, tags: e.target.value })}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white dark:border-gray-600"
           placeholder="JavaScript, React, NextJS"
         />
       </div>
 
       <div className="mb-4">
-        <label htmlFor="datetime" className="block font-medium mb-1">
+        <label htmlFor="datetime" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
           公開日
         </label>
         <input
@@ -274,13 +287,13 @@ export default function NewPostPage() {
           id="datetime"
           value={post.datetime}
           onChange={(e) => setPost({ ...post, datetime: e.target.value })}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white dark:border-gray-600"
         />
       </div>
 
       <div className="flex flex-col md:flex-row gap-4 h-[600px]">
         <div className="w-full md:w-1/2 h-full">
-          <label htmlFor="content" className="block font-medium mb-1">
+          <label htmlFor="content" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
             コンテンツ (Markdown)
           </label>
           <textarea
@@ -290,14 +303,14 @@ export default function NewPostPage() {
             onChange={handleContentChange}
             onDragOver={handleImageDragOver}
             onDrop={handleImageDrop}
-            className="w-full h-[calc(100%-2rem)] p-2 border rounded font-mono"
+            className="w-full h-[calc(100%-2rem)] p-2 border rounded font-mono dark:bg-gray-800 dark:text-white dark:border-gray-600"
             placeholder="# マークダウンで記事を作成できます"
           ></textarea>
         </div>
 
         <div className="w-full md:w-1/2 h-full">
-          <h3 className="block font-medium mb-1">プレビュー</h3>
-          <div className="w-full h-[calc(100%-2rem)] border rounded overflow-auto bg-white">
+          <h3 className="block font-medium mb-1 text-gray-700 dark:text-gray-300">プレビュー</h3>
+          <div className="w-full h-[calc(100%-2rem)] border rounded overflow-auto bg-white dark:bg-gray-800">
             <PostBody content={htmlContent} />
           </div>
         </div>

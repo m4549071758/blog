@@ -1,8 +1,13 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 
-export const useImageLightbox = (containerRef: React.RefObject<HTMLElement>) => {
+export const useImageLightbox = (
+  containerRef: React.RefObject<HTMLElement>,
+  content?: string
+) => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState<string>('');
 
@@ -32,7 +37,7 @@ export const useImageLightbox = (containerRef: React.RefObject<HTMLElement>) => 
         img.removeEventListener('click', handleImageClick);
       });
     };
-  }, [containerRef]);
+  }, [containerRef, content]);
 
   const LightboxComponent = lightboxOpen ? (
     <Lightbox

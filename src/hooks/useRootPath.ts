@@ -1,9 +1,6 @@
-import { useRouter } from 'next/router';
-
+// 静的エクスポート (output: 'export') では、
+// すべてのページが同じルートレベルにエクスポートされるため、
+// 常にルートパス '.' を返します
 export const useRootPath = () => {
-  const router = useRouter();
-  const depth = router.pathname.split('/').filter(Boolean).length;
-  const cd = depth ? new Array<string>(depth).fill('..').join('/') : '.';
-
-  return cd;
+  return '.';
 };
