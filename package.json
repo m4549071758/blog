@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run fetch-articles && npm run generate-static-files && next build && next export",
-    "export": "next export",
+    "build": "npm run fetch-articles && npm run generate-static-files && next build",
+    "export": "echo 'Use npm run build instead of next export'",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
