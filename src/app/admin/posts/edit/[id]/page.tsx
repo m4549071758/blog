@@ -3,8 +3,25 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { PostBody } from '@/components/features/post/Post/PostBody';
-import { getPostBySlug, updatePost } from '@/lib/api';
+import { getPostSlugs, getPostBySlug, updatePost } from '@/lib/api';
 import markdownToHtmlForEditor from '@/lib/markdownToHtmlForEditor';
+
+// 静的エクスポート用にパスを生成
+export async function generateStaticParams() {
+  try {
+    const slugs = await getPostSlugs();
+    // APIが空配列を返す場合もあるのでチェック
+    if (!slugs || slugs.length === 0) {
+      return [];
+    }
+    return slugs.map((slug: string) => ({
+      id: slug,
+    }));
+  } catch (error) {
+    console.error('Error generating static params:', error);
+    return [];
+  }
+}
 
 export default function EditPostPage() {
   const router = useRouter();
