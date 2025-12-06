@@ -3,14 +3,67 @@ import Script from 'next/script';
 import { Footer } from '@/components/features/app/Footer';
 import { Header } from '@/components/features/app/Header';
 import { ContentLayout } from '@/components/features/app/Layout';
-import { Seo } from '@/components/features/app/Seo';
 import '@/styles/index.css';
 import '@/styles/prism.css';
 import '@/styles/rlc.css';
+import { ROOT_URL, SITE_NAME } from '@/config/app';
 
 export const metadata: Metadata = {
-  title: 'Katori Blog',
-  description: 'かとりのブログ - 技術、プログラミング、サーバー管理についての記事',
+  metadataBase: new URL(ROOT_URL),
+  title: {
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: "Katori's Tech blog - プログラミング、技術、ライフスタイルについての記事を投稿しています",
+  openGraph: {
+    title: SITE_NAME,
+    description: "Katori's Tech blog - プログラミング、技術、ライフスタイルについての記事を投稿しています",
+    url: ROOT_URL,
+    siteName: SITE_NAME,
+    locale: 'ja_JP',
+    type: 'website',
+    images: [
+      {
+        url: '/assets/author.webp',
+        width: 512,
+        height: 512,
+        alt: `${SITE_NAME} ロゴ`,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@katori_m', // Seo.tsxの@your_twitter_handleを仮修正
+    creator: '@katori_m',
+  },
+  icons: {
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/favicons/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicons/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: { url: '/favicons/apple-touch-icon.png', sizes: '180x180' },
+    other: [
+      { rel: 'mask-icon', url: '/favicons/safari-pinned-tab.svg', color: '#5bbad5' },
+    ],
+  },
+  manifest: '/favicons/site.webmanifest',
+  alternates: {
+    types: {
+      'application/rss+xml': '/feed.xml',
+    },
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -27,7 +80,7 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Seo />
+
         
         <div
           style={{ gridTemplateRows: 'auto 1fr auto' }}
