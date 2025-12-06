@@ -20,6 +20,13 @@ async function fetchArticlesList() {
 
     console.log('Response status:', response.status);
 
+    const contentType = response.headers.get('content-type');
+    if (contentType && !contentType.includes('application/json')) {
+      console.error('Received non-JSON response:', contentType);
+      // ビルドを止めないために空配列を返す
+      return [];
+    }
+
     if (!response.ok) {
       const errorText = await response.text();
       console.error('API response error:', errorText);
@@ -49,6 +56,12 @@ async function fetchArticleDetail(articleId: string) {
       return null;
     }
 
+    const contentType = response.headers.get('content-type');
+    if (contentType && !contentType.includes('application/json')) {
+      console.warn(`Invalid content-type for article ${articleId}: ${contentType}`);
+      return null;
+    }
+
     if (!response.ok) {
       const errorText = await response.text();
       console.error('Article detail API response error:', errorText);
@@ -74,12 +87,18 @@ async function fetchArticleDetail(articleId: string) {
 // 記事のスラグ(ID)一覧を取得
 export const getPostSlugs = async () => {
   const articles = await fetchArticlesList();
+  if (!articles || !Array.isArray(articles)) {
+    return [];
+  }
   return articles.map((article: { article_id: string }) => article.article_id);
 };
 
 // 最大ページ数を計算
 export const getMaxPage = async () => {
   const articles = await fetchArticlesList();
+  if (!articles || !Array.isArray(articles)) {
+    return 0;
+  }
   return Math.ceil(articles.length / paginationOffset);
 };
 
@@ -208,6 +227,7 @@ type Post = {
   slug: string;
   createdAt?: string;
   updatedAt?: string;
+  deletedAt?: string;
 };
 
 // 記事IDから記事データを取得
