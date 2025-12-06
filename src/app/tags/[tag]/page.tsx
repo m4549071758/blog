@@ -1,6 +1,7 @@
 import { getAllPosts } from '@/lib/api';
 import { Tag } from '@/components/pages/tag';
 import { notFound } from 'next/navigation';
+import { Profile } from '@/components/features/app/Profile';
 
 type Props = {
   params: Promise<{ tag: string }>;
@@ -11,6 +12,12 @@ export async function generateStaticParams() {
   const posts = await getAllPosts(['tags']);
   const tags = posts.flatMap((post) => post.tags || []);
   const uniqueTags = Array.from(new Set(tags));
+  
+  console.log('Generating static params for tags. Count:', uniqueTags.length);
+
+  if (uniqueTags.length === 0) {
+    return [{ tag: 'all' }];
+  }
 
   return uniqueTags.map((tag) => ({
     tag: tag,
@@ -36,5 +43,5 @@ export default async function TagPage({ params }: Props) {
     notFound();
   }
 
-  return <Tag posts={posts as any} tag={tag} />;
+  return <Tag posts={posts as any} tag={tag} profile={<Profile />} />;
 }

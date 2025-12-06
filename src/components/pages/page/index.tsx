@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { RiChatNewLine } from 'react-icons/ri';
 import { Breadcrumb } from '@/components/common/Breadcrumb';
 import { MainLayout } from '@/components/features/app/Layout';
-import { Profile } from '@/components/features/app/Profile';
 import { Pagination } from '@/components/features/story/Pagination';
 import { Stories, StoriesSkeleton } from '@/components/features/story/Stories';
 import { PostType } from '@/types/post';
@@ -13,9 +12,10 @@ type Props = {
   posts: PostType[];
   page: number;
   maxPage: number;
+  profile?: React.ReactNode;
 };
 
-export const Page: React.VFC<Props> = ({ posts, page, maxPage }) => {
+export const Page: React.VFC<Props> = ({ posts, page, maxPage, profile }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const breadcrumbItems = [{ label: 'ブログ' }, { label: `ページ ${page}` }];
@@ -58,7 +58,7 @@ export const Page: React.VFC<Props> = ({ posts, page, maxPage }) => {
           <Pagination count={maxPage} page={page} />
         </div>
       }
-      aside={<Profile />}
+      aside={profile}
     />
   );
 };

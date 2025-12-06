@@ -4,15 +4,15 @@ import { useEffect, useState } from 'react';
 import { RiChatNewLine } from 'react-icons/ri';
 import { Link } from '@/components/common/Link';
 import { MainLayout } from '@/components/features/app/Layout';
-import { Profile } from '@/components/features/app/Profile';
 import { Stories, StoriesSkeleton } from '@/components/features/story/Stories';
 import { PostType } from '@/types/post';
 
 type Props = {
   posts: PostType[];
+  profile?: React.ReactNode;
 };
 
-export const Home: React.VFC<Props> = ({ posts }) => {
+export const Home: React.VFC<Props> = ({ posts, profile }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export const Home: React.VFC<Props> = ({ posts }) => {
           </Link>
         </div>
       }
-      aside={<Profile />}
+      aside={profile}
     />
   );
 };

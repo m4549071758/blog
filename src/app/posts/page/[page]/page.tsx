@@ -1,6 +1,7 @@
 import { getPaginatedPosts, getMaxPage } from '@/lib/api';
 import { Page } from '@/components/pages/page';
 import { notFound } from 'next/navigation';
+import { Profile } from '@/components/features/app/Profile';
 
 type Props = {
   params: Promise<{ page: string }>;
@@ -9,7 +10,12 @@ type Props = {
 // 静的パスの生成
 export async function generateStaticParams() {
   const maxPage = await getMaxPage();
+  console.log('Generating static params for pages. Max page:', maxPage);
   
+  if (maxPage === 0) {
+    return [{ page: '1' }];
+  }
+
   return Array.from({ length: maxPage }, (_, i) => ({
     page: (i + 1).toString(),
   }));
@@ -37,5 +43,5 @@ export default async function PaginationPage({ params }: Props) {
     'like_count',
   ]);
 
-  return <Page posts={posts as any} page={page} maxPage={maxPage} />;
+  return <Page posts={posts as any} page={page} maxPage={maxPage} profile={<Profile />} />;
 }

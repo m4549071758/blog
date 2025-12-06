@@ -30,7 +30,6 @@ export default function EditPostForm() {
       if (!id) return;
 
       try {
-        // IDを使って記事を取得
         const loadedPost = await getPostBySlug(id as string, [
           'title',
           'content',
@@ -109,10 +108,6 @@ export default function EditPostForm() {
     }
   };
 
-  if (!id) {
-    return <div className="p-4">IDが指定されていません</div>;
-  }
-
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-6">
@@ -157,7 +152,8 @@ export default function EditPostForm() {
         <input
           type="text"
           id="slug"
-          value={id} // 表示用ID
+          value={post.slug}
+          onChange={(e) => setPost({ ...post, slug: e.target.value })}
           className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white dark:border-gray-600"
           disabled
         />

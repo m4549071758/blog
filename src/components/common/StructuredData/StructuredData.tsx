@@ -3,7 +3,10 @@ interface ArticleStructuredDataProps {
   description: string;
   datePublished: string;
   dateModified?: string;
-  author: string;
+  authorName: string;
+  authorUrl?: string;
+  publisherName: string;
+  publisherLogoUrl: string;
   url: string;
   imageUrl: string;
   tags?: string[];
@@ -14,7 +17,10 @@ export const ArticleStructuredData: React.FC<ArticleStructuredDataProps> = ({
   description,
   datePublished,
   dateModified,
-  author,
+  authorName,
+  authorUrl,
+  publisherName,
+  publisherLogoUrl,
   url,
   imageUrl,
   tags = [],
@@ -28,14 +34,15 @@ export const ArticleStructuredData: React.FC<ArticleStructuredDataProps> = ({
     dateModified: dateModified || datePublished,
     author: {
       '@type': 'Person',
-      name: author,
+      name: authorName,
+      url: authorUrl,
     },
     publisher: {
       '@type': 'Organization',
-      name: "Katori's blog",
+      name: publisherName,
       logo: {
         '@type': 'ImageObject',
-        url: `${process.env.NEXT_PUBLIC_ROOT_URL}/assets/author.webp`,
+        url: publisherLogoUrl,
       },
     },
     mainEntityOfPage: {

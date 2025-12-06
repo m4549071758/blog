@@ -4,7 +4,6 @@
 import { Breadcrumb } from '@/components/common/Breadcrumb';
 import { ArticleStructuredData } from '@/components/common/StructuredData';
 import { MainLayout } from '@/components/features/app/Layout';
-import { Profile } from '@/components/features/app/Profile';
 import { Post } from '@/components/features/post/Post';
 import { Share } from '@/components/features/post/Share';
 import { Toc } from '@/components/features/post/Toc';
@@ -14,11 +13,16 @@ import { useBreakPoint } from '@/hooks/useBreakPoint';
 import { joinPath } from '@/lib/joinPath';
 import { PostType } from '@/types/post';
 
+import { SiteConfig } from '@/lib/siteConfig';
+
 type Props = {
   post: PostType;
+  profile?: React.ReactNode;
+  siteConfig?: any;
+  ownerProfile?: any;
 };
 
-export const Posts: React.VFC<Props> = ({ post }) => {
+export const Posts: React.VFC<Props> = ({ post, profile, siteConfig, ownerProfile }) => {
   const lg = useBreakPoint('lg');
   const imageURL = joinPath(ROOT_URL, post.ogImage.url);
   const postURL = joinPath(ROOT_URL, `/posts/${post.slug}`);
@@ -37,7 +41,10 @@ export const Posts: React.VFC<Props> = ({ post }) => {
         description={post.excerpt}
         datePublished={post.date}
         dateModified={post.date}
-        author="Katori"
+        authorName={ownerProfile?.username || 'Katori'}
+        authorUrl={ownerProfile?.twitter_url}
+        publisherName={siteConfig?.site_title || "Katori's blog"}
+        publisherLogoUrl={siteConfig?.publisher_logo_url || joinPath(ROOT_URL, '/assets/author.webp')}
         url={postURL}
         imageUrl={imageURL}
         tags={post.tags}
@@ -55,7 +62,7 @@ export const Posts: React.VFC<Props> = ({ post }) => {
         }
         aside={
           <div className="vstack gap-10 h-full">
-            <Profile />
+            {profile}
             <div className="vstack gap-10 sticky top-20">
               {lg && <Toc />}
               <Share post={post} />

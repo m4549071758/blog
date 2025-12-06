@@ -3,6 +3,9 @@ import markdownToHtml from '@/lib/markdownToHtml';
 import { Posts } from '@/components/pages/posts';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import { Profile } from '@/components/features/app/Profile';
+import { getSiteConfig } from '@/lib/siteConfig';
+import { getOwnerProfile } from '@/lib/userProfile';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -64,14 +67,26 @@ export default async function PostPage({ params }: Props) {
       'tags',
     ]);
 
+// ...
+
+// ... (in PostPage)
     // 記事が見つからない場合は404
     if (!post || !post.title) {
       notFound();
     }
 
     const content = await markdownToHtml(post.content || '');
+    const siteConfig = await getSiteConfig();
+    const ownerProfile = await getOwnerProfile();
 
-    return <Posts post={{ ...post, content } as any} />;
+    return (
+      <Posts
+        post={{ ...post, content } as any}
+        profile={<Profile />}
+        siteConfig={siteConfig}
+        ownerProfile={ownerProfile}
+      />
+    );
   } catch (error) {
     console.error('Error in PostPage:', error);
     notFound();

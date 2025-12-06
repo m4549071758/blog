@@ -1,13 +1,13 @@
 import { AiTwotoneTags } from 'react-icons/ai';
 import { Link } from '@/components/common/Link';
 import { MainLayout } from '@/components/features/app/Layout';
-import { Profile } from '@/components/features/app/Profile';
 
 type Props = {
   tags: string[];
+  profile?: React.ReactNode;
 };
 
-export const Tags: React.VFC<Props> = ({ tags }) => {
+export const Tags: React.VFC<Props> = ({ tags, profile }) => {
   return (
     <MainLayout
       main={
@@ -28,7 +28,7 @@ export const Tags: React.VFC<Props> = ({ tags }) => {
           </div>
         </div>
       }
-      aside={<Profile />}
+      aside={profile}
     />
   );
 };

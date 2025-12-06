@@ -3,16 +3,16 @@
 import { FaHashtag } from 'react-icons/fa';
 import { Breadcrumb } from '@/components/common/Breadcrumb';
 import { MainLayout } from '@/components/features/app/Layout';
-import { Profile } from '@/components/features/app/Profile';
 import { Stories } from '@/components/features/story/Stories';
 import { PostType } from '@/types/post';
 
 type Props = {
   posts: PostType[];
   tag: string;
+  profile?: React.ReactNode;
 };
 
-export const Tag: React.VFC<Props> = ({ posts, tag }) => {
+export const Tag: React.VFC<Props> = ({ posts, tag, profile }) => {
   const breadcrumbItems = [
     { label: 'タグ', href: '/tags' },
     { label: `#${tag}` },
@@ -28,7 +28,7 @@ export const Tag: React.VFC<Props> = ({ posts, tag }) => {
           <Stories posts={posts} title={tag} icon={<FaHashtag />} />
         </div>
       }
-      aside={<Profile />}
+      aside={profile}
     />
   );
 };
