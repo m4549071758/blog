@@ -23,7 +23,7 @@ export const Profile = () => (
       技術スタック: Golang, Python, Next.js, Proxmox, Linux, Java, サーバー
     </p>
 
-    <div className="flex gap-4">
+    <div className="hidden lg:flex gap-4">
       {sns.map(({ href, icon: Icon, label }) => (
         <Link key={href} href={href} className="text-primary-1" aria-label={label}>
           <Icon size={20} />

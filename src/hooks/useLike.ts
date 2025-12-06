@@ -53,7 +53,7 @@ export const useLike = (articleId: string) => {
       try {
         // 末尾のスラッシュを除去してからエンドポイントを構築
         const baseUrl = API_BASE_URL.replace(/\/$/, '');
-        const requestUrl = `${baseUrl}/api/articles/${articleId}/like-status`;
+        const requestUrl = `${baseUrl}/api/like-status/${articleId}`;
         const response = await axios.get<LikeResponse>(requestUrl, {
           params: { fingerprint: fingerprint || 'anonymous' },
         });

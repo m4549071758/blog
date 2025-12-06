@@ -41,8 +41,8 @@ export const Seo = () => {
           ],
         }}
         twitter={{
-          handle: '@your_twitter_handle',
-          site: '@your_twitter_handle',
+          handle: '@katori_m',
+          site: '@katori_m',
           cardType: 'summary_large_image',
         }}
         additionalMetaTags={[
