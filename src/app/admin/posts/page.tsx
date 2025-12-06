@@ -3,8 +3,7 @@
 import { useState, useEffect } from 'react';
 
 import Link from 'next/link';
-import { ProtectedRoute } from '@/components/common/ProtectedRoute';
-import { MainLayout } from '@/components/features/app/Layout';
+import { AdminLayout } from '@/components/features/admin/AdminLayout';
 import { authHeader } from '@/lib/authenticationHandler';
 
 // 記事データの型定義
@@ -185,8 +184,8 @@ export default function AdminPosts() {
   );
 
   return (
-    <ProtectedRoute>
-      <MainLayout main={postsContent}></MainLayout>
-    </ProtectedRoute>
+    <AdminLayout>
+      {postsContent}
+    </AdminLayout>
   );
 }
