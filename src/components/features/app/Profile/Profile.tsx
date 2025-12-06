@@ -26,7 +26,8 @@ export const Profile = () => (
     <div className="flex gap-4">
       {sns.map(({ href, icon, label }) => (
         <Link key={href} href={href} className="text-primary-1" aria-label={label}>
-          {icon}
+          {/* {icon} */}
+          {label}
         </Link>
       ))}
     </div>

@@ -1,3 +1,8 @@
-import NextLink from 'next/link';
+import NextLink, { LinkProps } from 'next/link';
+import { ComponentProps } from 'react';
 
-export const Link = NextLink;
+type Props = LinkProps & ComponentProps<'a'>;
+
+export const Link = ({ children, ...props }: Props) => {
+  return <NextLink {...props}>{children}</NextLink>;
+};
