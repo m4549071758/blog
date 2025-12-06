@@ -16,7 +16,7 @@ async function fetchArticlesList() {
 
   try {
     console.log('Fetching articles from:', `${API_BASE_URL}/api/articles`);
-    const response = await fetch(`${API_BASE_URL}/api/articles`);
+    const response = await fetch(`${API_BASE_URL}/api/articles`, { cache: 'force-cache' });
 
     console.log('Response status:', response.status);
 
@@ -48,7 +48,9 @@ async function fetchArticleDetail(articleId: string) {
 
   try {
     console.log('Fetching article detail for ID:', articleId);
-    const response = await fetch(`${API_BASE_URL}/api/articles/${articleId}`);
+    const response = await fetch(`${API_BASE_URL}/api/articles/${articleId}`, {
+      cache: 'force-cache',
+    });
 
     // 404エラーの場合は特別に処理
     if (response.status === 404) {

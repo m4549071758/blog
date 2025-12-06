@@ -154,7 +154,7 @@ export default function AdminPosts() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       <div className="flex space-x-2">
                         <Link
-                          href={`/admin/posts/edit/${article.article_id}`}
+                          href={`/admin/posts/edit?id=${article.article_id}`}
                           className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400"
                         >
                           編集

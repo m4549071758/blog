@@ -171,7 +171,14 @@ export default function NewPostPage() {
 
       // 作成成功後、編集ページにリダイレクト
       setTimeout(() => {
-        router.push(`/admin/posts/edit/${newPost.id}`);
+        const postId = newPost.id || (newPost as any).article_id;
+        if (postId) {
+          // クエリパラメータでIDを渡す形式に変更
+          router.push(`/admin/posts/edit?id=${postId}`);
+        } else {
+          console.error('Post ID not found in response', newPost);
+          setSaveMessage('記事は作成されましたが、リダイレクトに失敗しました');
+        }
       }, 1500);
     } catch (error) {
       console.error('保存に失敗しました', error);
