@@ -6,7 +6,7 @@ import { cn } from '@/lib/cn';
 import { Hamburger } from '../Hamburger';
 
 type Props = {
-  main: React.ReactElement;
+  main: React.ReactNode;
   aside?: React.ReactNode;
   hamburgerMenu?: React.ReactNode;
   className?: string;
