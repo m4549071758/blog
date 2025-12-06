@@ -1,5 +1,4 @@
-@import url('./post.css');
-@import url('./toc.css');
+@import 'prism-themes/themes/prism-vsc-dark-plus.css';
 
 @tailwind base;
 @tailwind components;
@@ -11,6 +10,29 @@
     font-family: Yu Gothic, yugothic, ヒラギノ角ゴ ProN, Hiragino Kaku Gothic ProN,
       メイリオ, meiryo, sans-serif;
   } */
+  :root {
+    --rehype-github-alerts-default-color: rgb(89, 99, 110);
+    --rehype-github-alerts-note-color: rgb(9, 105, 218);
+    --rehype-github-alerts-tip-color: rgb(26, 127, 55);
+    --rehype-github-alerts-important-color: rgb(130, 80, 223);
+    --rehype-github-alerts-warning-color: rgb(154, 103, 0);
+    --rehype-github-alerts-caution-color: rgb(209, 36, 47);
+    --rehype-github-alerts-default-space: 1rem;
+    --rehype-github-alerts-default-fontFamily: -apple-system, BlinkMacSystemFont,
+      'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+      'Segoe UI Emoji';
+    --rehype-github-alerts-default-fontWeight: 500;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --rehype-github-alerts-default-color: rgb(145, 152, 161);
+      --rehype-github-alerts-note-color: rgb(68, 147, 248);
+      --rehype-github-alerts-tip-color: rgb(63, 185, 80);
+      --rehype-github-alerts-important-color: rgb(171, 125, 248);
+      --rehype-github-alerts-warning-color: rgb(210, 153, 34);
+      --rehype-github-alerts-caution-color: rgb(248, 81, 73);
+    }
+  }
 }
 
 @layer components {
@@ -40,6 +62,187 @@
 
   .badge {
     @apply select-none text-xs flex items-center font-bold px-3 py-1 bg-black text-white;
+  }
+
+  /* From post.css */
+  .post {
+    @apply my-5 text-base font-medium text-neutral-800 dark:text-white !important;
+  }
+
+  .post a {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-400 dark:to-blue-500 !important;
+  }
+
+  .post p {
+    @apply mt-0 mb-9 text-[15px] sm:text-base !important;
+  }
+
+  .post h2 {
+    @apply px-4 py-2 mt-16 mb-12 border-l-4 border-current text-2xl !important;
+  }
+
+  .post h3 {
+    @apply px-4 py-2 mt-10 mb-8 border-b-2 text-xl !important;
+  }
+
+  .post h4 {
+    @apply mb-4 text-lg !important;
+  }
+
+  .post ul + p {
+    @apply mt-5 !important;
+  }
+
+  .post code {
+    font-size: max(12px, 85%) !important;
+    @apply whitespace-nowrap font-mono mx-[2px] py-[2px] px-[3px] rounded-sm text-neutral-700 bg-neutral-100 dark:text-neutral-100 dark:bg-neutral-700 !important;
+  }
+
+  .post pre code {
+    @apply whitespace-pre m-0 p-0 text-[13px] sm:text-sm text-inherit bg-transparent dark:text-inherit dark:bg-transparent !important;
+  }
+
+  .post pre {
+    @apply p-4 mb-9 rounded-md !important;
+  }
+
+  /* 引用 */
+  .post blockquote {
+    @apply border-l-4 border-teal-800 dark:border-teal-400 bg-neutral-100 dark:bg-neutral-800 text-primary-1 px-4 py-3 my-6 rounded-md;
+  }
+
+  .post blockquote p {
+    @apply m-0;
+  }
+
+  /* テーブル */
+  .post table {
+    @apply w-full my-8 border-collapse border border-neutral-300 dark:border-neutral-600 rounded-lg overflow-hidden !important;
+  }
+
+  .post table thead {
+    @apply bg-teal-800 dark:bg-teal-700 !important;
+  }
+
+  .post table thead th {
+    @apply px-4 py-3 text-white font-semibold text-sm border-r border-teal-700 dark:border-teal-600 last:border-r-0 !important;
+  }
+
+  .post table tbody tr {
+    @apply border-b border-neutral-200 dark:border-neutral-700 !important;
+  }
+
+  .post table tbody tr:nth-child(even) {
+    @apply bg-neutral-50 dark:bg-neutral-800 !important;
+  }
+
+  .post table tbody tr:nth-child(odd) {
+    @apply bg-white dark:bg-neutral-900 !important;
+  }
+
+  .post table tbody tr:last-child {
+    @apply border-b-0 !important;
+  }
+
+  .post table tbody tr:last-child td {
+    @apply bg-teal-50 dark:bg-teal-900 font-semibold text-teal-800 dark:text-teal-200 !important;
+  }
+
+  .post table tbody td {
+    @apply px-4 py-3 text-sm border-r border-neutral-200 dark:border-neutral-700 last:border-r-0 !important;
+  }
+
+  .post table tbody td:empty {
+    @apply relative !important;
+  }
+
+  .post table tbody td:empty::after {
+    content: '—';
+    @apply text-neutral-400 dark:text-neutral-500 !important;
+  }
+
+  /* From toc.css */
+  .toc-list {
+    @apply flex flex-col gap-3;
+  }
+
+  .toc-list .toc-list {
+    @apply flex flex-col gap-2 pl-4 mt-1;
+  }
+
+  .toc-link {
+    @apply text-sm sm:text-base font-bold text-neutral-400 dark:text-neutral-400 hover:text-teal-800 dark:hover:text-teal-400;
+  }
+
+  .toc-list .toc-list .toc-link {
+    @apply text-sm;
+  }
+
+  .is-active-link {
+    @apply text-neutral-900 dark:text-teal-400;
+  }
+
+  /* From githubAlert.css */
+  .markdown-alert {
+    padding: calc(var(--rehype-github-alerts-default-space) / 2)
+      var(--rehype-github-alerts-default-space);
+    margin-bottom: var(--rehype-github-alerts-default-space);
+    border-left: calc(var(--rehype-github-alerts-default-space) / 4) solid
+      var(--rehype-github-alerts-default-color);
+    font-family: var(--rehype-github-alerts-default-fontFamily);
+  }
+  .markdown-alert > :first-child {
+    margin-top: 0;
+  }
+  .markdown-alert > :last-child {
+    margin-bottom: 0;
+  }
+  .markdown-alert-note {
+    border-left-color: var(--rehype-github-alerts-note-color);
+  }
+  .markdown-alert-tip {
+    border-left-color: var(--rehype-github-alerts-tip-color);
+  }
+  .markdown-alert-important {
+    border-left-color: var(--rehype-github-alerts-important-color);
+  }
+  .markdown-alert-warning {
+    border-left-color: var(--rehype-github-alerts-warning-color);
+  }
+  .markdown-alert-caution {
+    border-left-color: var(--rehype-github-alerts-caution-color);
+  }
+  .markdown-alert-title {
+    display: flex;
+    margin-bottom: calc(var(--rehype-github-alerts-default-space) / 4);
+    align-items: center;
+    font-weight: var(--rehype-github-alerts-default-fontWeight, 500);
+  }
+  .markdown-alert-note .markdown-alert-title {
+    color: var(--rehype-github-alerts-note-color);
+    fill: var(--rehype-github-alerts-note-color);
+  }
+  .markdown-alert-tip .markdown-alert-title {
+    color: var(--rehype-github-alerts-tip-color);
+    fill: var(--rehype-github-alerts-tip-color);
+  }
+  .markdown-alert-important .markdown-alert-title {
+    color: var(--rehype-github-alerts-important-color);
+    fill: var(--rehype-github-alerts-important-color);
+  }
+  .markdown-alert-warning .markdown-alert-title {
+    color: var(--rehype-github-alerts-warning-color);
+    fill: var(--rehype-github-alerts-warning-color);
+  }
+  .markdown-alert-caution .markdown-alert-title {
+    color: var(--rehype-github-alerts-caution-color);
+    fill: var(--rehype-github-alerts-caution-color);
+  }
+  .octicon {
+    margin-right: calc(var(--rehype-github-alerts-default-space) / 2);
+    display: inline-block;
+    overflow: visible !important;
+    vertical-align: text-bottom;
   }
 }
 
