@@ -6,12 +6,7 @@ import markdownStyles from './styles/markdown-styles.module.css';
 
 // ライトボックスをクライアントサイドのみで読み込む
 const ImageLightbox = dynamic(
-  () => import('@/hooks/useImageLightbox').then(mod => ({ 
-    default: ({ containerRef, content }: any) => {
-      const LightboxComponent = mod.useImageLightbox(containerRef, content);
-      return LightboxComponent;
-    }
-  })),
+  () => import('./ImageLightbox'),
   { ssr: false }
 );
 
