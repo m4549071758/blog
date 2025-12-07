@@ -1,7 +1,7 @@
 import { Image } from '@/components/common/Image';
 import { Link } from '@/components/common/Link';
 import { getOwnerProfile } from '@/lib/userProfile';
-import { SiGithub, SiQiita, SiZenn } from 'react-icons/si';
+import { SiGithub, SiQiita, SiMisskey } from 'react-icons/si';
 import { FaTwitter } from 'react-icons/fa';
 
 export const Profile = async () => {
@@ -39,9 +39,9 @@ export const Profile = async () => {
             <SiGithub size={20} />
           </Link>
         )}
-        {profile.zenn_url && (
-           <Link href={profile.zenn_url} className="text-primary-1" aria-label="Zenn">
-            <SiZenn size={20} />
+        {profile.misskey_url && (
+           <Link href={profile.misskey_url} className="text-primary-1" aria-label="Misskey">
+            <SiMisskey size={20} />
           </Link>
         )}
         {profile.twitter_url && (

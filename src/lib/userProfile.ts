@@ -8,7 +8,7 @@ export interface UserProfile {
   github_url: string;
   twitter_url: string;
   qiita_url: string;
-  zenn_url: string;
+  misskey_url: string;
 }
 
 // ID指定またはデフォルトユーザー（管理者）を取得することを想定

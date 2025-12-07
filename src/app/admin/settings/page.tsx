@@ -14,7 +14,7 @@ interface UserProfile {
   github_url: string;
   twitter_url: string;
   qiita_url: string;
-  zenn_url: string;
+  misskey_url: string;
 }
 
 interface SiteConfig {
@@ -48,7 +48,7 @@ export default function SettingsPage() {
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
 
   const [profile, setProfile] = useState<UserProfile>({
-    username: '', email: '', bio: '', github_url: '', twitter_url: '', qiita_url: '', zenn_url: ''
+    username: '', email: '', bio: '', github_url: '', twitter_url: '', qiita_url: '', misskey_url: ''
   });
   
   const [siteConfig, setSiteConfig] = useState<SiteConfig>({
@@ -82,7 +82,7 @@ export default function SettingsPage() {
                 github_url: userData.github_url || '',
                 twitter_url: userData.twitter_url || '',
                 qiita_url: userData.qiita_url || '',
-                zenn_url: userData.zenn_url || '',
+                misskey_url: userData.misskey_url || '',
             });
         }
 
@@ -260,8 +260,8 @@ export default function SettingsPage() {
                             <input type="url" value={profile.qiita_url} onChange={e => setProfile({...profile, qiita_url: e.target.value})} className="mt-1 block w-full rounded border-gray-300 shadow-sm p-2 dark:bg-gray-800 dark:border-gray-600" />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Zenn URL</label>
-                            <input type="url" value={profile.zenn_url} onChange={e => setProfile({...profile, zenn_url: e.target.value})} className="mt-1 block w-full rounded border-gray-300 shadow-sm p-2 dark:bg-gray-800 dark:border-gray-600" />
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Misskey (misskey.systems) URL</label>
+                            <input type="url" value={profile.misskey_url} onChange={e => setProfile({...profile, misskey_url: e.target.value})} className="mt-1 block w-full rounded border-gray-300 shadow-sm p-2 dark:bg-gray-800 dark:border-gray-600" />
                         </div>
                     </div>
                     <button type="submit" disabled={isSaving} className="flex items-center justify-center w-full md:w-auto px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50">
