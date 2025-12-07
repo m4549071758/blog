@@ -19,7 +19,7 @@ export const Profile = async () => {
           alt="avatar"
           src="/assets/author.webp" // This could also be dynamic if we added avatar_url
         />
-        <h1 className="text-2xl font-semibold text-primary-1">{profile.username}</h1>
+        <h1 className="text-2xl font-semibold text-primary-1">かとり</h1>
       </div>
 
       {profile.bio.split('\n').map((line, i) => (
