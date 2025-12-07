@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { validateToken } from '@/lib/authenticationHandler';
+import { validateToken } from '@/lib/authHandler';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;

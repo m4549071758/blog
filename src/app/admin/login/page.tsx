@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Head from 'next/head';
-import Cookies from 'js-cookie';
 import { MainLayout } from '@/components/features/app/Layout';
+import { login } from '@/lib/authHandler';
 
 export default function AdminLogin() {
   const router = useRouter();
@@ -18,39 +18,18 @@ export default function AdminLogin() {
     setIsLoading(true);
     setError('');
 
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
-
     try {
-      const response = await fetch(`${API_URL}/api/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
+      const result = await login(username, password);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'ログインに失敗しました');
+      if (result.success) {
+        // ダッシュボードページへリダイレクト
+        router.push('/admin');
+      } else {
+        setError(result.message);
       }
-
-      // トークンとユーザーIDをCookieに保存
-      // 1日間の有効期限を設定
-      Cookies.set('auth_token', data.token, {
-        expires: 1,
-        secure: process.env.NODE_ENV === 'production',
-      });
-      Cookies.set('user_id', data.user_id, {
-        expires: 1,
-        secure: process.env.NODE_ENV === 'production',
-      });
-
-      // ダッシュボードページへリダイレクト
-      router.push('/admin');
     } catch (err) {
       console.error('Login error:', err);
-      setError('ユーザー名またはパスワードが正しくありません');
+      setError('ログイン処理中にエラーが発生しました');
     } finally {
       setIsLoading(false);
     }

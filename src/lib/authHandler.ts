@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 
-const API_URL = 'https://www.katori.dev';
+const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://www.katori.dev';
 const TOKEN_COOKIE_KEY = 'auth_token';
 const USER_ID_COOKIE_KEY = 'user_id';
 const MESSAGE_COOKIE_KEY = 'auth_message';
@@ -87,8 +87,32 @@ export function getAuthHeaders(): Record<string, string> {
       };
 }
 
+// トークンが有効かどうかをAPIに問い合わせる
+export async function validateToken(): Promise<boolean> {
+  const token = getAuthToken();
+
+  if (!token) {
+    return false;
+  }
+
+  try {
+    const response = await fetch(`${API_URL}/api/is_Auth`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.status === 200;
+  } catch (error) {
+    console.error('Token validation error:', error);
+    return false;
+  }
+}
+
 export function logout(): void {
   Cookies.remove(TOKEN_COOKIE_KEY);
   Cookies.remove(USER_ID_COOKIE_KEY);
   Cookies.remove(MESSAGE_COOKIE_KEY);
+  window.location.href = '/admin/login';
 }

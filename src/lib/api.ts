@@ -1,6 +1,6 @@
 import { paginationOffset } from '@/config/pagination';
 import { PostType } from '@/types/post';
-import { getAuthToken } from './authenticationHandler';
+import { getAuthToken } from '@/lib/authHandler';
 
 // APIのベースURL
 const API_BASE_URL =

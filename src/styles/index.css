@@ -182,6 +182,19 @@
     @apply text-neutral-900 dark:text-teal-400;
   }
 
+  /* Heading level specific styling */
+  .toc-link.node-name--H3 {
+    @apply ml-3 text-neutral-500 dark:text-neutral-500;
+  }
+
+  .toc-link.node-name--H4 {
+    @apply ml-6 text-neutral-500 dark:text-neutral-500;
+  }
+  
+  .toc-link.node-name--H5 {
+    @apply ml-9;
+  }
+
   /* From githubAlert.css */
   .markdown-alert {
     padding: calc(var(--rehype-github-alerts-default-space) / 2)

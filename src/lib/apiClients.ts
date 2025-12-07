@@ -1,4 +1,4 @@
-import { authHeader, logout } from '@/lib/authenticationHandler';
+import { getAuthHeaders, logout } from '@/lib/authHandler';
 
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
@@ -9,7 +9,7 @@ interface ApiOptions {
 }
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api';
+  process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8080';
 
 export const apiClient = async <T>(
   endpoint: string,
@@ -20,7 +20,7 @@ export const apiClient = async <T>(
   // 認証ヘッダーを追加
   const requestHeaders = {
     'Content-Type': 'application/json',
-    ...authHeader(),
+    ...getAuthHeaders(),
     ...headers,
   };
 

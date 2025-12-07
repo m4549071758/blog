@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { ProtectedRoute } from '@/components/common/ProtectedRoute';
 import { MainLayout } from '@/components/features/app/Layout';
-import { getUserId, logout } from '@/lib/authenticationHandler';
+import { getUserId, logout } from '@/lib/authHandler';
 
 export default function AdminDashboard() {
   const userId = getUserId();

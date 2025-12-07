@@ -23,13 +23,11 @@ export const getSiteConfig = cache(async (): Promise<SiteConfig | null> => {
     });
     
     if (!res.ok) {
-        console.warn('Failed to fetch site config, using defaults');
         return null;
     }
     
     return res.json();
   } catch (error) {
-    console.warn('Error fetching site config:', error);
     return null;
   }
 });
