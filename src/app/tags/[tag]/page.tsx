@@ -27,6 +27,7 @@ export async function generateStaticParams() {
 // ページコンポーネント
 export default async function TagPage({ params }: Props) {
   const { tag } = await params;
+  const decodedTag = decodeURIComponent(tag);
   const allPosts = await getAllPosts([
     'title',
     'date',
@@ -36,12 +37,12 @@ export default async function TagPage({ params }: Props) {
     'tags',
   ]);
 
-  const posts = allPosts.filter((post) => post.tags?.includes(tag));
+  const posts = allPosts.filter((post) => post.tags?.includes(decodedTag));
 
   // タグに記事がない場合は404
   if (posts.length === 0) {
     notFound();
   }
 
-  return <Tag posts={posts as any} tag={tag} profile={<Profile />} />;
+  return <Tag posts={posts as any} tag={decodedTag} profile={<Profile />} />;
 }
