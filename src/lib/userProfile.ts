@@ -15,15 +15,16 @@ export interface UserProfile {
 // 今回はブログのオーナー(=最初のユーザー)を取得する関数として定義
 export const getOwnerProfile = cache(async (): Promise<UserProfile | null> => {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/owner`, {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://www.katori.dev/api';
+        const res = await fetch(`${apiUrl}/owner`, {
              // オーナー情報を取得
               next: { revalidate: 60 },
         });
 
         if (!res.ok) return null;
         const owner = await res.json();
+        console.log('Fetched owner profile:', owner);
         return owner;
-        return null;
     } catch (error) {
         console.warn('Error fetching owner profile:', error);
         return null;
