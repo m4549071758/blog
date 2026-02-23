@@ -2,6 +2,7 @@ import { AiTwotoneTags } from 'react-icons/ai';
 import { Date } from '@/components/common/Date';
 import { Image } from '@/components/common/Image';
 import { LikeButton } from '@/components/common/LikeButton';
+import { PageViewCounter } from '@/components/common/PageViewCounter';
 import { Link } from '@/components/common/Link';
 
 type Props = {
@@ -35,6 +36,7 @@ export const PostHeader = ({
         <div className="flex items-center gap-4">
           <Date date={date} />
           {articleId && <LikeButton articleId={articleId} />}
+          {articleId && <PageViewCounter articleId={articleId} />}
         </div>
         <div className="wrap gap-2">
           <span className="select-none text-primary-1">
