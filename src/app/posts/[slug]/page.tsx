@@ -6,6 +6,7 @@ import type { Metadata } from 'next';
 import { Profile } from '@/components/features/app/Profile';
 import { getSiteConfig } from '@/lib/siteConfig';
 import { getOwnerProfile } from '@/lib/userProfile';
+import { ROOT_URL } from '@/config/app';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -34,12 +35,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       };
     }
 
+    const url = `${ROOT_URL}/posts/${slug}/`;
+
     return {
       title: post.title,
       description: post.excerpt,
+      alternates: {
+        canonical: url,
+      },
+      keywords: [...(post.tags || []), 'Proxmox', '技術ブログ'],
       openGraph: {
         title: post.title,
         description: post.excerpt,
+        url: url,
         images: post.ogImage?.url ? [post.ogImage.url] : [],
       },
     };

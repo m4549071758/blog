@@ -23,7 +23,11 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
       '@type': 'ListItem',
       position: index + 1,
       name: item.label,
-      ...(item.href && { item: { '@id': item.href } }),
+      ...(item.href && { 
+        item: { 
+          '@id': item.href.startsWith('http') ? item.href : `${process.env.NEXT_PUBLIC_ROOT_URL || 'https://www.katori.dev'}${item.href}` 
+        } 
+      }),
     }));
 
     return {

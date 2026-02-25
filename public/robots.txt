@@ -11,4 +11,4 @@ Allow: /assets/
 Allow: /favicons/
 
 # Sitemap location
-Sitemap: https://your-domain.com/sitemap.xml
+Sitemap: https://www.katori.dev/sitemap.xml

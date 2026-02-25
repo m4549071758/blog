@@ -2,10 +2,21 @@ import { getAllPosts } from '@/lib/api';
 import { Tag } from '@/components/pages/tag';
 import { notFound } from 'next/navigation';
 import { Profile } from '@/components/features/app/Profile';
+import { Metadata } from 'next';
 
 type Props = {
   params: Promise<{ tag: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { tag } = await params;
+  const decodedTag = decodeURIComponent(tag);
+  return {
+    title: `記事一覧: ${decodedTag} | Katori's blog`,
+    description: `「${decodedTag}」タグに関連する記事の一覧です。ProxmoxやNext.jsなど、技術的な知見を発信しています。`,
+    keywords: [decodedTag, 'Proxmox', '技術ブログ', '記事一覧'],
+  };
+}
 
 // 静的パスの生成
 export async function generateStaticParams() {

@@ -2,7 +2,8 @@ const fs = require('fs');
 const path = require('path');
 
 // 本番ドメインをハードコード
-const baseUrl = 'https://www.katori.dev';
+// 本番ドメイン
+const baseUrl = process.env.NEXT_PUBLIC_ROOT_URL || 'https://www.katori.dev';
 
 // 保存済みの記事データを取得する関数
 function getAllPosts() {
