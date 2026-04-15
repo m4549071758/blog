@@ -15,7 +15,6 @@
     "generate-static-files": "node scripts/generate-sitemap.js && node scripts/generate-rss.js"
   },
   "devDependencies": {
-    "@mapbox/rehype-prism": "^0.8.0",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-dropdown-menu": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.0",
@@ -81,7 +80,6 @@
     "rehype-code-titles": "^1.2.0",
     "rehype-external-links": "^3.0.0",
     "rehype-github-alerts": "^4.1.0",
-    "rehype-prism-plus": "^2.0.0",
     "rehype-sanitize": "^6.0.0",
     "remark-breaks": "^4.0.0",
     "remark-collapse": "^0.1.2",
