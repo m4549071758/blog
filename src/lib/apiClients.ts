@@ -1,4 +1,4 @@
-import { getAuthHeaders, logout } from '@/lib/authHandler';
+import { logout } from '@/lib/authHandler';
 
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
@@ -17,16 +17,16 @@ export const apiClient = async <T>(
 ): Promise<T> => {
   const { method = 'GET', body, headers = {} } = options;
 
-  // 認証ヘッダーを追加
+  // 認証ヘッダーを削除
   const requestHeaders = {
     'Content-Type': 'application/json',
-    ...getAuthHeaders(),
     ...headers,
   };
 
   const config: RequestInit = {
     method,
     headers: requestHeaders,
+    credentials: 'include',
   };
 
   if (body) {

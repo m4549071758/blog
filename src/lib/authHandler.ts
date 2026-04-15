@@ -1,13 +1,7 @@
-import Cookies from 'js-cookie';
-
 const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://www.katori.dev';
-const TOKEN_COOKIE_KEY = 'auth_token';
-const USER_ID_COOKIE_KEY = 'user_id';
-const MESSAGE_COOKIE_KEY = 'auth_message';
 
 interface LoginResponse {
   message: string;
-  token: string;
   user_id: string;
 }
 
@@ -30,6 +24,8 @@ export async function login(
         username,
         password,
       }),
+      // Cookieを受け取るために追加
+      credentials: 'include',
     });
 
     if (!response.ok) {
@@ -42,9 +38,7 @@ export async function login(
 
     const data: LoginResponse = await response.json();
 
-    Cookies.set(TOKEN_COOKIE_KEY, data.token, { expires: 7 });
-    Cookies.set(USER_ID_COOKIE_KEY, data.user_id, { expires: 7 });
-    Cookies.set(MESSAGE_COOKIE_KEY, data.message, { expires: 7 });
+    // クライアント側でのCookieセットは廃止
 
     return {
       success: true,
@@ -59,48 +53,36 @@ export async function login(
   }
 }
 
+// クライアントサイドでのトークン取得は廃止
 export function getAuthToken(): string | undefined {
-  return Cookies.get(TOKEN_COOKIE_KEY);
+  return undefined;
 }
 
 export function getUserId(): string | undefined {
-  return Cookies.get(USER_ID_COOKIE_KEY);
+  return undefined;
 }
 
 export function getAuthMessage(): string | undefined {
-  return Cookies.get(MESSAGE_COOKIE_KEY);
+  return undefined;
 }
 
 export function isAuthenticated(): boolean {
-  return !!getAuthToken();
+  // isAuthenticated()の呼び出し箇所はvalidateToken()の結果を待つように変更が必要
+  return false;
 }
 
 export function getAuthHeaders(): Record<string, string> {
-  const token = getAuthToken();
-  return token
-    ? {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      }
-    : {
-        'Content-Type': 'application/json',
-      };
+  return {
+    'Content-Type': 'application/json',
+  };
 }
 
 // トークンが有効かどうかをAPIに問い合わせる
 export async function validateToken(): Promise<boolean> {
-  const token = getAuthToken();
-
-  if (!token) {
-    return false;
-  }
-
   try {
     const response = await fetch(`${API_URL}/api/is_Auth`, {
       method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      credentials: 'include',
     });
 
     return response.status === 200;
@@ -110,9 +92,15 @@ export async function validateToken(): Promise<boolean> {
   }
 }
 
-export function logout(): void {
-  Cookies.remove(TOKEN_COOKIE_KEY);
-  Cookies.remove(USER_ID_COOKIE_KEY);
-  Cookies.remove(MESSAGE_COOKIE_KEY);
-  window.location.href = '/admin/login';
+export async function logout(): Promise<void> {
+  try {
+    await fetch(`${API_URL}/api/logout`, {
+      method: 'POST',
+      credentials: 'include',
+    });
+  } catch (error) {
+    console.error('Logout error:', error);
+  } finally {
+    window.location.href = '/admin/login';
+  }
 }

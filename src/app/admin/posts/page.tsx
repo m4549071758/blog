@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 
 import Link from 'next/link';
 import { AdminLayout } from '@/components/features/admin/AdminLayout';
-import { getAuthHeaders } from '@/lib/authHandler';
 
 // 記事データの型定義
 interface Article {
@@ -25,9 +24,7 @@ export default function AdminPosts() {
         setIsLoading(true);
         const response = await fetch('https://www.katori.dev/api/articles', {
           cache: 'no-store',
-          headers: {
-            ...getAuthHeaders(),
-          },
+          credentials: 'include',
         });
 
         if (!response.ok) {
@@ -62,9 +59,7 @@ export default function AdminPosts() {
         `https://www.katori.dev/api/articles/${articleId}`,
         {
           method: 'DELETE',
-          headers: {
-            ...getAuthHeaders(),
-          },
+          credentials: 'include',
         },
       );
 

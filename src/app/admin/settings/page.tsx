@@ -3,11 +3,11 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { AdminLayout } from '@/components/features/admin/AdminLayout';
-import { getAuthToken, getUserId } from '@/lib/authHandler';
 import { RiInformationLine, RiSave3Line } from 'react-icons/ri';
 import * as Tabs from '@radix-ui/react-tabs';
 
 interface UserProfile {
+  id: string;
   username: string;
   email: string;
   bio: string;
@@ -48,7 +48,7 @@ export default function SettingsPage() {
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
 
   const [profile, setProfile] = useState<UserProfile>({
-    username: '', email: '', bio: '', github_url: '', twitter_url: '', qiita_url: '', misskey_url: ''
+    id: '', username: '', email: '', bio: '', github_url: '', twitter_url: '', qiita_url: '', misskey_url: ''
   });
   
   const [siteConfig, setSiteConfig] = useState<SiteConfig>({
@@ -64,18 +64,15 @@ export default function SettingsPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = getAuthToken();
-        const userId = getUserId();
-        if (!userId) throw new Error('User ID not found');
-
-        // Fetch Profile
-        const userRes = await fetch(`https://www.katori.dev/api/users/${userId}`, {
-          headers: { Authorization: `Bearer ${token}` }
+        // Fetch Profile via /api/owner
+        const userRes = await fetch(`https://www.katori.dev/api/owner`, {
+          credentials: 'include'
         });
         if (userRes.ok) {
             const userData = await userRes.json();
             // nullチェックを行い、空文字をセットする
             setProfile({
+                id: userData.id || '',
                 username: userData.username || '',
                 email: userData.email || '',
                 bio: userData.bio || '',
@@ -88,7 +85,7 @@ export default function SettingsPage() {
 
         // Fetch Site Config
         const configRes = await fetch(`https://www.katori.dev/api/site-config`, {
-            headers: { Authorization: `Bearer ${token}` }
+            credentials: 'include'
         });
         if (configRes.ok) {
             const configData = await configRes.json();
@@ -126,15 +123,14 @@ export default function SettingsPage() {
     setIsSaving(true);
     setMessage(null);
     try {
-        const token = getAuthToken();
-        const userId = getUserId();
-        const res = await fetch(`https://www.katori.dev/api/users/${userId}`, {
+        if (!profile.id) throw new Error('User ID not found');
+        const res = await fetch(`https://www.katori.dev/api/users/${profile.id}`, {
             method: 'PUT',
             headers: { 
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}` 
             },
-            body: JSON.stringify(profile)
+            body: JSON.stringify(profile),
+            credentials: 'include'
         });
         if (!res.ok) throw new Error('更新に失敗しました');
         setMessage({ type: 'success', text: 'プロフィールを更新しました' });
@@ -150,7 +146,6 @@ export default function SettingsPage() {
     setIsSaving(true);
     setMessage(null);
     try {
-        const token = getAuthToken();
         const body = {
             ...siteConfig,
             social_links: JSON.stringify(socialLinksArray)
@@ -159,9 +154,9 @@ export default function SettingsPage() {
             method: 'PUT',
             headers: { 
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}` 
             },
-            body: JSON.stringify(body)
+            body: JSON.stringify(body),
+            credentials: 'include'
         });
         if (!res.ok) throw new Error('更新に失敗しました');
         setMessage({ type: 'success', text: 'サイト設定を更新し、ビルドを開始しました' });
@@ -177,14 +172,13 @@ export default function SettingsPage() {
     setIsSaving(true);
     setMessage(null);
     try {
-        const token = getAuthToken();
         const res = await fetch(`https://www.katori.dev/api/change-password`, {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}` 
             },
-            body: JSON.stringify({ current_password: password.current, new_password: password.new })
+            body: JSON.stringify({ current_password: password.current, new_password: password.new }),
+            credentials: 'include'
         });
         if (!res.ok) {
             const data = await res.json();

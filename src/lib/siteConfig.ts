@@ -20,6 +20,7 @@ export const getSiteConfig = cache(async (): Promise<SiteConfig | null> => {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://www.katori.dev/api';
     const res = await fetch(`${apiUrl}/site-config`, {
       next: { revalidate: 60 }, // 1分キャッシュ (またはビルド時のみなら force-cache だが、再構築トリガーあるので revalidate で良し)
+      credentials: 'include',
     });
     
     if (!res.ok) {

@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { MainLayout } from '@/components/features/app/Layout';
-import { login, getAuthToken, isAuthenticated } from '@/lib/authHandler';
 
 interface User {
   id: string;
@@ -18,31 +17,22 @@ const UserListPage = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    let token = '';
     const fetchUsers = async () => {
       try {
         setIsLoading(true);
         setError(null);
 
-        if (isAuthenticated()) {
-          token = getAuthToken() ?? '';
-        } else {
-          // SSRとクライアントの整合性のため、自動ログインロジックは注意が必要だが、
-          // 既存の実装を尊重する。
-          const { success, message } = await login('user', 'password');
-          if (!success) {
-            throw new Error(message);
-          } else {
-            token = getAuthToken() ?? '';
-          }
-        }
-
         const response = await fetch('https://www.katori.dev/api/users', {
+          credentials: 'include',
           headers: {
-            Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
         });
+
+        if (response.status === 401) {
+          window.location.href = '/admin/login';
+          return;
+        }
 
         if (!response.ok) {
           throw new Error(`APIエラー: ${response.status}`);

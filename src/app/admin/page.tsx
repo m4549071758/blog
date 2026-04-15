@@ -7,10 +7,8 @@ import { MainLayout } from '@/components/features/app/Layout';
 import { getUserId, logout } from '@/lib/authHandler';
 
 export default function AdminDashboard() {
-  const userId = getUserId();
-
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
   };
 
   const dashboardContent = (
@@ -18,7 +16,6 @@ export default function AdminDashboard() {
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-primary-1">管理ダッシュボード</h1>
         <div>
-          <span className="mr-4 text-primary-1">ユーザーID: {userId}</span>
           <button
             onClick={handleLogout}
             className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"

@@ -4,20 +4,22 @@ import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { PostBody } from '@/components/features/post/Post/PostBody';
 import { createPost } from '@/lib/api';
-import { getAuthToken } from '@/lib/authHandler';
+import { validateToken } from '@/lib/authHandler';
 import markdownToHtmlForEditor from '@/lib/markdownToHtmlForEditor';
 import { AdminLayout } from '@/components/features/admin/AdminLayout';
 
 export default function NewPostPage() {
   const router = useRouter();
-  // クライアントサイドでのみ実行されるようにuseEffect内で取得するか、
-  // getAuthTokenがSSRで安全か確認する必要があるが、
-  // 既存コードに倣いトップレベルで呼んでいる（ただしApp Routerでは注意が必要）。
-  // getAuthTokenがCookies.getを使用しているならクライアントでのみ動作するはず。
-  const [authToken, setAuthToken] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    setAuthToken(getAuthToken());
+    const checkAuth = async () => {
+      const isValid = await validateToken();
+      if (!isValid) {
+        console.log('ログインしてください');
+        window.location.href = '/admin/login';
+      }
+    };
+    checkAuth();
   }, []);
 
   const [post, setPost] = useState({
@@ -33,16 +35,6 @@ export default function NewPostPage() {
   const [htmlContent, setHtmlContent] = useState('');
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
-
-  useEffect(() => {
-    // authTokenが初期化された後チェック
-    if (authToken === undefined) return;
-    
-    if (!authToken) {
-      console.log('ログインしてください');
-      window.location.href = '/admin/login';
-    }
-  }, [authToken]);
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -104,10 +96,8 @@ export default function NewPostPage() {
     formData.append('image', file);
     const response = await fetch('https://www.katori.dev/api/images/upload', {
       method: 'POST',
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
       body: formData,
+      credentials: 'include',
     });
     if (!response.ok) {
       console.log('画像のアップロードに失敗しました');
@@ -314,6 +304,21 @@ export default function NewPostPage() {
               onDrop={handleImageDrop}
               className="w-full h-[calc(100%-2rem)] p-2 border rounded font-mono dark:bg-gray-800 dark:text-white dark:border-gray-600"
               placeholder="# マークダウンで記事を作成できます"
+            ></textarea>
+          </div>
+
+          <div className="w-full md:w-1/2 h-full">
+            <h3 className="block font-medium mb-1 text-gray-700 dark:text-gray-300">プレビュー</h3>
+            <div className="w-full h-[calc(100%-2rem)] border rounded overflow-auto bg-white dark:bg-gray-800">
+              <PostBody content={htmlContent} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </AdminLayout>
+  );
+}
+�事を作成できます"
             ></textarea>
           </div>
 

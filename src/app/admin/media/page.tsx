@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import { RiDeleteBinLine, RiFileCopyLine, RiUploadCloud2Line } from 'react-icons/ri';
 import { MainLayout } from '@/components/features/app/Layout';
 import { AdminLayout } from '@/components/features/admin/AdminLayout';
-import { getAuthToken, isAuthenticated } from '@/lib/authHandler';
 import { Image } from '@/components/common/Image';
 
 interface MediaImage {
@@ -27,12 +26,9 @@ export default function MediaPage() {
     try {
       setIsLoading(true);
       setError(null);
-      const token = getAuthToken();
       
       const response = await fetch('https://www.katori.dev/api/images', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        credentials: 'include',
       });
 
       if (!response.ok) {
@@ -58,16 +54,13 @@ export default function MediaPage() {
 
     try {
       setIsUploading(true);
-      const token = getAuthToken();
       const formData = new FormData();
       formData.append('image', file);
 
       const response = await fetch('https://www.katori.dev/api/images/upload', {
         method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
         body: formData,
+        credentials: 'include',
       });
 
       if (!response.ok) {
@@ -89,7 +82,6 @@ export default function MediaPage() {
     if (!confirm('本当にこの画像を削除しますか？')) return;
 
     try {
-      const token = getAuthToken();
       // ファイル名には拡張子が含まれているので、拡張子を除いてIDとして検索させるか、
       // バックエンドがファイル名でも検索できるようにしたので、ファイル名から拡張子を除いたUUID部分抽出が必要かも？
       // いや、image_controllerを確認すると `id := c.Param("id")` で `Where("id = ? OR file_name = ?", id, id)` としているので
@@ -97,9 +89,7 @@ export default function MediaPage() {
       
       const response = await fetch(`https://www.katori.dev/api/images/${fileName}`, {
         method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        credentials: 'include',
       });
 
       if (!response.ok) {

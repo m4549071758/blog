@@ -19,6 +19,7 @@ export const getOwnerProfile = cache(async (): Promise<UserProfile | null> => {
         const res = await fetch(`${apiUrl}/owner`, {
              // オーナー情報を取得
               next: { revalidate: 60 },
+              credentials: 'include',
         });
 
         if (!res.ok) return null;

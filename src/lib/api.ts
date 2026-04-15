@@ -16,7 +16,10 @@ async function fetchArticlesList() {
 
   try {
     console.log('Fetching articles from:', `${API_BASE_URL}/api/articles`);
-    const response = await fetch(`${API_BASE_URL}/api/articles`, { cache: 'force-cache' });
+    const response = await fetch(`${API_BASE_URL}/api/articles`, {
+      cache: 'force-cache',
+      credentials: 'include',
+    });
 
     console.log('Response status:', response.status);
 
@@ -50,6 +53,7 @@ async function fetchArticleDetail(articleId: string) {
     console.log('Fetching article detail for ID:', articleId);
     const response = await fetch(`${API_BASE_URL}/api/articles/${articleId}`, {
       cache: 'force-cache',
+      credentials: 'include',
     });
 
     // 404エラーの場合は特別に処理
@@ -234,7 +238,9 @@ type Post = {
 
 // 記事IDから記事データを取得
 export async function getPostById(id: string): Promise<Post> {
-  const response = await fetch(`${API_BASE_URL}/api/articles/${id}`);
+  const response = await fetch(`${API_BASE_URL}/api/articles/${id}`, {
+    credentials: 'include',
+  });
 
   if (!response.ok) {
     throw new Error('記事の取得に失敗しました');
@@ -245,15 +251,13 @@ export async function getPostById(id: string): Promise<Post> {
 
 // 記事を新規作成
 export async function createPost(postData: Post): Promise<Post> {
-  const token = getAuthToken();
-
   const response = await fetch(`${API_BASE_URL}/api/articles/add`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(postData),
+    credentials: 'include',
   });
 
   if (!response.ok) {
@@ -269,9 +273,9 @@ export async function updatePost(id: string, postData: Post): Promise<Post> {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${getAuthToken()}`,
     },
     body: JSON.stringify(postData),
+    credentials: 'include',
   });
 
   if (!response.ok) {

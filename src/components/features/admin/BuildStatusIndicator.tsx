@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { getAuthToken } from '@/lib/authHandler';
 
 type BuildState = 'idle' | 'running' | 'success' | 'failed';
 
@@ -23,13 +22,8 @@ export const BuildStatusIndicator = () => {
 
   const fetchStatus = async () => {
     try {
-      const token = getAuthToken();
-      if (!token) return;
-
       const response = await fetch('https://www.katori.dev/api/build-status', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        credentials: 'include',
       });
 
       if (response.ok) {
