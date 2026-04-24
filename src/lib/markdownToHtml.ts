@@ -5,6 +5,7 @@ import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import rehypeShiki from '@shikijs/rehype';
+import rehypeRaw from 'rehype-raw';
 import remarkBreaks from 'remark-breaks';
 import remarkGfm from 'remark-gfm';
 import rlc from 'remark-link-card';
@@ -19,9 +20,10 @@ export default async function markdownToHtml(markdown: string) {
     .use(remarkParse)
     .use(remarkBreaks)
     .use(remarkGfm as any)
-    .use(rlc)
+    .use(rlc, { downloadLimit: 10000000 })
     .use(remarkYoutube as any)
     .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeRaw)
     .use(rehypeCodeTitles)
     .use(rehypeShiki, {
       theme: 'github-dark',
@@ -42,11 +44,11 @@ export default async function markdownToHtml(markdown: string) {
           'scrolling',
         ],
         code: [['className', /^language-./]],
-        span: [['className', /^token$/, /^rlc-./], 'style'],
-        div: [['className', 'rehype-code-title', /^rlc-./]],
-        pre: ['style', ['className', 'shiki', /^language-./]],
-        a: [['className', /^rlc-./], 'href', 'target', 'rel'],
-        img: [['className', /^rlc-./], 'src', 'alt', 'loading'],
+        span: [...(defaultSchema.attributes?.span || []), ['className', /^token$/, /^rlc-./], 'style'],
+        div: [...(defaultSchema.attributes?.div || []), ['className', 'rehype-code-title', /^rlc-./]],
+        pre: [...(defaultSchema.attributes?.pre || []), 'style', ['className', 'shiki', /^language-./]],
+        a: [...(defaultSchema.attributes?.a || []), ['className', /^rlc-./], 'href', 'target', 'rel'],
+        img: [...(defaultSchema.attributes?.img || []), ['className', /^rlc-./], 'src', 'alt', 'loading'],
       },
     })
     .use(rehypeAutolinkHeadings)
