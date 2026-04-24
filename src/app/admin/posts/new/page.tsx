@@ -79,8 +79,9 @@ export default function NewPostPage() {
   };
 
   const handleSave = async () => {
-    if (!post.title || !post.slug || !post.content) {
-      setSaveMessage('タイトル、記事ID、コンテンツは必須です');
+    // slug (ID) の必須チェックを解除
+    if (!post.title || !post.content) {
+      setSaveMessage('タイトルとコンテンツは必須項目です');
       return;
     }
 
@@ -100,11 +101,18 @@ export default function NewPostPage() {
         tags: tagsArray,
       };
 
-      await createPost(postData);
+      const newPost = await createPost(postData);
       setSaveMessage('記事を作成しました');
+      
+      // 作成成功後、返却されたIDを使用して編集画面へリダイレクト
       setTimeout(() => {
-        router.push('/admin/posts');
-      }, 2000);
+        const postId = newPost.id || (newPost as any).article_id;
+        if (postId) {
+          router.push(`/admin/posts/edit?id=${postId}`);
+        } else {
+          router.push('/admin/posts');
+        }
+      }, 1500);
     } catch (error) {
       console.error('保存に失敗しました', error);
       setSaveMessage('保存に失敗しました');
@@ -156,7 +164,7 @@ export default function NewPostPage() {
           </div>
           <div>
             <label htmlFor="slug" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
-              記事ID (スラグ)
+              記事ID (スラグ) - 空白の場合は自動生成されます
             </label>
             <input
               type="text"
@@ -185,7 +193,7 @@ export default function NewPostPage() {
 
         <div className="mb-4">
           <label htmlFor="excerpt" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
-            抜粋
+            説明文
           </label>
           <textarea
             id="excerpt"
@@ -199,7 +207,7 @@ export default function NewPostPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div>
             <label htmlFor="tags" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
-              タグ（カンマ区切り）
+              タグ (カンマ区切り)
             </label>
             <input
               type="text"
@@ -237,7 +245,7 @@ export default function NewPostPage() {
               onDragOver={handleImageDragOver}
               onDrop={handleImageDrop}
               className="w-full h-[calc(100%-2rem)] p-2 border rounded font-mono dark:bg-gray-800 dark:text-white dark:border-gray-600"
-              placeholder="# マークダウンで記事を作成できます"
+              placeholder="# 記事を書き始める"
             ></textarea>
           </div>
 

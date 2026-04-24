@@ -98,7 +98,7 @@ export default function EditPostForm() {
       };
 
       await updatePost(id as string, postData);
-      setSaveMessage('記事を保存しました');
+      setSaveMessage('記事を更新しました');
     } catch (error) {
       console.error('保存に失敗しました', error);
       setSaveMessage('保存に失敗しました');
@@ -174,7 +174,7 @@ export default function EditPostForm() {
 
       <div className="mb-4">
         <label htmlFor="excerpt" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
-          抜粋
+          説明文
         </label>
         <textarea
           id="excerpt"
@@ -199,7 +199,7 @@ export default function EditPostForm() {
 
       <div className="mb-4">
         <label htmlFor="tags" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
-          タグ（カンマ区切り）
+          タグ (カンマ区切り)
         </label>
         <input
           type="text"
