@@ -47,8 +47,13 @@ export default async function markdownToHtml(markdown: string) {
         span: [...(defaultSchema.attributes?.span || []), ['className', /^token$/, /^rlc-./], 'style'],
         div: [...(defaultSchema.attributes?.div || []), ['className', 'rehype-code-title', /^rlc-./]],
         pre: [...(defaultSchema.attributes?.pre || []), 'style', ['className', 'shiki', /^language-./]],
-        a: [...(defaultSchema.attributes?.a || []), ['className', /^rlc-./], 'href', 'target', 'rel'],
-        img: [...(defaultSchema.attributes?.img || []), ['className', /^rlc-./], 'src', 'alt', 'loading'],
+        a: [
+          ...(defaultSchema.attributes?.a || []).filter((attr) => !Array.isArray(attr) || attr[0] !== 'className'),
+          ['className', 'data-footnote-backref', /^rlc-./],
+          'target',
+          'rel'
+        ],
+        img: [...(defaultSchema.attributes?.img || []), ['className', /^rlc-./, /^hover:/, 'transition-opacity'], 'src', 'alt', 'loading', 'style'],
       },
     })
     .use(rehypeAutolinkHeadings)
