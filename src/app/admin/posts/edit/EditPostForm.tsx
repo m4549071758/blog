@@ -81,6 +81,12 @@ export default function EditPostForm() {
   };
 
   const handleSave = async () => {
+    // 必須チェック
+    if (!post.title || !post.content || !post.excerpt || !post.cover_image || !post.og_image || !post.datetime) {
+      setSaveMessage('タイトル、コンテンツ、説明文、カバー画像、OG画像、公開日は必須項目です');
+      return;
+    }
+
     setIsSaving(true);
     setSaveMessage('');
 
@@ -91,6 +97,12 @@ export default function EditPostForm() {
             .map((tag) => tag.trim())
             .filter((tag) => tag !== '')
         : [];
+
+      if (tagsArray.length === 0) {
+        setSaveMessage('タグを少なくとも1つ入力してください');
+        setIsSaving(false);
+        return;
+      }
 
       const postData = {
         ...post,

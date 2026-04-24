@@ -79,9 +79,9 @@ export default function NewPostPage() {
   };
 
   const handleSave = async () => {
-    // slug (ID) の必須チェックを解除
-    if (!post.title || !post.content) {
-      setSaveMessage('タイトルとコンテンツは必須項目です');
+    // 必須チェック
+    if (!post.title || !post.content || !post.excerpt || !post.cover_image || !post.og_image || !post.datetime) {
+      setSaveMessage('タイトル、コンテンツ、説明文、カバー画像、OG画像、公開日は必須項目です');
       return;
     }
 
@@ -95,6 +95,12 @@ export default function NewPostPage() {
             .map((tag) => tag.trim())
             .filter((tag) => tag !== '')
         : [];
+      
+      if (tagsArray.length === 0) {
+        setSaveMessage('タグを少なくとも1つ入力してください');
+        setIsSaving(false);
+        return;
+      }
 
       const postData = {
         ...post,
@@ -177,18 +183,33 @@ export default function NewPostPage() {
           </div>
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="cover_image" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
-            カバー画像URL
-          </label>
-          <input
-            type="text"
-            id="cover_image"
-            value={post.cover_image}
-            onChange={(e) => setPost({ ...post, cover_image: e.target.value })}
-            className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white dark:border-gray-600"
-            placeholder="https://example.com/image.jpg"
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div>
+            <label htmlFor="cover_image" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
+              カバー画像URL
+            </label>
+            <input
+              type="text"
+              id="cover_image"
+              value={post.cover_image}
+              onChange={(e) => setPost({ ...post, cover_image: e.target.value })}
+              className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white dark:border-gray-600"
+              placeholder="https://example.com/image.jpg"
+            />
+          </div>
+          <div>
+            <label htmlFor="og_image" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
+              OG画像URL
+            </label>
+            <input
+              type="text"
+              id="og_image"
+              value={post.og_image}
+              onChange={(e) => setPost({ ...post, og_image: e.target.value })}
+              className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white dark:border-gray-600"
+              placeholder="https://example.com/og-image.jpg"
+            />
+          </div>
         </div>
 
         <div className="mb-4">

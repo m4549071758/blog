@@ -230,10 +230,12 @@ type Post = {
   id?: string;
   title: string;
   content: string;
-  slug: string;
-  createdAt?: string;
-  updatedAt?: string;
-  deletedAt?: string;
+  slug?: string;
+  cover_image: string;
+  excerpt: string;
+  og_image: string;
+  tags: string[];
+  datetime: string;
 };
 
 // 記事IDから記事データを取得
@@ -250,7 +252,7 @@ export async function getPostById(id: string): Promise<Post> {
 }
 
 // 記事を新規作成
-export async function createPost(postData: Post): Promise<Post> {
+export async function createPost(postData: Post): Promise<any> {
   const response = await fetch(`${API_BASE_URL}/api/articles/add`, {
     method: 'POST',
     headers: {
@@ -261,14 +263,15 @@ export async function createPost(postData: Post): Promise<Post> {
   });
 
   if (!response.ok) {
-    throw new Error('記事の作成に失敗しました');
+    const errorData = await response.json();
+    throw new Error(errorData.error || '記事の作成に失敗しました');
   }
 
   return response.json();
 }
 
 // 記事を更新
-export async function updatePost(id: string, postData: Post): Promise<Post> {
+export async function updatePost(id: string, postData: Post): Promise<any> {
   const response = await fetch(`${API_BASE_URL}/api/articles/${id}`, {
     method: 'PUT',
     headers: {
@@ -279,7 +282,8 @@ export async function updatePost(id: string, postData: Post): Promise<Post> {
   });
 
   if (!response.ok) {
-    throw new Error('記事の更新に失敗しました');
+    const errorData = await response.json();
+    throw new Error(errorData.error || '記事の更新に失敗しました');
   }
 
   return response.json();
