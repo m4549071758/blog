@@ -18,6 +18,8 @@ export const Profile = async () => {
           className="object-cover w-28 h-28 rounded-full"
           alt="avatar"
           src="/assets/author.webp" // This could also be dynamic if we added avatar_url
+          width={112}
+          height={112}
         />
         <h1 className="text-2xl font-semibold text-primary-1">かとり</h1>
       </div>

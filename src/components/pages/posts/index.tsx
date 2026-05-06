@@ -8,7 +8,6 @@ import { Post } from '@/components/features/post/Post';
 import { Share } from '@/components/features/post/Share';
 import { Toc } from '@/components/features/post/Toc';
 import { ROOT_URL } from '@/config/app';
-import { generateArticleMeta } from '@/config/seo';
 import { useBreakPoint } from '@/hooks/useBreakPoint';
 import { joinPath } from '@/lib/joinPath';
 import { PostType } from '@/types/post';
@@ -30,8 +29,6 @@ export const Posts: React.VFC<Props> = ({ post, profile, siteConfig, ownerProfil
     { label: 'ブログ', href: '/posts' },
     { label: post.title },
   ];
-
-  const seoMeta = generateArticleMeta(post);
 
   return (
     <>

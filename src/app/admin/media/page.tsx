@@ -144,11 +144,13 @@ export default function MediaPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {images.map((img) => (
             <div key={img.file_name} className="relative group bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden aspect-square border border-gray-200 dark:border-gray-700">
-              <div className="w-full h-full p-2">
+              <div className="w-full h-full p-2 relative">
                 <Image
                   src={img.file_url}
                   alt={img.file_name}
-                  className="w-full h-full object-contain"
+                  fill
+                  sizes="(max-width: 768px) 50vw, (max-width: 1024px) 25vw, 20vw"
+                  className="object-contain p-2"
                 />
               </div>
               

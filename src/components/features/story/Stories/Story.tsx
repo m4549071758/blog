@@ -19,11 +19,13 @@ export const Story = ({ title, coverImage, date, excerpt, slug, likeCount, id }:
       href={`/posts/${slug}`}
       className="select-none overflow-hidden w-full h-full vstack md:flex-row cursor-pointer focus:outline-2"
     >
-      <div className="center w-full md:w-1/3 h-52 md:h-full bg-neutral-50 md:bg-transparent">
+      <div className="center w-full md:w-1/3 h-52 md:h-full bg-neutral-50 md:bg-transparent relative">
         <Image
           src={coverImage}
           alt={`Cover Image for ${title}`}
+          fill
           className="w-full max-w-xs h-64 object-cover"
+          sizes="(max-width: 768px) 100vw, 33vw"
         />
       </div>
       <div className="md:w-2/3 p-4 md:p-6 vstack gap-2 bg-primary-1">

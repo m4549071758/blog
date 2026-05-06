@@ -22,11 +22,14 @@ export const PostHeader = ({
 }: Props) => {
   return (
     <div className="vstack gap-4">
-      <div className="w-full h-64 sm:h-80">
+      <div className="w-full h-64 sm:h-80 relative">
         <Image
           src={coverImage}
           alt={`Cover Image for ${title}`}
-          className="w-full h-full object-cover"
+          fill
+          priority
+          sizes="(max-width: 640px) 100vw, 800px"
+          className="object-cover"
         />
       </div>
       <h1 className="text-primary-1 text-3xl md:text-4xl font-bold tracking-tighter leading-tight">
