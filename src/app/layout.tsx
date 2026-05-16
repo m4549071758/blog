@@ -80,7 +80,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const config = await getSiteConfig();
-  const gaId = config?.google_analytics_id;
+  const rawGaId = config?.google_analytics_id;
+  const gaId = /^G-[A-Z0-9]+$/.test(rawGaId ?? '') ? rawGaId : null;
 
   return (
     <html lang="ja">

@@ -28,6 +28,10 @@ export default async function markdownToHtml(markdown: string) {
     .use(rehypeShiki, {
       theme: 'github-dark',
     })
+    .use(rehypeSlug)
+    .use(rehypeAutolinkHeadings)
+    .use(rehypeGithubAlerts as any, true)
+    .use(rehypeResponsiveIframe)
     .use(rehypeSanitize, {
       ...defaultSchema,
       tagNames: [...(defaultSchema.tagNames || []), 'iframe'],
@@ -44,7 +48,7 @@ export default async function markdownToHtml(markdown: string) {
           'scrolling',
         ],
         code: [['className', /^language-./]],
-        span: [...(defaultSchema.attributes?.span || []), ['className', /^token$/, /^rlc-./], 'style'],
+        span: [...(defaultSchema.attributes?.span || []), ['className', /^token$/, /^rlc-./]],
         div: [...(defaultSchema.attributes?.div || []), ['className', 'rehype-code-title', /^rlc-./]],
         pre: [...(defaultSchema.attributes?.pre || []), 'style', ['className', 'shiki', /^language-./]],
         a: [
@@ -53,14 +57,10 @@ export default async function markdownToHtml(markdown: string) {
           'target',
           'rel'
         ],
-        img: [...(defaultSchema.attributes?.img || []), ['className', /^rlc-./, /^hover:/, 'transition-opacity'], 'src', 'alt', 'loading', 'style'],
+        img: [...(defaultSchema.attributes?.img || []), ['className', /^rlc-./, /^hover:/, 'transition-opacity'], 'src', 'alt', 'loading'],
       },
     })
-    .use(rehypeAutolinkHeadings)
     .use(rehypeStringify)
-    .use(rehypeSlug)
-    .use(rehypeGithubAlerts as any, true)
-    .use(rehypeResponsiveIframe)
     .process(markdown);
 
   return result.toString();
