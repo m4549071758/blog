@@ -24,3 +24,7 @@
 .markdown img:hover {
   @apply shadow-lg transform translate-y-[-4px];
 }
+
+.markdown pre {
+  overflow-x: auto;
+}
