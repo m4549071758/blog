@@ -38,3 +38,5 @@ yarn-error.log*
 public/articles-data.json
 public/sitemap.xml
 public/feed.xml
+.claude/*
+.agent/
