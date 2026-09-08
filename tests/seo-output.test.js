@@ -20,12 +20,13 @@ const schemas = (html) =>
       /<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g,
     ),
   ].map((match) => JSON.parse(match[1]));
-const escapeHtml = (value) =>
+const decodeHtml = (value) =>
   value
-    .replaceAll('&', '&amp;')
-    .replaceAll('"', '&quot;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;');
+    .replaceAll('&#x27;', "'")
+    .replaceAll('&quot;', '"')
+    .replaceAll('&gt;', '>')
+    .replaceAll('&lt;', '<')
+    .replaceAll('&amp;', '&');
 const tags = [...new Set(articles.flatMap((article) => article.tags))];
 const archives = fs
   .readdirSync(path.join(output, 'posts/page'), { withFileTypes: true })
@@ -42,17 +43,15 @@ const publicPages = [
   ...tags.map((tag) => `tags/${tag}`),
 ];
 
-test('all exported breadcrumbs resolve intermediate items to absolute URLs', () => {
+test('all exported breadcrumbs expose absolute string URLs for every item', () => {
   for (const pathname of publicPages) {
     for (const schema of schemas(readPage(pathname))) {
       if (schema['@type'] !== 'BreadcrumbList') continue;
       assert.ok(schema.itemListElement.length >= 2, pathname);
-      schema.itemListElement.forEach((item, index, items) => {
+      schema.itemListElement.forEach((item, index) => {
         assert.equal(item.position, index + 1, pathname);
-        if (index === items.length - 1 && !item.item) return;
-        const url =
-          typeof item.item === 'string' ? item.item : item.item?.['@id'];
-        assert.match(url || '', /^https?:\/\//, `${pathname}: ${item.name}`);
+        assert.equal(typeof item.item, 'string', `${pathname}: ${item.name}`);
+        assert.match(item.item, /^https?:\/\//, `${pathname}: ${item.name}`);
       });
     }
   }
@@ -92,14 +91,18 @@ test('article metadata uses SEO overrides with legacy field fallbacks', () => {
     const html = readPage(`posts/${article.slug}`);
     const expectedTitle = article.seoTitle || article.title;
     const expectedDescription = article.seoDescription || article.excerpt;
-    assert.ok(
-      html.includes(`<title>${escapeHtml(expectedTitle)} |`),
+    const actualTitle = html.match(/<title>(.*?)<\/title>/s)?.[1];
+    const actualDescription = html.match(
+      /<meta\b[^>]*name="description"[^>]*content="([^"]*)"/,
+    )?.[1];
+    assert.equal(
+      decodeHtml(actualTitle || '').split(' | ')[0],
+      expectedTitle,
       article.slug,
     );
-    assert.ok(
-      html.includes(
-        `name="description" content="${escapeHtml(expectedDescription)}"`,
-      ),
+    assert.equal(
+      decodeHtml(actualDescription || ''),
+      expectedDescription,
       article.slug,
     );
   }

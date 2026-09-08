@@ -23,8 +23,8 @@ export const Posts: React.VFC<Props> = ({ post, profile, siteConfig }) => {
   const imageURL = new URL(post.ogImage.url, ROOT_URL).href;
   const postURL = new URL(`/posts/${post.slug}/`, ROOT_URL).href;
   const breadcrumbItems = [
-    { label: 'ブログ', href: '/posts/' },
-    { label: post.title },
+    { label: 'ブログ', url: '/posts/', href: '/posts/' },
+    { label: post.title, url: `/posts/${post.slug}/` },
   ];
 
   return (

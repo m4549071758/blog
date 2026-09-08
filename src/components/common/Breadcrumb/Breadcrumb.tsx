@@ -5,6 +5,7 @@ import { ROOT_URL } from '@/config/app';
 
 export interface BreadcrumbItem {
   label: string;
+  url: string;
   href?: string;
 }
 
@@ -17,18 +18,14 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
   items,
   className = '',
 }) => {
-  const breadcrumbItems = [{ label: 'ホーム', href: '/' }, ...items];
+  const breadcrumbItems = [{ label: 'ホーム', url: '/', href: '/' }, ...items];
 
   const generateStructuredData = () => {
     const itemListElement = breadcrumbItems.map((item, index) => ({
       '@type': 'ListItem',
       position: index + 1,
       name: item.label,
-      ...(item.href && {
-        item: {
-          '@id': new URL(item.href, ROOT_URL).href,
-        },
-      }),
+      item: new URL(item.url, ROOT_URL).href,
     }));
 
     return {

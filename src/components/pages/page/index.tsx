@@ -16,8 +16,11 @@ type Props = {
 
 export const Page: React.VFC<Props> = ({ posts, page, maxPage, profile }) => {
   const breadcrumbItems = [
-    { label: 'ブログ', href: '/posts/' },
-    { label: `ページ ${page}` },
+    { label: 'ブログ', url: '/posts/', href: '/posts/' },
+    {
+      label: `ページ ${page}`,
+      url: page === 1 ? '/posts/' : `/posts/page/${page}/`,
+    },
   ];
 
   return (
