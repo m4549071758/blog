@@ -21,7 +21,7 @@ export const Profile = async () => {
           width={112}
           height={112}
         />
-        <h1 className="text-2xl font-semibold text-primary-1">かとり</h1>
+        <h2 className="text-2xl font-semibold text-primary-1">かとり</h2>
       </div>
 
       {profile.bio.split('\n').map((line, i) => (
@@ -32,22 +32,38 @@ export const Profile = async () => {
 
       <div className="hidden lg:flex gap-4">
         {profile.qiita_url && (
-          <Link href={profile.qiita_url} className="text-primary-1" aria-label="Qiita">
+          <Link
+            href={profile.qiita_url}
+            className="text-primary-1"
+            aria-label="Qiita"
+          >
             <SiQiita size={20} />
           </Link>
         )}
         {profile.github_url && (
-           <Link href={profile.github_url} className="text-primary-1" aria-label="GitHub">
+          <Link
+            href={profile.github_url}
+            className="text-primary-1"
+            aria-label="GitHub"
+          >
             <SiGithub size={20} />
           </Link>
         )}
         {profile.misskey_url && (
-           <Link href={profile.misskey_url} className="text-primary-1" aria-label="Misskey">
+          <Link
+            href={profile.misskey_url}
+            className="text-primary-1"
+            aria-label="Misskey"
+          >
             <SiMisskey size={20} />
           </Link>
         )}
         {profile.twitter_url && (
-           <Link href={profile.twitter_url} className="text-primary-1" aria-label="Twitter">
+          <Link
+            href={profile.twitter_url}
+            className="text-primary-1"
+            aria-label="Twitter"
+          >
             <FaTwitter size={20} />
           </Link>
         )}

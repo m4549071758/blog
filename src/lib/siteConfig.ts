@@ -16,19 +16,15 @@ export interface SiteConfig {
 
 // ビルド時に一度だけ取得してキャッシュする
 export const getSiteConfig = cache(async (): Promise<SiteConfig | null> => {
-  try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://www.katori.dev/api';
-    const res = await fetch(`${apiUrl}/site-config`, {
-      next: { revalidate: 60 }, // 1分キャッシュ (またはビルド時のみなら force-cache だが、再構築トリガーあるので revalidate で良し)
-      credentials: 'include',
-    });
-    
-    if (!res.ok) {
-        return null;
-    }
-    
-    return res.json();
-  } catch (error) {
-    return null;
+  const apiUrl =
+    process.env.NEXT_PUBLIC_API_URL || 'https://www.katori.dev/api';
+  const res = await fetch(`${apiUrl}/site-config`, {
+    cache: 'force-cache',
+    credentials: 'include',
+    signal: AbortSignal.timeout(30_000),
+  });
+  if (!res.ok) {
+    throw new Error(`サイト設定APIの取得に失敗しました: HTTP ${res.status}`);
   }
+  return res.json();
 });

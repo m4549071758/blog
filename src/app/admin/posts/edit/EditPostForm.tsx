@@ -1,13 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { PostBody } from '@/components/features/post/Post/PostBody';
-import { getPostBySlug, updatePost } from '@/lib/api';
+import { getPostForEditor, updatePost } from '@/lib/api';
 import markdownToHtmlForEditor from '@/lib/markdownToHtmlForEditor';
 
 export default function EditPostForm() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const id = searchParams.get('id');
 
@@ -17,6 +16,9 @@ export default function EditPostForm() {
     slug: '',
     cover_image: '',
     excerpt: '',
+    seo_title: '',
+    seo_description: '',
+    primary_keyword: '',
     og_image: '',
     tags: '',
     datetime: '',
@@ -30,33 +32,20 @@ export default function EditPostForm() {
       if (!id) return;
 
       try {
-        const loadedPost = await getPostBySlug(id as string, [
-          'title',
-          'content',
-          'slug',
-          'coverImage',
-          'excerpt',
-          'ogImage',
-          'tags',
-          'date',
-        ]);
+        const loadedPost = await getPostForEditor(id);
 
         const formattedPost = {
-          title: loadedPost.title || '',
-          content: loadedPost.content || '',
-          slug: loadedPost.slug || '',
-          cover_image: loadedPost.coverImage || '',
-          excerpt: loadedPost.excerpt || '',
-          og_image:
-            typeof loadedPost.ogImage === 'object' && loadedPost.ogImage?.url
-              ? loadedPost.ogImage.url
-              : typeof loadedPost.ogImage === 'string'
-              ? loadedPost.ogImage
-              : '',
-          tags: Array.isArray(loadedPost.tags)
-            ? loadedPost.tags.join(', ')
-            : loadedPost.tags || '',
-          datetime: loadedPost.date ? loadedPost.date.substring(0, 10) : '',
+          title: loadedPost.title,
+          content: loadedPost.content,
+          slug: loadedPost.id || id,
+          cover_image: loadedPost.cover_image,
+          excerpt: loadedPost.excerpt,
+          seo_title: loadedPost.seo_title || '',
+          seo_description: loadedPost.seo_description || '',
+          primary_keyword: loadedPost.primary_keyword || '',
+          og_image: loadedPost.og_image,
+          tags: loadedPost.tags.join(', '),
+          datetime: loadedPost.datetime.substring(0, 10),
         };
 
         setPost(formattedPost);
@@ -82,8 +71,17 @@ export default function EditPostForm() {
 
   const handleSave = async () => {
     // 必須チェック
-    if (!post.title || !post.content || !post.excerpt || !post.cover_image || !post.og_image || !post.datetime) {
-      setSaveMessage('タイトル、コンテンツ、説明文、カバー画像、OG画像、公開日は必須項目です');
+    if (
+      !post.title ||
+      !post.content ||
+      !post.excerpt ||
+      !post.cover_image ||
+      !post.og_image ||
+      !post.datetime
+    ) {
+      setSaveMessage(
+        'タイトル、コンテンツ、説明文、カバー画像、OG画像、公開日は必須項目です',
+      );
       return;
     }
 
@@ -123,7 +121,9 @@ export default function EditPostForm() {
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">記事の編集</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          記事の編集
+        </h1>
         <div className="flex items-center gap-2">
           {saveMessage && (
             <span
@@ -145,7 +145,10 @@ export default function EditPostForm() {
       </div>
 
       <div className="mb-4">
-        <label htmlFor="title" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
+        <label
+          htmlFor="title"
+          className="block font-medium mb-1 text-gray-700 dark:text-gray-300"
+        >
           タイトル
         </label>
         <input
@@ -158,7 +161,10 @@ export default function EditPostForm() {
       </div>
 
       <div className="mb-4">
-        <label htmlFor="slug" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
+        <label
+          htmlFor="slug"
+          className="block font-medium mb-1 text-gray-700 dark:text-gray-300"
+        >
           記事ID
         </label>
         <input
@@ -172,7 +178,10 @@ export default function EditPostForm() {
       </div>
 
       <div className="mb-4">
-        <label htmlFor="cover_image" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
+        <label
+          htmlFor="cover_image"
+          className="block font-medium mb-1 text-gray-700 dark:text-gray-300"
+        >
           カバー画像URL
         </label>
         <input
@@ -185,7 +194,10 @@ export default function EditPostForm() {
       </div>
 
       <div className="mb-4">
-        <label htmlFor="excerpt" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
+        <label
+          htmlFor="excerpt"
+          className="block font-medium mb-1 text-gray-700 dark:text-gray-300"
+        >
           説明文
         </label>
         <textarea
@@ -195,9 +207,73 @@ export default function EditPostForm() {
           className="w-full p-2 border rounded h-24 dark:bg-gray-800 dark:text-white dark:border-gray-600"
         ></textarea>
       </div>
+      <fieldset className="mb-4 border rounded p-4 dark:border-gray-600">
+        <legend className="px-2 font-medium text-gray-700 dark:text-gray-300">
+          SEO設定（任意）
+        </legend>
+        <div className="space-y-4">
+          <div>
+            <label
+              htmlFor="seo_title"
+              className="block font-medium mb-1 text-gray-700 dark:text-gray-300"
+            >
+              SEOタイトル
+            </label>
+            <input
+              type="text"
+              id="seo_title"
+              maxLength={255}
+              value={post.seo_title}
+              onChange={(e) => setPost({ ...post, seo_title: e.target.value })}
+              className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white dark:border-gray-600"
+              placeholder="空欄の場合は記事タイトルを使用"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="seo_description"
+              className="block font-medium mb-1 text-gray-700 dark:text-gray-300"
+            >
+              SEO説明文
+            </label>
+            <textarea
+              id="seo_description"
+              maxLength={500}
+              value={post.seo_description}
+              onChange={(e) =>
+                setPost({ ...post, seo_description: e.target.value })
+              }
+              className="w-full p-2 border rounded h-24 dark:bg-gray-800 dark:text-white dark:border-gray-600"
+              placeholder="空欄の場合は説明文を使用"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="primary_keyword"
+              className="block font-medium mb-1 text-gray-700 dark:text-gray-300"
+            >
+              主検索語
+            </label>
+            <input
+              type="text"
+              id="primary_keyword"
+              maxLength={255}
+              value={post.primary_keyword}
+              onChange={(e) =>
+                setPost({ ...post, primary_keyword: e.target.value })
+              }
+              className="w-full p-2 border rounded dark:bg-gray-800 dark:text-white dark:border-gray-600"
+              placeholder="編集方針の管理用。公開メタタグには出力されません"
+            />
+          </div>
+        </div>
+      </fieldset>
 
       <div className="mb-4">
-        <label htmlFor="og_image" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
+        <label
+          htmlFor="og_image"
+          className="block font-medium mb-1 text-gray-700 dark:text-gray-300"
+        >
           OG画像URL
         </label>
         <input
@@ -210,7 +286,10 @@ export default function EditPostForm() {
       </div>
 
       <div className="mb-4">
-        <label htmlFor="tags" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
+        <label
+          htmlFor="tags"
+          className="block font-medium mb-1 text-gray-700 dark:text-gray-300"
+        >
           タグ (カンマ区切り)
         </label>
         <input
@@ -224,7 +303,10 @@ export default function EditPostForm() {
       </div>
 
       <div className="mb-4">
-        <label htmlFor="datetime" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
+        <label
+          htmlFor="datetime"
+          className="block font-medium mb-1 text-gray-700 dark:text-gray-300"
+        >
           公開日
         </label>
         <input
@@ -238,7 +320,10 @@ export default function EditPostForm() {
 
       <div className="flex flex-col md:flex-row gap-4 h-[600px]">
         <div className="w-full md:w-1/2 h-full">
-          <label htmlFor="content" className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
+          <label
+            htmlFor="content"
+            className="block font-medium mb-1 text-gray-700 dark:text-gray-300"
+          >
             コンテンツ (Markdown)
           </label>
           <textarea
@@ -250,7 +335,9 @@ export default function EditPostForm() {
         </div>
 
         <div className="w-full md:w-1/2 h-full">
-          <h3 className="block font-medium mb-1 text-gray-700 dark:text-gray-300">プレビュー</h3>
+          <h3 className="block font-medium mb-1 text-gray-700 dark:text-gray-300">
+            プレビュー
+          </h3>
           <div className="w-full h-[calc(100%-2rem)] border rounded overflow-auto bg-white dark:bg-gray-800">
             <PostBody content={htmlContent} />
           </div>

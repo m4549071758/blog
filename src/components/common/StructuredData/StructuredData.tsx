@@ -2,7 +2,6 @@ interface ArticleStructuredDataProps {
   title: string;
   description: string;
   datePublished: string;
-  dateModified?: string;
   authorName: string;
   authorUrl?: string;
   publisherName: string;
@@ -16,7 +15,6 @@ export const ArticleStructuredData: React.FC<ArticleStructuredDataProps> = ({
   title,
   description,
   datePublished,
-  dateModified,
   authorName,
   authorUrl,
   publisherName,
@@ -31,7 +29,6 @@ export const ArticleStructuredData: React.FC<ArticleStructuredDataProps> = ({
     headline: title,
     description,
     datePublished,
-    dateModified: dateModified || datePublished,
     author: {
       '@type': 'Person',
       name: authorName,
@@ -60,7 +57,7 @@ export const ArticleStructuredData: React.FC<ArticleStructuredDataProps> = ({
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(structuredData),
+        __html: JSON.stringify(structuredData).replace(/</g, '\\u003c'),
       }}
     />
   );
@@ -83,21 +80,13 @@ export const WebsiteStructuredData: React.FC<WebsiteStructuredDataProps> = ({
     name,
     url,
     description,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${url}/search?q={search_term_string}`,
-      },
-      'query-input': 'required name=search_term_string',
-    },
   };
 
   return (
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(structuredData),
+        __html: JSON.stringify(structuredData).replace(/</g, '\\u003c'),
       }}
     />
   );

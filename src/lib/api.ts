@@ -1,131 +1,125 @@
 import { paginationOffset } from '@/config/pagination';
 import { PostType } from '@/types/post';
-import { getAuthToken } from '@/lib/authHandler';
 
 // APIのベースURL
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8080';
 
 // キャッシュを保持する変数
-let articlesListCache: any[] | null = null;
-const articleDetailCache: Record<string, any> = {};
+let articlesListCache: { article_id: string }[] | null = null;
+const articleDetailCache: Record<string, Record<string, unknown>> = {};
 
 // 記事一覧をAPIから取得する関数
 async function fetchArticlesList() {
   if (articlesListCache) return articlesListCache;
 
-  try {
-    console.log('Fetching articles from:', `${API_BASE_URL}/api/articles`);
-    const response = await fetch(`${API_BASE_URL}/api/articles`, {
-      cache: 'force-cache',
-      credentials: 'include',
-    });
-
-    console.log('Response status:', response.status);
-
-    const contentType = response.headers.get('content-type');
-    if (contentType && !contentType.includes('application/json')) {
-      console.error('Received non-JSON response:', contentType);
-      // ビルドを止めないために空配列を返す
-      return [];
-    }
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('API response error:', errorText);
-      throw new Error(`API request failed: ${response.status} - ${errorText}`);
-    }
-
-    const data = await response.json();
-    articlesListCache = data;
-    return data;
-  } catch (error) {
-    console.error('Error fetching articles list:', error);
-    return [];
+  const response = await fetch(`${API_BASE_URL}/api/articles`, {
+    cache: 'force-cache',
+    credentials: 'include',
+    signal: AbortSignal.timeout(30_000),
+  });
+  if (!response.ok) {
+    throw new Error(`記事一覧APIの取得に失敗しました: HTTP ${response.status}`);
   }
+  const data: unknown = await response.json();
+  if (
+    !Array.isArray(data) ||
+    !data.every(
+      (article: unknown): article is { article_id: string } =>
+        typeof article === 'object' &&
+        article !== null &&
+        'article_id' in article &&
+        typeof article.article_id === 'string' &&
+        article.article_id.length > 0,
+    )
+  ) {
+    throw new Error('記事一覧APIが不正なデータを返しました');
+  }
+  articlesListCache = data;
+  return articlesListCache;
 }
 
 // 個別記事の詳細を取得する関数
 async function fetchArticleDetail(articleId: string) {
   if (articleDetailCache[articleId]) return articleDetailCache[articleId];
 
-  try {
-    console.log('Fetching article detail for ID:', articleId);
-    const response = await fetch(`${API_BASE_URL}/api/articles/${articleId}`, {
+  const response = await fetch(
+    `${API_BASE_URL}/api/articles/${encodeURIComponent(articleId)}`,
+    {
       cache: 'force-cache',
       credentials: 'include',
-    });
-
-    // 404エラーの場合は特別に処理
-    if (response.status === 404) {
-      console.warn(`Article not found: ${articleId}`);
-      return null;
-    }
-
-    const contentType = response.headers.get('content-type');
-    if (contentType && !contentType.includes('application/json')) {
-      console.warn(`Invalid content-type for article ${articleId}: ${contentType}`);
-      return null;
-    }
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Article detail API response error:', errorText);
-      throw new Error(`API request failed: ${response.status} - ${errorText}`);
-    }
-
-    const data = await response.json();
-
-    // レスポンスが空または無効なデータの場合
-    if (!data || typeof data !== 'object') {
-      console.warn(`Invalid data received for article ID ${articleId}`);
-      return null;
-    }
-
-    articleDetailCache[articleId] = data;
-    return data;
-  } catch (error) {
-    console.error(`Error fetching article detail for ID ${articleId}:`, error);
-    return null;
+      signal: AbortSignal.timeout(30_000),
+    },
+  );
+  if (response.status === 404) return null;
+  if (!response.ok) {
+    throw new Error(
+      `記事APIの取得に失敗しました (${articleId}): HTTP ${response.status}`,
+    );
   }
+  const data: unknown = await response.json();
+  if (typeof data !== 'object' || data === null || Array.isArray(data)) {
+    throw new Error(`記事APIが不正なデータを返しました (${articleId})`);
+  }
+  const article = data as Record<string, unknown>;
+  const requiredStrings = [
+    'id',
+    'title',
+    'content',
+    'excerpt',
+    'cover_image',
+    'og_image',
+    'datetime',
+  ];
+  const optionalStrings = ['seo_title', 'seo_description'];
+  if (
+    !requiredStrings.every((field) => typeof article[field] === 'string') ||
+    !optionalStrings.every(
+      (field) =>
+        typeof article[field] === 'undefined' ||
+        typeof article[field] === 'string',
+    ) ||
+    article.id !== articleId ||
+    !article.title ||
+    !Number.isFinite(Date.parse(article.datetime as string)) ||
+    !Array.isArray(article.tags) ||
+    !article.tags.every((tag: unknown) => typeof tag === 'string')
+  ) {
+    throw new Error(`記事APIの必須フィールドが不正です (${articleId})`);
+  }
+  articleDetailCache[articleId] = article;
+  return article;
 }
 
 // 記事のスラグ(ID)一覧を取得
 export const getPostSlugs = async () => {
   const articles = await fetchArticlesList();
-  if (!articles || !Array.isArray(articles)) {
-    return [];
-  }
   return articles.map((article: { article_id: string }) => article.article_id);
 };
 
 // 最大ページ数を計算
 export const getMaxPage = async () => {
   const articles = await fetchArticlesList();
-  if (!articles || !Array.isArray(articles)) {
-    return 0;
-  }
   return Math.ceil(articles.length / paginationOffset);
 };
 
 // 特定のスラグ(ID)の記事を取得
-export const getPostBySlug = async (slug: string, fields: string[] = []) => {
+export const getPostBySlug = async (
+  slug: string,
+  fields: (keyof PostType)[] = [],
+) => {
   if (!slug) {
-    console.error('Slug is undefined');
-    return {};
+    throw new Error('記事IDが指定されていません');
   }
 
   // 記事の詳細情報を取得
   const articleDetail = await fetchArticleDetail(slug);
 
   if (!articleDetail) {
-    console.warn(`No article found for slug: ${slug}`);
     return {};
   }
 
-  type Items = {
-    [key: string]: any;
-  };
+  type Items = Record<string, unknown>;
 
   const items: Items = {};
 
@@ -136,23 +130,14 @@ export const getPostBySlug = async (slug: string, fields: string[] = []) => {
     content: 'content',
     title: 'title',
     excerpt: 'excerpt',
+    seoTitle: 'seo_title',
+    seoDescription: 'seo_description',
     coverImage: 'cover_image',
     ogImage: 'og_image',
     tags: 'tags',
     date: 'datetime',
     like_count: 'like_count',
   };
-
-  // 必須フィールドが欠けていないか確認
-  const hasRequiredFields = ['title', 'content'].every(
-    (field) =>
-      typeof articleDetail[fieldMapping[field] || field] !== 'undefined',
-  );
-
-  if (!hasRequiredFields) {
-    console.warn(`Article ${slug} is missing required fields`);
-    return {}; // 必須フィールドがない場合は空オブジェクトを返す
-  }
 
   fields.forEach((field) => {
     if (field === 'slug') {
@@ -180,32 +165,21 @@ type Field = keyof PostType;
 
 // すべての記事を取得
 export const getAllPosts = async (fields: Field[] = []) => {
-  try {
-    const slugs = await getPostSlugs();
+  const slugs = await getPostSlugs();
+  const posts = await Promise.all(
+    slugs.map(async (slug) => {
+      const post = await getPostBySlug(slug, fields);
+      if (Object.keys(post).length === 0) {
+        throw new Error(`一覧に含まれる記事を取得できませんでした (${slug})`);
+      }
+      return post;
+    }),
+  );
 
-    if (!slugs || !Array.isArray(slugs) || slugs.length === 0) {
-      return [];
-    }
-
-    const postsPromises = slugs.map((slug) =>
-      getPostBySlug(slug, fields as string[]),
-    );
-
-    const posts = await Promise.all(postsPromises);
-
-    // 空のオブジェクトをフィルタリング
-    const validPosts = posts.filter(
-      (post) => post && Object.keys(post).length > 0,
-    );
-
-    return validPosts.sort((post1, post2) => {
-      if (!post1.date || !post2.date) return 0;
-      return post1.date > post2.date ? -1 : 1;
-    });
-  } catch (error) {
-    console.error('Error in getAllPosts:', error);
-    return [];
-  }
+  return posts.sort((post1, post2) => {
+    if (!post1.date || !post2.date) return 0;
+    return Date.parse(post2.date) - Date.parse(post1.date);
+  });
 };
 
 // ページネーション用に特定範囲の記事を取得
@@ -233,26 +207,29 @@ type Post = {
   slug?: string;
   cover_image: string;
   excerpt: string;
+  seo_title?: string;
+  seo_description?: string;
+  primary_keyword?: string;
   og_image: string;
   tags: string[];
   datetime: string;
 };
 
-// 記事IDから記事データを取得
-export async function getPostById(id: string): Promise<Post> {
-  const response = await fetch(`${API_BASE_URL}/api/articles/${id}`, {
-    credentials: 'include',
-  });
+export async function getPostForEditor(id: string): Promise<Post> {
+  const response = await fetch(
+    `${API_BASE_URL}/api/articles/${encodeURIComponent(id)}/editor`,
+    { credentials: 'include' },
+  );
 
   if (!response.ok) {
-    throw new Error('記事の取得に失敗しました');
+    throw new Error('編集用の記事取得に失敗しました');
   }
 
   return response.json();
 }
 
 // 記事を新規作成
-export async function createPost(postData: Post): Promise<any> {
+export async function createPost(postData: Post): Promise<Post> {
   const response = await fetch(`${API_BASE_URL}/api/articles/add`, {
     method: 'POST',
     headers: {
@@ -271,7 +248,7 @@ export async function createPost(postData: Post): Promise<any> {
 }
 
 // 記事を更新
-export async function updatePost(id: string, postData: Post): Promise<any> {
+export async function updatePost(id: string, postData: Post): Promise<Post> {
   const response = await fetch(`${API_BASE_URL}/api/articles/${id}`, {
     method: 'PUT',
     headers: {

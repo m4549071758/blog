@@ -1,14 +1,11 @@
-'use client';
+import PaginationPage, {
+  generateMetadata as generatePageMetadata,
+} from './page/[page]/page';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+export function generateMetadata() {
+  return generatePageMetadata({ params: Promise.resolve({ page: '1' }) });
+}
 
 export default function PostsIndex() {
-  const router = useRouter();
-  
-  useEffect(() => {
-    router.replace('/posts/page/1');
-  }, [router]);
-
-  return null;
+  return PaginationPage({ params: Promise.resolve({ page: '1' }) });
 }

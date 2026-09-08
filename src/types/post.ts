@@ -5,6 +5,8 @@ export type PostType = {
   date: string;
   coverImage: string;
   excerpt: string;
+  seoTitle?: string;
+  seoDescription?: string;
   ogImage: {
     url: string;
   };

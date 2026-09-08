@@ -8,11 +8,12 @@
     "build": "npm run clean && npm run fetch-articles && npm run generate-static-files && next build",
     "export": "echo 'Use npm run build instead of next export'",
     "start": "next start",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",
     "fetch-articles": "node scripts/fetch-articles.js",
-    "generate-static-files": "node scripts/generate-sitemap.js && node scripts/generate-rss.js"
+    "generate-static-files": "node scripts/generate-sitemap.js && node scripts/generate-rss.js",
+    "test": "node --test tests/*.test.js"
   },
   "devDependencies": {
     "@radix-ui/react-dialog": "^1.1.2",

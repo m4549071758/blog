@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { AiOutlineHome } from 'react-icons/ai';
 import { MdChevronRight } from 'react-icons/md';
+import { ROOT_URL } from '@/config/app';
 
 export interface BreadcrumbItem {
   label: string;
@@ -23,10 +24,10 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
       '@type': 'ListItem',
       position: index + 1,
       name: item.label,
-      ...(item.href && { 
-        item: { 
-          '@id': item.href.startsWith('http') ? item.href : `${process.env.NEXT_PUBLIC_ROOT_URL || 'https://www.katori.dev'}${item.href}` 
-        } 
+      ...(item.href && {
+        item: {
+          '@id': new URL(item.href, ROOT_URL).href,
+        },
       }),
     }));
 
@@ -42,7 +43,10 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(generateStructuredData()),
+          __html: JSON.stringify(generateStructuredData()).replace(
+            /</g,
+            '\\u003c',
+          ),
         }}
       />
       <nav

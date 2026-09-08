@@ -3,6 +3,8 @@ import { Tag } from '@/components/pages/tag';
 import { notFound } from 'next/navigation';
 import { Profile } from '@/components/features/app/Profile';
 import { Metadata } from 'next';
+import type { PostType } from '@/types/post';
+import { createPageMetadata } from '@/lib/metadata';
 
 type Props = {
   params: Promise<{ tag: string }>;
@@ -11,11 +13,11 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tag } = await params;
   const decodedTag = decodeURIComponent(tag);
-  return {
-    title: `記事一覧: ${decodedTag} | Katori's blog`,
-    description: `「${decodedTag}」タグに関連する記事の一覧です。ProxmoxやNext.jsなど、技術的な知見を発信しています。`,
-    keywords: [decodedTag, 'Proxmox', '技術ブログ', '記事一覧'],
-  };
+  return createPageMetadata(
+    `記事一覧: ${decodedTag}`,
+    `${decodedTag}に関する公開記事をまとめています。記事タイトルから関連する情報を探せます。`,
+    `/tags/${encodeURIComponent(decodedTag)}/`,
+  );
 }
 
 // 静的パスの生成
@@ -23,7 +25,7 @@ export async function generateStaticParams() {
   const posts = await getAllPosts(['tags']);
   const tags = posts.flatMap((post) => post.tags || []);
   const uniqueTags = Array.from(new Set(tags));
-  
+
   console.log('Generating static params for tags. Count:', uniqueTags.length);
 
   if (uniqueTags.length === 0) {
@@ -55,5 +57,7 @@ export default async function TagPage({ params }: Props) {
     notFound();
   }
 
-  return <Tag posts={posts as any} tag={decodedTag} profile={<Profile />} />;
+  return (
+    <Tag posts={posts as PostType[]} tag={decodedTag} profile={<Profile />} />
+  );
 }

@@ -1,6 +1,5 @@
 'use client';
 
-
 import { Breadcrumb } from '@/components/common/Breadcrumb';
 import { ArticleStructuredData } from '@/components/common/StructuredData';
 import { MainLayout } from '@/components/features/app/Layout';
@@ -9,39 +8,40 @@ import { Share } from '@/components/features/post/Share';
 import { Toc } from '@/components/features/post/Toc';
 import { ROOT_URL } from '@/config/app';
 import { useBreakPoint } from '@/hooks/useBreakPoint';
-import { joinPath } from '@/lib/joinPath';
 import { PostType } from '@/types/post';
 
-import { SiteConfig } from '@/lib/siteConfig';
+import type { SiteConfig } from '@/lib/siteConfig';
 
 type Props = {
   post: PostType;
   profile?: React.ReactNode;
-  siteConfig?: any;
-  ownerProfile?: any;
+  siteConfig?: SiteConfig | null;
 };
 
-export const Posts: React.VFC<Props> = ({ post, profile, siteConfig, ownerProfile }) => {
+export const Posts: React.VFC<Props> = ({ post, profile, siteConfig }) => {
   const lg = useBreakPoint('lg');
-  const imageURL = joinPath(ROOT_URL, post.ogImage.url);
-  const postURL = joinPath(ROOT_URL, `/posts/${post.slug}`);
+  const imageURL = new URL(post.ogImage.url, ROOT_URL).href;
+  const postURL = new URL(`/posts/${post.slug}/`, ROOT_URL).href;
   const breadcrumbItems = [
-    { label: 'ブログ', href: '/posts' },
+    { label: 'ブログ', href: '/posts/' },
     { label: post.title },
   ];
 
   return (
     <>
-
       <ArticleStructuredData
         title={post.title}
         description={post.excerpt}
         datePublished={post.date}
-        dateModified={post.date}
-        authorName={ownerProfile?.username || 'Katori'}
-        authorUrl={ownerProfile?.twitter_url}
+        authorName="かとり"
+        authorUrl={new URL('/about/', ROOT_URL).href}
         publisherName={siteConfig?.site_title || "Katori's blog"}
-        publisherLogoUrl={siteConfig?.publisher_logo_url || joinPath(ROOT_URL, '/assets/author.webp')}
+        publisherLogoUrl={
+          new URL(
+            siteConfig?.publisher_logo_url || '/assets/author.webp',
+            ROOT_URL,
+          ).href
+        }
         url={postURL}
         imageUrl={imageURL}
         tags={post.tags}

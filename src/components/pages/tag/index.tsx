@@ -14,7 +14,7 @@ type Props = {
 
 export const Tag: React.VFC<Props> = ({ posts, tag, profile }) => {
   const breadcrumbItems = [
-    { label: 'タグ', href: '/tags' },
+    { label: 'タグ', href: '/tags/' },
     { label: `#${tag}` },
   ];
 

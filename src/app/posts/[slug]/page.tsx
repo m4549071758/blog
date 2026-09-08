@@ -5,8 +5,8 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { Profile } from '@/components/features/app/Profile';
 import { getSiteConfig } from '@/lib/siteConfig';
-import { getOwnerProfile } from '@/lib/userProfile';
 import { ROOT_URL } from '@/config/app';
+import type { PostType } from '@/types/post';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -15,7 +15,7 @@ type Props = {
 // 静的パスの生成
 export async function generateStaticParams() {
   const posts = await getAllPosts(['slug']);
-  
+
   return posts
     .filter((post) => post.slug)
     .map((post) => ({
@@ -25,78 +25,63 @@ export async function generateStaticParams() {
 
 // メタデータの生成
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  try {
-    const { slug } = await params;
-    const post = await getPostBySlug(slug, ['title', 'excerpt', 'ogImage']);
-    
-    if (!post || !post.title) {
-      return {
-        title: '記事が見つかりません',
-      };
-    }
+  const { slug } = await params;
+  const post = await getPostBySlug(slug, [
+    'title',
+    'excerpt',
+    'seoTitle',
+    'seoDescription',
+    'ogImage',
+    'date',
+    'tags',
+  ]);
+  if (!post.title) notFound();
 
-    const url = `${ROOT_URL}/posts/${slug}/`;
-
-    return {
-      title: post.title,
-      description: post.excerpt,
-      alternates: {
-        canonical: url,
-      },
-      keywords: [...(post.tags || []), 'Proxmox', '技術ブログ'],
-      openGraph: {
-        title: post.title,
-        description: post.excerpt,
-        url: url,
-        images: post.ogImage?.url ? [post.ogImage.url] : [],
-      },
-    };
-  } catch (error) {
-    return {
-      title: '記事が見つかりません',
-    };
-  }
+  const url = new URL(`/posts/${slug}/`, ROOT_URL).href;
+  const metadataTitle = post.seoTitle || post.title;
+  const metadataDescription = post.seoDescription || post.excerpt;
+  return {
+    title: metadataTitle,
+    description: metadataDescription,
+    alternates: { canonical: url },
+    openGraph: {
+      type: 'article',
+      title: metadataTitle,
+      description: metadataDescription,
+      url,
+      publishedTime: post.date,
+      authors: [new URL('/about/', ROOT_URL).href],
+      tags: post.tags,
+      images: post.ogImage?.url
+        ? [new URL(post.ogImage.url, ROOT_URL).href]
+        : [],
+    },
+  };
 }
 
 // ページコンポーネント
 export default async function PostPage({ params }: Props) {
-  try {
-    const { slug } = await params;
-    const post = await getPostBySlug(slug, [
-      'id',
-      'title',
-      'date',
-      'slug',
-      'author',
-      'content',
-      'ogImage',
-      'coverImage',
-      'excerpt',
-      'tags',
-    ]);
+  const { slug } = await params;
+  const post = await getPostBySlug(slug, [
+    'id',
+    'title',
+    'date',
+    'slug',
+    'content',
+    'ogImage',
+    'coverImage',
+    'excerpt',
+    'tags',
+  ]);
+  if (!post.title) notFound();
 
-// ...
-
-// ... (in PostPage)
-    // 記事が見つからない場合は404
-    if (!post || !post.title) {
-      notFound();
-    }
-
-    const content = await markdownToHtml(post.content || '');
-    const siteConfig = await getSiteConfig();
-    const ownerProfile = await getOwnerProfile();
-
-    return (
-      <Posts
-        post={{ ...post, content } as any}
-        profile={<Profile />}
-        siteConfig={siteConfig}
-        ownerProfile={ownerProfile}
-      />
-    );
-  } catch (error) {
-    console.error('Error in PostPage:', error);
-    notFound();
-  }
+  const content = await markdownToHtml(post.content || '');
+  const siteConfig = await getSiteConfig();
+  return (
+    <Posts
+      post={{ ...post, content } as PostType}
+      profile={<Profile />}
+      siteConfig={siteConfig}
+    />
+  );
 }
