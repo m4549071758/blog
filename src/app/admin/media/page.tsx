@@ -1,10 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import Head from 'next/head';
-import { useRouter } from 'next/navigation';
 import { RiDeleteBinLine, RiFileCopyLine, RiUploadCloud2Line } from 'react-icons/ri';
-import { MainLayout } from '@/components/features/app/Layout';
 import { AdminLayout } from '@/components/features/admin/AdminLayout';
 import { Image } from '@/components/common/Image';
 
@@ -15,7 +12,6 @@ interface MediaImage {
 }
 
 export default function MediaPage() {
-  const router = useRouter();
   const [images, setImages] = useState<MediaImage[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

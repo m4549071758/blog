@@ -20,41 +20,41 @@ export const BuildStatusIndicator = () => {
   const logsEndRef = useRef<HTMLDivElement>(null);
   const prevStatusRef = useRef<BuildState>('idle');
 
-  const fetchStatus = async () => {
-    try {
-      const response = await fetch('https://www.katori.dev/api/build-status', {
-        credentials: 'include',
-      });
-
-      if (response.ok) {
-        const data: BuildStatus = await response.json();
-        
-        // 状態が変わったときの処理
-        if (prevStatusRef.current !== data.state) {
-          if (data.state === 'running') {
-            setShowNotification(true);
-          } else if (data.state === 'success' || data.state === 'failed') {
-            // 完了後はしばらく通知を表示してから消す（ただしログを開いている場合は消さない）
-            if (!isOpen) {
-              setTimeout(() => setShowNotification(false), 5000);
-            }
-          }
-        }
-        
-        prevStatusRef.current = data.state;
-        setStatus(data);
-      }
-    } catch (error) {
-      console.error('Failed to fetch build status:', error);
-    }
-  };
-
   // 定期ポーリング
   useEffect(() => {
+    const fetchStatus = async () => {
+      try {
+        const response = await fetch('https://www.katori.dev/api/build-status', {
+          credentials: 'include',
+        });
+
+        if (response.ok) {
+          const data: BuildStatus = await response.json();
+
+          // 状態が変わったときの処理
+          if (prevStatusRef.current !== data.state) {
+            if (data.state === 'running') {
+              setShowNotification(true);
+            } else if (data.state === 'success' || data.state === 'failed') {
+              // 完了後はしばらく通知を表示してから消す（ただしログを開いている場合は消さない）
+              if (!isOpen) {
+                setTimeout(() => setShowNotification(false), 5000);
+              }
+            }
+          }
+
+          prevStatusRef.current = data.state;
+          setStatus(data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch build status:', error);
+      }
+    };
+
     fetchStatus();
     const interval = setInterval(fetchStatus, 3000); // 3秒ごとに更新
     return () => clearInterval(interval);
-  }, []);
+  }, [isOpen]);
 
   // ログの自動スクロール
   useEffect(() => {

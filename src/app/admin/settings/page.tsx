@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { AdminLayout } from '@/components/features/admin/AdminLayout';
 import { RiInformationLine, RiSave3Line } from 'react-icons/ri';
 import * as Tabs from '@radix-ui/react-tabs';
@@ -42,7 +41,6 @@ const Tip = ({ text }: { text: string }) => (
 );
 
 export default function SettingsPage() {
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
@@ -134,7 +132,7 @@ export default function SettingsPage() {
         });
         if (!res.ok) throw new Error('更新に失敗しました');
         setMessage({ type: 'success', text: 'プロフィールを更新しました' });
-    } catch (err) {
+    } catch {
         setMessage({ type: 'error', text: '更新エラーが発生しました' });
     } finally {
         setIsSaving(false);
@@ -160,7 +158,7 @@ export default function SettingsPage() {
         });
         if (!res.ok) throw new Error('更新に失敗しました');
         setMessage({ type: 'success', text: 'サイト設定を更新し、ビルドを開始しました' });
-    } catch (err) {
+    } catch {
         setMessage({ type: 'error', text: '更新エラーが発生しました' });
     } finally {
         setIsSaving(false);
