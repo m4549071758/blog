@@ -17,7 +17,7 @@ export const Footer = () => {
           </div>
           <div className="text-neutral-200 text-sm text-center">
             <Link href="/admin">
-              &copy; 2024 - {SITE_NAME}
+              &copy; 2024 - {new Date().getFullYear()} {SITE_NAME}
             </Link>
           </div>
         </div>

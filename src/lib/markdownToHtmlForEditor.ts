@@ -1,5 +1,4 @@
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypeCodeTitles from 'rehype-code-titles';
 import { rehypeGithubAlerts } from 'rehype-github-alerts';
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
@@ -11,8 +10,8 @@ import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import remarkYoutube from 'remark-youtube';
 import { unified } from 'unified';
+import rehypeDiagrams from './rehypeDiagrams';
 import rehypeResponsiveIframe from './rehypeResponsiveIframe';
-
 export default async function markdownToHtmlForEditor(markdown: string) {
   const result = await unified()
     .use(remarkParse)
@@ -20,7 +19,7 @@ export default async function markdownToHtmlForEditor(markdown: string) {
     .use(remarkGfm as any)
     .use(remarkYoutube as any)
     .use(remarkRehype, { allowDangerousHtml: true })
-    .use(rehypeCodeTitles)
+    .use(rehypeDiagrams)
     .use(rehypeShiki, {
       theme: 'github-dark',
     })
@@ -42,7 +41,18 @@ export default async function markdownToHtmlForEditor(markdown: string) {
         code: [['className', /^language-./]],
         span: [['className', /^token$/], 'style'],
         div: [['className', 'rehype-code-title']],
-        pre: ['style', ['className', 'shiki', /^language-./]],
+        pre: [
+          'style',
+          [
+            'className',
+            'shiki',
+            /^language-./,
+            'diagram',
+            'mermaid',
+            'plantuml',
+          ],
+          'dataDiagramSource',
+        ],
       },
     })
     .use(rehypeAutolinkHeadings)

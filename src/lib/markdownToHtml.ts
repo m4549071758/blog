@@ -1,5 +1,4 @@
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypeCodeTitles from 'rehype-code-titles';
 import { rehypeGithubAlerts } from 'rehype-github-alerts';
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
@@ -13,8 +12,8 @@ import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import remarkYoutube from 'remark-youtube';
 import { unified } from 'unified';
+import rehypeDiagrams from './rehypeDiagrams';
 import rehypeResponsiveIframe from './rehypeResponsiveIframe';
-
 export default async function markdownToHtml(markdown: string) {
   const result = await unified()
     .use(remarkParse)
@@ -24,7 +23,7 @@ export default async function markdownToHtml(markdown: string) {
     .use(remarkYoutube as any)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
-    .use(rehypeCodeTitles)
+    .use(rehypeDiagrams)
     .use(rehypeShiki, {
       theme: 'github-dark',
     })
@@ -48,16 +47,42 @@ export default async function markdownToHtml(markdown: string) {
           'scrolling',
         ],
         code: [['className', /^language-./]],
-        span: [...(defaultSchema.attributes?.span || []), ['className', /^token$/, /^rlc-./]],
-        div: [...(defaultSchema.attributes?.div || []), ['className', 'rehype-code-title', /^rlc-./]],
-        pre: [...(defaultSchema.attributes?.pre || []), 'style', ['className', 'shiki', /^language-./]],
+        span: [
+          ...(defaultSchema.attributes?.span || []),
+          ['className', /^token$/, /^rlc-./],
+        ],
+        div: [
+          ...(defaultSchema.attributes?.div || []),
+          ['className', 'rehype-code-title', /^rlc-./],
+        ],
+        pre: [
+          ...(defaultSchema.attributes?.pre || []),
+          'style',
+          [
+            'className',
+            'shiki',
+            /^language-./,
+            'diagram',
+            'mermaid',
+            'plantuml',
+          ],
+          'dataDiagramSource',
+        ],
         a: [
-          ...(defaultSchema.attributes?.a || []).filter((attr) => !Array.isArray(attr) || attr[0] !== 'className'),
+          ...(defaultSchema.attributes?.a || []).filter(
+            (attr) => !Array.isArray(attr) || attr[0] !== 'className',
+          ),
           ['className', 'data-footnote-backref', /^rlc-./],
           'target',
-          'rel'
+          'rel',
         ],
-        img: [...(defaultSchema.attributes?.img || []), ['className', /^rlc-./, /^hover:/, 'transition-opacity'], 'src', 'alt', 'loading'],
+        img: [
+          ...(defaultSchema.attributes?.img || []),
+          ['className', /^rlc-./, /^hover:/, 'transition-opacity'],
+          'src',
+          'alt',
+          'loading',
+        ],
       },
     })
     .use(rehypeStringify)
