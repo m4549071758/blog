@@ -18,9 +18,9 @@
     --rehype-github-alerts-warning-color: rgb(154, 103, 0);
     --rehype-github-alerts-caution-color: rgb(209, 36, 47);
     --rehype-github-alerts-default-space: 1rem;
-    --rehype-github-alerts-default-fontFamily: -apple-system, BlinkMacSystemFont,
-      'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
-      'Segoe UI Emoji';
+    --rehype-github-alerts-default-fontFamily:
+      -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica,
+      Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
     --rehype-github-alerts-default-fontWeight: 500;
   }
   @media (prefers-color-scheme: dark) {
@@ -77,16 +77,57 @@
     @apply mt-0 mb-9 text-[15px] sm:text-base !important;
   }
 
+  .post h1 {
+    @apply mt-16 mb-12 text-3xl font-bold leading-tight !important;
+  }
+
   .post h2 {
-    @apply px-4 py-2 mt-16 mb-12 border-l-4 border-current text-2xl !important;
+    @apply px-4 py-2 mt-16 mb-12 border-l-4 border-current text-2xl font-bold leading-snug !important;
   }
 
   .post h3 {
-    @apply px-4 py-2 mt-10 mb-8 border-b-2 text-xl !important;
+    @apply px-4 py-2 mt-10 mb-8 border-b-2 text-xl font-bold leading-snug !important;
   }
 
   .post h4 {
-    @apply mb-4 text-lg !important;
+    @apply mt-8 mb-4 text-lg font-bold leading-snug !important;
+  }
+  .post h5 {
+    @apply mt-6 mb-3 text-base font-bold leading-snug !important;
+  }
+
+  .post h6 {
+    @apply mt-6 mb-3 text-sm font-bold leading-snug !important;
+  }
+
+  .post ul,
+  .post ol {
+    @apply pl-7 mb-9 !important;
+  }
+
+  .post ul {
+    @apply list-disc !important;
+  }
+
+  .post ol {
+    @apply list-decimal !important;
+  }
+
+  .post ul ul {
+    list-style-type: circle !important;
+  }
+
+  .post ul ul ul {
+    list-style-type: square !important;
+  }
+
+  .post li {
+    @apply mb-2;
+  }
+
+  .post li > ul,
+  .post li > ol {
+    @apply mt-2 mb-0 !important;
   }
 
   .post ul + p {
@@ -190,12 +231,10 @@
   .toc-link.node-name--H4 {
     @apply ml-6 text-neutral-500 dark:text-neutral-500;
   }
-  
+
   .toc-link.node-name--H5 {
     @apply ml-9;
   }
-
-
 }
 
 @layer utilities {
