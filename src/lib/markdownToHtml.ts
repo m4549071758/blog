@@ -33,7 +33,8 @@ export default async function markdownToHtml(markdown: string) {
     .use(rehypeResponsiveIframe)
     .use(rehypeSanitize, {
       ...defaultSchema,
-      tagNames: [...(defaultSchema.tagNames || []), 'iframe'],
+      // rehype-github-alertsのdiv/svgを出すためのタグと属性
+      tagNames: [...(defaultSchema.tagNames || []), 'iframe', 'svg', 'path'],
       attributes: {
         ...defaultSchema.attributes,
         iframe: [
@@ -47,14 +48,28 @@ export default async function markdownToHtml(markdown: string) {
           'scrolling',
         ],
         code: [['className', /^language-./]],
-        span: [
-          ...(defaultSchema.attributes?.span || []),
-          ['className', /^token$/, /^rlc-./],
-        ],
         div: [
           ...(defaultSchema.attributes?.div || []),
-          ['className', 'rehype-code-title', /^rlc-./],
+          [
+            'className',
+            'rehype-code-title',
+            /^rlc-./,
+            /^markdown-alert(-.*)?$/,
+          ],
         ],
+        p: [
+          ...(defaultSchema.attributes?.p || []),
+          ['className', 'markdown-alert-title'],
+        ],
+        svg: [
+          ['className', /^octicon/],
+          'viewBox',
+          'width',
+          'height',
+          'aria-hidden',
+          'version',
+        ],
+        path: ['d'],
         pre: [
           ...(defaultSchema.attributes?.pre || []),
           'style',

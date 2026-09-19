@@ -25,7 +25,7 @@ export default async function markdownToHtmlForEditor(markdown: string) {
     })
     .use(rehypeSanitize, {
       ...defaultSchema,
-      tagNames: [...(defaultSchema.tagNames || []), 'iframe'],
+      tagNames: [...(defaultSchema.tagNames || []), 'iframe', 'svg', 'path'],
       attributes: {
         ...defaultSchema.attributes,
         iframe: [
@@ -40,7 +40,20 @@ export default async function markdownToHtmlForEditor(markdown: string) {
         ],
         code: [['className', /^language-./]],
         span: [['className', /^token$/], 'style'],
-        div: [['className', 'rehype-code-title']],
+        div: [['className', 'rehype-code-title', /^markdown-alert(-.*)?$/]],
+        p: [
+          ...(defaultSchema.attributes?.p || []),
+          ['className', 'markdown-alert-title'],
+        ],
+        svg: [
+          ['className', /^octicon/],
+          'viewBox',
+          'width',
+          'height',
+          'aria-hidden',
+          'version',
+        ],
+        path: ['d'],
         pre: [
           'style',
           [
