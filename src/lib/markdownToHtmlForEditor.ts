@@ -1,4 +1,5 @@
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypeCodeTitles from 'rehype-code-titles';
 import { rehypeGithubAlerts } from 'rehype-github-alerts';
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
@@ -9,9 +10,14 @@ import remarkGfm from 'remark-gfm';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import remarkYoutube from 'remark-youtube';
-import { unified } from 'unified';
 import rehypeDiagrams from './rehypeDiagrams';
+import {
+  rehypeSaveCodeMeta,
+  rehypeLoadCodeMeta,
+} from './rehypeMetaStringBridge';
 import rehypeResponsiveIframe from './rehypeResponsiveIframe';
+import shikiLineNumberTransformer from './shikiLineNumberTransformer';
+import { unified } from 'unified';
 export default async function markdownToHtmlForEditor(markdown: string) {
   const result = await unified()
     .use(remarkParse)
@@ -20,8 +26,12 @@ export default async function markdownToHtmlForEditor(markdown: string) {
     .use(remarkYoutube as any)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeDiagrams)
+    .use(rehypeSaveCodeMeta)
+    .use(rehypeLoadCodeMeta)
+    .use(rehypeCodeTitles)
     .use(rehypeShiki, {
       theme: 'github-dark',
+      transformers: [shikiLineNumberTransformer()],
     })
     .use(rehypeSanitize, {
       ...defaultSchema,
@@ -39,7 +49,11 @@ export default async function markdownToHtmlForEditor(markdown: string) {
           'scrolling',
         ],
         code: [['className', /^language-./]],
-        span: [['className', /^token$/], 'style'],
+        span: [
+          ['className', /^token$/, /^line$/, /^line-number$/, 'line-number'],
+          'style',
+          'line',
+        ],
         div: [['className', 'rehype-code-title', /^markdown-alert(-.*)?$/]],
         p: [
           ...(defaultSchema.attributes?.p || []),

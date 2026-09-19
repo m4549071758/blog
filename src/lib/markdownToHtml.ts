@@ -1,9 +1,10 @@
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypeCodeTitles from 'rehype-code-titles';
 import { rehypeGithubAlerts } from 'rehype-github-alerts';
-import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import rehypeShiki from '@shikijs/rehype';
+import rehypeSlug from 'rehype-slug';
 import rehypeRaw from 'rehype-raw';
 import remarkBreaks from 'remark-breaks';
 import remarkGfm from 'remark-gfm';
@@ -13,7 +14,14 @@ import remarkRehype from 'remark-rehype';
 import remarkYoutube from 'remark-youtube';
 import { unified } from 'unified';
 import rehypeDiagrams from './rehypeDiagrams';
+import shikiLineNumberTransformer from './shikiLineNumberTransformer';
+
+import {
+  rehypeSaveCodeMeta,
+  rehypeLoadCodeMeta,
+} from './rehypeMetaStringBridge';
 import rehypeResponsiveIframe from './rehypeResponsiveIframe';
+
 export default async function markdownToHtml(markdown: string) {
   const result = await unified()
     .use(remarkParse)
@@ -22,10 +30,14 @@ export default async function markdownToHtml(markdown: string) {
     .use(rlc, { downloadLimit: 10000000 })
     .use(remarkYoutube as any)
     .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeSaveCodeMeta)
     .use(rehypeRaw)
+    .use(rehypeLoadCodeMeta)
     .use(rehypeDiagrams)
+    .use(rehypeCodeTitles)
     .use(rehypeShiki, {
       theme: 'github-dark',
+      transformers: [shikiLineNumberTransformer()],
     })
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings)
@@ -46,6 +58,12 @@ export default async function markdownToHtml(markdown: string) {
           'allowfullscreen',
           'frameborder',
           'scrolling',
+        ],
+        span: [
+          ...(defaultSchema.attributes?.span || []),
+          ['className', /^line$/, /^line-number$/, 'line-number'],
+          'style',
+          'line',
         ],
         code: [['className', /^language-./]],
         div: [
