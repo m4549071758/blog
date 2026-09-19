@@ -14,13 +14,13 @@ import remarkRehype from 'remark-rehype';
 import remarkYoutube from 'remark-youtube';
 import { unified } from 'unified';
 import rehypeDiagrams from './rehypeDiagrams';
-import shikiLineNumberTransformer from './shikiLineNumberTransformer';
-
 import {
   rehypeSaveCodeMeta,
   rehypeLoadCodeMeta,
 } from './rehypeMetaStringBridge';
+import rehypeNormalizeLang from './rehypeNormalizeLang';
 import rehypeResponsiveIframe from './rehypeResponsiveIframe';
+import shikiLineNumberTransformer from './shikiLineNumberTransformer';
 
 export default async function markdownToHtml(markdown: string) {
   const result = await unified()
@@ -35,6 +35,7 @@ export default async function markdownToHtml(markdown: string) {
     .use(rehypeLoadCodeMeta)
     .use(rehypeDiagrams)
     .use(rehypeCodeTitles)
+    .use(rehypeNormalizeLang)
     .use(rehypeShiki, {
       theme: 'github-dark',
       transformers: [shikiLineNumberTransformer()],

@@ -15,6 +15,7 @@ import {
   rehypeSaveCodeMeta,
   rehypeLoadCodeMeta,
 } from './rehypeMetaStringBridge';
+import rehypeNormalizeLang from './rehypeNormalizeLang';
 import rehypeResponsiveIframe from './rehypeResponsiveIframe';
 import shikiLineNumberTransformer from './shikiLineNumberTransformer';
 import { unified } from 'unified';
@@ -28,6 +29,7 @@ export default async function markdownToHtmlForEditor(markdown: string) {
     .use(rehypeDiagrams)
     .use(rehypeSaveCodeMeta)
     .use(rehypeLoadCodeMeta)
+    .use(rehypeNormalizeLang)
     .use(rehypeCodeTitles)
     .use(rehypeShiki, {
       theme: 'github-dark',
