@@ -78,7 +78,7 @@
   }
 
   .post h1 {
-    @apply mt-16 mb-12 text-3xl font-bold leading-tight !important;
+    @apply py-3 mt-16 mb-12 border-t-4 border-b border-current text-3xl font-bold leading-tight !important;
   }
 
   .post h2 {
@@ -90,14 +90,14 @@
   }
 
   .post h4 {
-    @apply mt-8 mb-4 text-lg font-bold leading-snug !important;
+    @apply py-1 pl-3 mt-8 mb-4 border-l-2 border-teal-700 dark:border-teal-400 text-lg font-bold leading-snug !important;
   }
   .post h5 {
-    @apply mt-6 mb-3 text-base font-bold leading-snug !important;
+    @apply pb-1.5 mt-6 mb-3 border-b border-dashed border-neutral-400 dark:border-neutral-600 text-base font-bold leading-snug !important;
   }
 
   .post h6 {
-    @apply mt-6 mb-3 text-sm font-bold leading-snug !important;
+    @apply inline-block px-2 py-1 mt-6 mb-3 rounded bg-teal-50 dark:bg-teal-900 text-sm font-bold leading-snug text-teal-800 dark:text-teal-200 !important;
   }
 
   .post ul,
