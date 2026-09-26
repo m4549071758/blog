@@ -24,6 +24,10 @@ const nextConfig = {
     }
     return config;
   },
+  // CSSは約13KBと小さいため<head>へ埋め込み、描画ブロックする外部CSSリクエストをなくす
+  experimental: {
+    inlineCss: true,
+  },
   output: 'export',
   trailingSlash: true,
   images: {
