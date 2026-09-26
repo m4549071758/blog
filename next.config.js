@@ -27,7 +27,9 @@ const nextConfig = {
   output: 'export',
   trailingSlash: true,
   images: {
-    unoptimized: true,
+    // 静的エクスポートのため最適化サーバーは使わず、CMSの画像APIで縮小する
+    loader: 'custom',
+    loaderFile: './src/lib/imageLoader.ts',
   },
 };
 

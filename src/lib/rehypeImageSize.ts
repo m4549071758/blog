@@ -2,8 +2,13 @@ import { visit } from 'unist-util-visit';
 import type { Element, Root } from 'hast';
 import type { Plugin } from 'unified';
 import { ROOT_URL } from '@/config/app';
+import { resizableImageUrl } from './imageLoader';
 
 type Size = { width: number; height: number };
+
+// 本文カラムは最大で約800px。DPR2までを想定した候補幅(画像APIの許可幅に含まれる値)。
+const SRCSET_WIDTHS = [384, 640, 828, 1200, 1920];
+const CONTENT_SIZES = '(max-width: 768px) 100vw, 800px';
 
 // 先頭バイトだけで寸法が分かる形式をパースする。未対応形式はnullを返し、属性を付けない。
 export const readImageSize = (buf: Uint8Array): Size | null => {
@@ -97,6 +102,16 @@ const rehypeImageSize: Plugin<[], Root> = () => async (tree) => {
       if (size && size.width > 0 && size.height > 0) {
         node.properties.width = size.width;
         node.properties.height = size.height;
+
+        // 元画像より小さい候補だけを縮小版として並べ、最後に元画像を置く。srcは拡大表示用に元画像のまま。
+        const src = node.properties.src as string;
+        const candidates = SRCSET_WIDTHS.filter((w) => w < size.width)
+          .map((w) => [resizableImageUrl(src, w), w] as const)
+          .filter((entry): entry is readonly [string, number] => entry[0] !== null);
+        if (candidates.length > 0) {
+          node.properties.srcSet = [...candidates.map(([url, w]) => `${url} ${w}w`), `${src} ${size.width}w`].join(', ');
+          node.properties.sizes = CONTENT_SIZES;
+        }
       }
     }),
   );

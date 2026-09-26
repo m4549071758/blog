@@ -117,6 +117,8 @@ export default async function markdownToHtml(markdown: string) {
           'alt',
           'loading',
           'decoding',
+          'srcSet',
+          'sizes',
         ],
       },
     })
