@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { LuEye } from 'react-icons/lu';
 import { usePageView } from '@/hooks/usePageView';

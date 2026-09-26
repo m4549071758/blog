@@ -27,7 +27,8 @@ export const PostHeader = ({
           src={coverImage}
           alt={`Cover Image for ${title}`}
           fill
-          priority
+          preload
+          fetchPriority="high"
           sizes="(max-width: 640px) 100vw, 800px"
           className="object-cover"
         />

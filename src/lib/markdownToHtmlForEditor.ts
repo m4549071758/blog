@@ -1,4 +1,3 @@
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeCodeTitles from 'rehype-code-titles';
 import { rehypeGithubAlerts } from 'rehype-github-alerts';
 import rehypeSlug from 'rehype-slug';
@@ -84,7 +83,6 @@ export default async function markdownToHtmlForEditor(markdown: string) {
         ],
       },
     })
-    .use(rehypeAutolinkHeadings)
     .use(rehypeStringify)
     .use(rehypeSlug)
     .use(rehypeGithubAlerts as any, true)

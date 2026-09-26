@@ -1,4 +1,3 @@
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeCodeTitles from 'rehype-code-titles';
 import { rehypeGithubAlerts } from 'rehype-github-alerts';
 import rehypeStringify from 'rehype-stringify';
@@ -19,6 +18,7 @@ import {
   rehypeLoadCodeMeta,
 } from './rehypeMetaStringBridge';
 import rehypeNormalizeLang from './rehypeNormalizeLang';
+import rehypeImageSize from './rehypeImageSize';
 import rehypeResponsiveIframe from './rehypeResponsiveIframe';
 import shikiLineNumberTransformer from './shikiLineNumberTransformer';
 
@@ -41,9 +41,9 @@ export default async function markdownToHtml(markdown: string) {
       transformers: [shikiLineNumberTransformer()],
     })
     .use(rehypeSlug)
-    .use(rehypeAutolinkHeadings)
     .use(rehypeGithubAlerts as any, true)
     .use(rehypeResponsiveIframe)
+    .use(rehypeImageSize)
     .use(rehypeSanitize, {
       ...defaultSchema,
       // rehype-github-alertsのdiv/svgを出すためのタグと属性
@@ -116,6 +116,7 @@ export default async function markdownToHtml(markdown: string) {
           'src',
           'alt',
           'loading',
+          'decoding',
         ],
       },
     })

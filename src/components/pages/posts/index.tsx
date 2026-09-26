@@ -1,13 +1,10 @@
-'use client';
-
 import { Breadcrumb } from '@/components/common/Breadcrumb';
 import { ArticleStructuredData } from '@/components/common/StructuredData';
 import { MainLayout } from '@/components/features/app/Layout';
 import { Post } from '@/components/features/post/Post';
 import { Share } from '@/components/features/post/Share';
-import { Toc } from '@/components/features/post/Toc';
+import { DesktopToc, TocMenu } from '@/components/features/post/Toc';
 import { ROOT_URL } from '@/config/app';
-import { useBreakPoint } from '@/hooks/useBreakPoint';
 import { PostType } from '@/types/post';
 
 import type { SiteConfig } from '@/lib/siteConfig';
@@ -19,7 +16,6 @@ type Props = {
 };
 
 export const Posts: React.VFC<Props> = ({ post, profile, siteConfig }) => {
-  const lg = useBreakPoint('lg');
   const imageURL = new URL(post.ogImage.url, ROOT_URL).href;
   const postURL = new URL(`/posts/${post.slug}/`, ROOT_URL).href;
   const breadcrumbItems = [
@@ -61,26 +57,12 @@ export const Posts: React.VFC<Props> = ({ post, profile, siteConfig }) => {
           <div className="vstack gap-10 h-full">
             {profile}
             <div className="vstack gap-10 sticky top-20">
-              {lg && <Toc />}
+              <DesktopToc />
               <Share post={post} />
             </div>
           </div>
         }
-        hamburgerMenu={
-          <div
-            role="button"
-            tabIndex={0}
-            onClick={() =>
-              document.dispatchEvent(
-                new KeyboardEvent('keydown', { key: 'Escape' }),
-              )
-            }
-            onKeyDown={() => {}}
-            className="overflow-y-auto cursor-default"
-          >
-            <Toc />
-          </div>
-        }
+        hamburgerMenu={<TocMenu />}
       />
     </>
   );

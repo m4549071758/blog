@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { MdOutlineContentCopy } from 'react-icons/md';
 import tocbot from 'tocbot';
+import { useBreakPoint } from '@/hooks/useBreakPoint';
 
 export const Toc: React.VFC = () => {
   useEffect(() => {
@@ -28,3 +29,22 @@ export const Toc: React.VFC = () => {
     </div>
   );
 };
+
+// PCではサイドバーに表示し、モバイルではハンバーガーメニュー内(TocMenu)に任せる。
+export const DesktopToc: React.VFC = () => {
+  const lg = useBreakPoint('lg');
+  return lg ? <Toc /> : null;
+};
+
+// 目次リンクを押したらメニューを閉じる。
+export const TocMenu: React.VFC = () => (
+  <div
+    role="presentation"
+    onClick={() =>
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))
+    }
+    className="overflow-y-auto cursor-default"
+  >
+    <Toc />
+  </div>
+);
