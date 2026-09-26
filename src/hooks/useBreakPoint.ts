@@ -1,7 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
-import { useWindowSize } from './useWindowSize';
+import { useCallback, useSyncExternalStore } from 'react';
 
 type Bp = 'sm' | 'md' | 'lg' | 'xl';
 
@@ -12,7 +11,22 @@ const bps = {
   xl: 1280,
 };
 
+// window.innerWidthの読み取りは強制リフローを起こすため、matchMediaで判定する。
 export const useBreakPoint = (bp: Bp) => {
-  const { width } = useWindowSize();
-  return useMemo(() => width >= bps[bp], [width, bp]);
+  const query = `(min-width: ${bps[bp]}px)`;
+
+  const subscribe = useCallback(
+    (onChange: () => void) => {
+      const mql = window.matchMedia(query);
+      mql.addEventListener('change', onChange);
+      return () => mql.removeEventListener('change', onChange);
+    },
+    [query],
+  );
+
+  return useSyncExternalStore(
+    subscribe,
+    () => window.matchMedia(query).matches,
+    () => false,
+  );
 };

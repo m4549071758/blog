@@ -11,7 +11,7 @@ export const Footer = () => {
           <div className="flex gap-4">
             {sns.map(({ href, icon: Icon, label }) => (
               <Link key={href} href={href} className="text-neutral-200 hover:text-neutral-500 active:text-gray-600 transition duration-100" aria-label={label}>
-                <Icon size={20} />
+                <Icon size={20} aria-hidden="true" focusable="false" />
               </Link>
             ))}
           </div>

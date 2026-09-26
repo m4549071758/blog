@@ -11,9 +11,10 @@ type Props = {
   slug: string;
   likeCount?: number;
   id?: string;
+  priority?: boolean;
 };
 
-export const Story = ({ title, coverImage, date, excerpt, slug, likeCount, id }: Props) => {
+export const Story = ({ title, coverImage, date, excerpt, slug, likeCount, id, priority = false }: Props) => {
   return (
     <Link 
       href={`/posts/${slug}`}
@@ -26,6 +27,8 @@ export const Story = ({ title, coverImage, date, excerpt, slug, likeCount, id }:
           fill
           className="w-full max-w-xs h-64 object-cover"
           sizes="(max-width: 768px) 100vw, 33vw"
+          preload={priority}
+          fetchPriority={priority ? 'high' : undefined}
         />
       </div>
       <div className="md:w-2/3 p-4 md:p-6 vstack gap-2 bg-primary-1">

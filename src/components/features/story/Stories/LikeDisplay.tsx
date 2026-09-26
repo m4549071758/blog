@@ -1,6 +1,8 @@
+'use client';
+
 import React from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
-import { useLike } from '@/hooks/useLike';
+import { useLikeCount } from '@/hooks/useLike';
 
 type Props = {
   articleId: string | undefined;
@@ -8,27 +10,22 @@ type Props = {
   className?: string;
 };
 
-export const LikeDisplay: React.FC<Props> = ({ 
-  articleId, 
+export const LikeDisplay: React.FC<Props> = ({
+  articleId,
   initialLikeCount = 0,
-  className = '' 
+  className = '',
 }) => {
-  const { likeCount, isLoading } = useLike(articleId || '');
+  const likeCount = useLikeCount(articleId || '', initialLikeCount);
 
   // articleIdが存在しない場合は表示しない
   if (!articleId) {
     return null;
   }
 
-  // ローディング中は初期値またはスケルトンを表示
-  const displayCount = isLoading ? initialLikeCount : likeCount;
-
   return (
     <div className={`flex items-center gap-1 text-sm text-gray-500 ${className}`}>
-      <AiOutlineHeart className="w-4 h-4" />
-      <span className={isLoading ? 'opacity-60' : ''}>
-        {displayCount}
-      </span>
+      <AiOutlineHeart className="w-4 h-4" aria-hidden="true" />
+      <span>{likeCount}</span>
     </div>
   );
 };

@@ -17,7 +17,7 @@ export const Profile = async () => {
         <Image
           className="object-cover w-28 h-28 rounded-full"
           alt="avatar"
-          src="/assets/author.webp" // This could also be dynamic if we added avatar_url
+          src="/assets/author-avatar.webp"
           width={112}
           height={112}
         />
@@ -37,7 +37,7 @@ export const Profile = async () => {
             className="text-primary-1"
             aria-label="Qiita"
           >
-            <SiQiita size={20} />
+            <SiQiita size={20} aria-hidden="true" focusable="false" />
           </Link>
         )}
         {profile.github_url && (
@@ -46,7 +46,7 @@ export const Profile = async () => {
             className="text-primary-1"
             aria-label="GitHub"
           >
-            <SiGithub size={20} />
+            <SiGithub size={20} aria-hidden="true" focusable="false" />
           </Link>
         )}
         {profile.misskey_url && (
@@ -55,7 +55,7 @@ export const Profile = async () => {
             className="text-primary-1"
             aria-label="Misskey"
           >
-            <SiMisskey size={20} />
+            <SiMisskey size={20} aria-hidden="true" focusable="false" />
           </Link>
         )}
         {profile.twitter_url && (
@@ -64,7 +64,7 @@ export const Profile = async () => {
             className="text-primary-1"
             aria-label="Twitter"
           >
-            <FaTwitter size={20} />
+            <FaTwitter size={20} aria-hidden="true" focusable="false" />
           </Link>
         )}
       </div>

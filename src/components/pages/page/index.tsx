@@ -1,5 +1,3 @@
-'use client';
-
 import { RiChatNewLine } from 'react-icons/ri';
 import { Breadcrumb } from '@/components/common/Breadcrumb';
 import { MainLayout } from '@/components/features/app/Layout';

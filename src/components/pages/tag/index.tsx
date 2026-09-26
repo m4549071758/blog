@@ -1,5 +1,3 @@
-'use client';
-
 import { FaHashtag } from 'react-icons/fa';
 import { Breadcrumb } from '@/components/common/Breadcrumb';
 import { MainLayout } from '@/components/features/app/Layout';

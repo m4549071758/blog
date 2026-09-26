@@ -16,7 +16,7 @@ export const Stories = ({ posts, icon, title }: Props) => {
           {title}
         </h2>
         <div className="grid grid-cols-1 gap-10">
-          {posts.map((post) => (
+          {posts.map((post, index) => (
             <Story
               key={post.slug}
               title={post.title}
@@ -26,6 +26,7 @@ export const Stories = ({ posts, icon, title }: Props) => {
               excerpt={post.excerpt}
               likeCount={post.like_count}
               id={post.id}
+              priority={index === 0}
             />
           ))}
         </div>
